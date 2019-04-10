@@ -1,4 +1,4 @@
-package pe.edu.ulasalle.dima.dto;
+package pe.edu.ulasalle.dima.audata.dto;
 
 public class DivisionItem {
 	
