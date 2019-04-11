@@ -2,9 +2,9 @@ package pe.edu.ulasalle.dima.audata.dto;
 
 public class DivisionItem {
 	
-	private String titulo;
-	private String contenido;
-	private DivisionItem item;
+	protected String titulo;
+	protected String contenido;
+	protected DivisionItem item;
 	
 	DivisionItem() {
 		
