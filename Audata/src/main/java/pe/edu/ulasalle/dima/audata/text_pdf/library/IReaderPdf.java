@@ -14,4 +14,7 @@ public interface IReaderPdf {
 
 	public String readPDF( FileInputStream fstream ) throws FileNotFoundException, IOException;
 	
+	public String readPDF( FileInputStream fstream, int pagIni, int pagFin) throws IOException;
+
+
 }
