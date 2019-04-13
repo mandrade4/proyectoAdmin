@@ -16,5 +16,7 @@ public interface IReaderPdf {
 	
 	public String readPDF( FileInputStream fstream, int pagIni, int pagFin) throws IOException;
 
+	public String readPDF( FileInputStream fstream, int page) throws IOException;
 
+	public int numeroPaginas( FileInputStream fstream) throws IOException;
 }

@@ -72,6 +72,56 @@ public class ReaderPdfImpl implements IReaderPdf {
         
 		return str.toString();
 	}
+
+
+	@Override
+	public String readPDF(FileInputStream fstream, int page) throws IOException {
+		
+		InputStream instream = fstream;
+		PDDocument document = PDDocument.load(instream);
+    	StringBuilder str = new StringBuilder();
+		
+		document.getClass();
+
+        if (!document.isEncrypted()) {
+		
+            PDFTextStripper tStripper = new PDFTextStripper();
+
+            tStripper.setStartPage(page);
+            tStripper.setEndPage(page);
+            
+            String pdfFileInText = tStripper.getText(document);
+
+            String lines[] = pdfFileInText.split("\\r?\\n");
+            for (String line : lines) {
+            	str.append(line);
+            }
+        }
+        
+		return str.toString();
+	}
+
+
+
+	
+	
+	@Override
+	public int numeroPaginas(FileInputStream fstream) throws IOException {
+		
+		InputStream instream = fstream;
+		int count = 0;
+		
+		try (PDDocument document = PDDocument.load(instream)){
+			if (!document.isEncrypted()) {
+				count = document.getNumberOfPages();	
+				return count;
+			}
+		} catch (Exception e) {
+			System.err.println("Documento encriptado!");
+		}
+		
+		return count;
+	}
 	
 	
 }
