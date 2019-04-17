@@ -7,7 +7,6 @@ public class TtsSpanishDefault extends TtsGenerico implements ITts {
 
 	public TtsSpanishDefault() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	public byte[] mp3(String text) {
@@ -19,7 +18,6 @@ public class TtsSpanishDefault extends TtsGenerico implements ITts {
 			out.close();
 			Runtime.getRuntime().exec("python test1.py ");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		byte[] b = text.getBytes();

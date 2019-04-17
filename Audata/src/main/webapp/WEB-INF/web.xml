@@ -3,5 +3,17 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-  <display-name>Archetype Created Web Application</display-name>
+  <display-name>AUDATA</display-name>
+  <servlet>
+  	<servlet-name>Audata Service</servlet-name>
+  	<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+  	<init-param>
+  		<param-name>jersey.config.server.provider.packages</param-name>
+  		<param-value>pe.edu.ulasalle.dima.audata.test</param-value>
+  	</init-param>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>Audata Service</servlet-name>
+  	<url-pattern>/service/*</url-pattern>
+  </servlet-mapping>	
 </web-app>
