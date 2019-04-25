@@ -11,12 +11,13 @@ public class TtsSpanishDefault extends TtsGenerico implements ITts {
 	
 	public byte[] mp3(String text) {
 		
-		String prg = "import pyttsx3\nengine = pyttsx3.init()\nengine.say("+text+")\nengine.runAndWait()";
+		String prg = "import pyttsx3\nengine = pyttsx3.init()\nengine.say("+"'"+text+"'"+")\nengine.runAndWait()";
 		try {
-			BufferedWriter out = new BufferedWriter(new FileWriter("test1.py"));
+			new File("src/main/java/pe/edu/ulasalle/dima/audata/test/audio").mkdirs();
+			BufferedWriter out = new BufferedWriter(new FileWriter("src/main/java/pe/edu/ulasalle/dima/audata/test/audio/test1.py"));
 			out.write(prg);
 			out.close();
-			Runtime.getRuntime().exec("python test1.py ");
+			Runtime.getRuntime().exec("python src/main/java/pe/edu/ulasalle/dima/audata/test/audio/test1.py ");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
