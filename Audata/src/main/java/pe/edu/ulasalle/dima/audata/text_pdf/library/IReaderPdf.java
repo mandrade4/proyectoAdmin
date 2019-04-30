@@ -21,6 +21,8 @@ public interface IReaderPdf {
 	
 	public int bookmarkPagIni ( FileInputStream fstream, String bookmark) throws IOException;
 	
+	public int bookmarkPagFin ( FileInputStream fstream, String bookmark) throws IOException;
+	
 	public LinkedHashMap<String, Integer> listBookmark (PDOutlineNode bookmark, 
 			LinkedHashMap<String,Integer> listBookmarks) throws IOException;
 }

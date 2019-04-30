@@ -3,7 +3,9 @@ package pe.edu.ulasalle.dima.audata.text_pdf.library;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.encryption.InvalidPasswordException;
@@ -157,6 +159,28 @@ public class ReaderPdfImpl implements IReaderPdf {
         }
 		return listBookmarks;
 	}
+
+
+
+	
+	public int bookmarkPagFin(FileInputStream fstream, String bookmark) throws IOException {
+		InputStream instream = fstream;
+    	PDDocument doc = PDDocument.load(instream);
+        PDDocumentOutline outline =  doc.getDocumentCatalog().getDocumentOutline();
+        outline.openNode();
+        
+        LinkedHashMap<String,Integer> listBookmarks = new LinkedHashMap<String,Integer>();
+        listBookmark(outline,listBookmarks);
+        List<String> keys = new ArrayList<String>(listBookmarks.keySet());
+        List<Integer> values = new ArrayList<Integer>(listBookmarks.values());
+		
+        if (values.get(keys.indexOf(bookmark))>values.size()) {
+        	return values.get(keys.indexOf(bookmark));
+        }else {
+        	return values.get(keys.indexOf(bookmark)+1);
+        }
+	
+    }
 	
 	
 }
