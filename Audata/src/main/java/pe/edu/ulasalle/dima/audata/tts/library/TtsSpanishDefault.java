@@ -1,5 +1,6 @@
 package pe.edu.ulasalle.dima.audata.tts.library;
 import java.io.*;
+import java.util.UUID;
 
 import pe.edu.ulasalle.dima.audata.tts.controller.ITts;
 
@@ -11,13 +12,22 @@ public class TtsSpanishDefault extends TtsGenerico implements ITts {
 	
 	public byte[] mp3(String text) {
 		
+		File file = new File("audio");
+		
+		if (!file.exists()) {
+			file.mkdir();
+		}
+		
+		UUID uuid = UUID.randomUUID();
+        String randomUUIDString = uuid.toString();
+        
 		String prg = "import pyttsx3\nengine = pyttsx3.init()\nengine.say("+"'"+text+"'"+")\nengine.runAndWait()";
 		try {
-			new File("src/main/java/pe/edu/ulasalle/dima/audata/test/audio").mkdirs();
-			BufferedWriter out = new BufferedWriter(new FileWriter("src/main/java/pe/edu/ulasalle/dima/audata/test/audio/test1.py"));
+			
+			BufferedWriter out = new BufferedWriter(new FileWriter("audio/"+randomUUIDString+".py"));
 			out.write(prg);
 			out.close();
-			Runtime.getRuntime().exec("python src/main/java/pe/edu/ulasalle/dima/audata/test/audio/test1.py ");
+			Runtime.getRuntime().exec("python audio/"+randomUUIDString+".py ");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
