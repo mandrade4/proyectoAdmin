@@ -19,15 +19,15 @@ public class TtsSpanishDefault extends TtsGenerico implements ITts {
 		}
 		
 		UUID uuid = UUID.randomUUID();
-        String randomUUIDString = uuid.toString();
+        String UUIDStringrandom = uuid.toString();
         
 		String prg = "import pyttsx3\nengine = pyttsx3.init()\nengine.say("+"'"+text+"'"+")\nengine.runAndWait()";
 		try {
 			
-			BufferedWriter out = new BufferedWriter(new FileWriter("audio/"+randomUUIDString+".py"));
+			BufferedWriter out = new BufferedWriter(new FileWriter("audio/"+UUIDStringrandom+".py"));
 			out.write(prg);
 			out.close();
-			Runtime.getRuntime().exec("python audio/"+randomUUIDString+".py ");
+			Runtime.getRuntime().exec("python audio/"+UUIDStringrandom+".py ");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
