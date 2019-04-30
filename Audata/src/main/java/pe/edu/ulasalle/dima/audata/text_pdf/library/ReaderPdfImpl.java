@@ -3,15 +3,15 @@ package pe.edu.ulasalle.dima.audata.text_pdf.library;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
-//import java.io.File;
-//import java.io.FileInputStream;
-//import java.io.FileNotFoundException;
-//import java.io.IOException;
-//import java.io.InputStream;
+import java.util.LinkedHashMap;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.encryption.InvalidPasswordException;
+import org.apache.pdfbox.pdmodel.interactive.action.PDActionGoTo;
+import org.apache.pdfbox.pdmodel.interactive.documentnavigation.destination.PDPageDestination;
+import org.apache.pdfbox.pdmodel.interactive.documentnavigation.outline.PDDocumentOutline;
+import org.apache.pdfbox.pdmodel.interactive.documentnavigation.outline.PDOutlineItem;
+import org.apache.pdfbox.pdmodel.interactive.documentnavigation.outline.PDOutlineNode;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.pdfbox.text.PDFTextStripperByArea;
 
@@ -44,7 +44,6 @@ public class ReaderPdfImpl implements IReaderPdf {
 		
 	}
 
-	
 	
 	@Override
 	public String readPDF(FileInputStream fstream, int pagIni, int pagFin) throws IOException{
@@ -101,9 +100,6 @@ public class ReaderPdfImpl implements IReaderPdf {
 		return str.toString();
 	}
 
-
-
-	
 	
 	@Override
 	public int numeroPaginas(FileInputStream fstream) throws IOException {
@@ -121,6 +117,45 @@ public class ReaderPdfImpl implements IReaderPdf {
 		}
 		
 		return count;
+	}
+
+
+	@Override
+	public int bookmarkPagIni(FileInputStream fstream, String bookmark) throws IOException {
+		InputStream instream = fstream;
+    	PDDocument doc = PDDocument.load(instream);
+        PDDocumentOutline outline =  doc.getDocumentCatalog().getDocumentOutline();
+        
+        LinkedHashMap<String,Integer> listBookmarks = new LinkedHashMap<String,Integer>();
+		listBookmark(outline,listBookmarks);
+		
+		return listBookmarks.get(bookmark);
+	}
+
+
+	public LinkedHashMap<String, Integer> listBookmark(PDOutlineNode bookmark,
+			LinkedHashMap<String, Integer> listBookmarks) throws IOException {
+        
+		PDOutlineItem current = bookmark.getFirstChild();
+        while (current != null) {
+            if (current.getDestination() instanceof PDPageDestination) {
+                PDPageDestination pd = (PDPageDestination) current.getDestination();
+                int rpn = pd.retrievePageNumber()+1;
+                listBookmarks.put(current.getTitle(), rpn);
+            }
+            if (current.getAction() instanceof PDActionGoTo) {
+                PDActionGoTo gta = (PDActionGoTo) current.getAction();
+                if (gta.getDestination() instanceof PDPageDestination) {
+                    PDPageDestination pd = (PDPageDestination) gta.getDestination();
+                    int rpn = pd.retrievePageNumber()+1;
+                    listBookmarks.put(current.getTitle(), rpn);
+                }
+                
+            }
+            listBookmark(current,listBookmarks);
+            current = current.getNextSibling();
+        }
+		return listBookmarks;
 	}
 	
 	
