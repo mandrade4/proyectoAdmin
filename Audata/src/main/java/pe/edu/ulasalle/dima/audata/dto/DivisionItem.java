@@ -4,7 +4,7 @@ public class DivisionItem {
 	
 	protected String titulo;
 	protected String contenido;
-	protected DivisionItem item;
+	protected DivisionItem[] item;
 	
 	DivisionItem() {
 		
@@ -26,13 +26,12 @@ public class DivisionItem {
 		this.contenido = contenido;
 	}
 
-	public DivisionItem getItem() {
+	public DivisionItem[] getItem() {
 		return item;
 	}
 
-	public void setItem(DivisionItem item) {
+	public void setItem(DivisionItem[] item) {
 		this.item = item;
 	}
-	
 	
 }
