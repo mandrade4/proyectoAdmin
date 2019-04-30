@@ -8,7 +8,7 @@ import java.util.LinkedHashMap;
 
 import org.apache.pdfbox.pdmodel.interactive.documentnavigation.outline.PDOutlineNode;
 
-//hjjjjj//
+
 public interface IReaderPdf {
 
 	public String readPDF( FileInputStream fstream ) throws FileNotFoundException, IOException;
