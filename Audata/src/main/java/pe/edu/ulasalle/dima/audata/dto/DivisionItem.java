@@ -1,12 +1,15 @@
 package pe.edu.ulasalle.dima.audata.dto;
 
-public class DivisionItem {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class DivisionItem implements Serializable{
 	
 	protected String titulo;
 	protected String contenido;
 	protected DivisionItem[] item;
 	
-	DivisionItem() {
+	public DivisionItem() {
 		
 	}
 

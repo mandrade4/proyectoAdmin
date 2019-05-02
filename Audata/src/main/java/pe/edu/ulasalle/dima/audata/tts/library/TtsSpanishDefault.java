@@ -2,6 +2,7 @@ package pe.edu.ulasalle.dima.audata.tts.library;
 import java.io.*;
 import java.util.UUID;
 
+import pe.edu.ulasalle.dima.audata.dto.DivisionItem;
 import pe.edu.ulasalle.dima.audata.tts.controller.ITts;
 
 public class TtsSpanishDefault extends TtsGenerico implements ITts {
@@ -31,11 +32,18 @@ public class TtsSpanishDefault extends TtsGenerico implements ITts {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 		byte[] b = text.getBytes();
 		return b;
 		
 	}
 	
+	public byte[] mp3(DivisionItem divisionItem) {
+		String text = "coño";
+		System.out.println(divisionItem.getTitulo());
+		byte[] b = text.getBytes();
+		return b;
+	}
 	
 
 }
