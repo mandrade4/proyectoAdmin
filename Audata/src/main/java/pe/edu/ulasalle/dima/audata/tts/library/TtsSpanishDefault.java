@@ -1,6 +1,8 @@
 package pe.edu.ulasalle.dima.audata.tts.library;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.UUID;
+
 
 import pe.edu.ulasalle.dima.audata.dto.DivisionItem;
 import pe.edu.ulasalle.dima.audata.tts.controller.ITts;
@@ -38,9 +40,30 @@ public class TtsSpanishDefault extends TtsGenerico implements ITts {
 		
 	}
 	
+	// Recorrrer un array de objetos en java
 	public byte[] mp3(DivisionItem divisionItem) {
+		ArrayList<DivisionItem> divisionItems = new ArrayList<DivisionItem>();
+		ArrayList<String> itemsDivi = new ArrayList<String>();
+		divisionItems.add(divisionItem);
 		String text = "coño";
-		System.out.println(divisionItem.getTitulo());
+		for (int i = 0; i < divisionItems.size(); i++) {
+			String titulo = divisionItems.get(i).getTitulo();
+			String contenido = divisionItems.get(i).getContenido();
+			itemsDivi.add(titulo);
+			itemsDivi.add(contenido);
+			System.out.println(divisionItems.get(i).getTitulo());
+			System.out.println(divisionItems.get(i).getContenido());
+			
+			DivisionItem[] divisionItemTemp = divisionItems.get(i).getItem();
+			//divisionItems.add(divisionItemTemp);
+			
+			System.out.println("Tamahno: "+divisionItemTemp.length);
+
+			for (int j = 0; j < divisionItemTemp.length; j++) {
+				System.out.println(divisionItemTemp[j].getTitulo());
+				System.out.println(divisionItemTemp[j].getContenido());
+			}
+		}
 		byte[] b = text.getBytes();
 		return b;
 	}
