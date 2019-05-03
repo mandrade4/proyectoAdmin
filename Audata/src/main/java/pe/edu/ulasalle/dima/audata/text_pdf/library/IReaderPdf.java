@@ -11,18 +11,22 @@ import org.apache.pdfbox.pdmodel.interactive.documentnavigation.outline.PDOutlin
 
 public interface IReaderPdf {
 
-	public String readPDF( FileInputStream fstream ) throws FileNotFoundException, IOException;
+	public String readPDF( byte[] fstream ) throws FileNotFoundException, IOException;
 	
-	public String readPDF( FileInputStream fstream, int pagIni, int pagFin) throws IOException;
+	public String readPDF( byte[] fstream, int pagIni, int pagFin) throws IOException;
 
-	public String readPDF( FileInputStream fstream, int page) throws IOException;
+	public String readPDF( byte[] fstream, int page) throws IOException;
 
-	public int numeroPaginas( FileInputStream fstream) throws IOException;
+	public int numeroPaginas( byte[] fstream) throws IOException;
 	
-	public int bookmarkPagIni ( FileInputStream fstream, String bookmark) throws IOException;
+	public int bookmarkPagIni ( byte[] fstream, String bookmark) throws IOException;
 	
-	public int bookmarkPagFin ( FileInputStream fstream, String bookmark) throws IOException;
+	public int bookmarkPagFin ( byte[] fstream, String bookmark) throws IOException;
 	
 	public LinkedHashMap<String, Integer> listBookmark (PDOutlineNode bookmark, 
 			LinkedHashMap<String,Integer> listBookmarks) throws IOException;
+
+	public String readPDF(byte[] fstream, String[] listStop) throws IOException;
+	
+	public String readPDF(byte[] fstream, int pagIni, int pagFin, String[] listStop) throws IOException;
 }

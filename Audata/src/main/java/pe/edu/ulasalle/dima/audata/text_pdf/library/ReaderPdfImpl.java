@@ -1,5 +1,6 @@
 package pe.edu.ulasalle.dima.audata.text_pdf.library;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,9 +20,9 @@ import org.apache.pdfbox.text.PDFTextStripperByArea;
 
 public class ReaderPdfImpl implements IReaderPdf {
 
-	public String readPDF(FileInputStream fstream) throws IOException {
+	public String readPDF(byte[] fstream) throws IOException {
 		
-		InputStream instream = fstream;
+		InputStream instream = new ByteArrayInputStream(fstream);
 		PDDocument document = PDDocument.load(instream);
     	StringBuilder str = new StringBuilder();
 		
@@ -48,9 +49,9 @@ public class ReaderPdfImpl implements IReaderPdf {
 
 	
 	@Override
-	public String readPDF(FileInputStream fstream, int pagIni, int pagFin) throws IOException{
+	public String readPDF(byte[] fstream, int pagIni, int pagFin) throws IOException{
 		
-		InputStream instream = fstream;
+		InputStream instream = new ByteArrayInputStream(fstream);
 		PDDocument document = PDDocument.load(instream);
     	StringBuilder str = new StringBuilder();
 		
@@ -76,9 +77,9 @@ public class ReaderPdfImpl implements IReaderPdf {
 
 
 	@Override
-	public String readPDF(FileInputStream fstream, int page) throws IOException {
+	public String readPDF(byte[] fstream, int page) throws IOException {
 		
-		InputStream instream = fstream;
+		InputStream instream = new ByteArrayInputStream(fstream);
 		PDDocument document = PDDocument.load(instream);
     	StringBuilder str = new StringBuilder();
 		
@@ -90,6 +91,7 @@ public class ReaderPdfImpl implements IReaderPdf {
 
             tStripper.setStartPage(page);
             tStripper.setEndPage(page);
+            
             
             String pdfFileInText = tStripper.getText(document);
 
@@ -104,9 +106,9 @@ public class ReaderPdfImpl implements IReaderPdf {
 
 	
 	@Override
-	public int numeroPaginas(FileInputStream fstream) throws IOException {
+	public int numeroPaginas(byte[] fstream) throws IOException {
 		
-		InputStream instream = fstream;
+		InputStream instream = new ByteArrayInputStream(fstream);
 		int count = 0;
 		
 		try (PDDocument document = PDDocument.load(instream)){
@@ -123,8 +125,8 @@ public class ReaderPdfImpl implements IReaderPdf {
 
 
 	@Override
-	public int bookmarkPagIni(FileInputStream fstream, String bookmark) throws IOException {
-		InputStream instream = fstream;
+	public int bookmarkPagIni(byte[] fstream, String bookmark) throws IOException {
+		InputStream instream = new ByteArrayInputStream(fstream);
     	PDDocument doc = PDDocument.load(instream);
         PDDocumentOutline outline =  doc.getDocumentCatalog().getDocumentOutline();
         
@@ -160,11 +162,9 @@ public class ReaderPdfImpl implements IReaderPdf {
 		return listBookmarks;
 	}
 
-
-
 	
-	public int bookmarkPagFin(FileInputStream fstream, String bookmark) throws IOException {
-		InputStream instream = fstream;
+	public int bookmarkPagFin(byte[] fstream, String bookmark) throws IOException {
+		InputStream instream = new ByteArrayInputStream(fstream);
     	PDDocument doc = PDDocument.load(instream);
         PDDocumentOutline outline =  doc.getDocumentCatalog().getDocumentOutline();
         outline.openNode();
@@ -182,5 +182,48 @@ public class ReaderPdfImpl implements IReaderPdf {
 	
     }
 	
+	
+	public String readPDF(byte[] fstream, String[] listStop) throws IOException {
+			
+		return readPDF(fstream, -1,  -1, listStop); 
+		
+	}
+		  
+		  
+	public String readPDF(byte[] fstream, int pagIni, int pagFin, String[] listStop) throws IOException {
+		  
+		InputStream instream = new ByteArrayInputStream(fstream);
+		PDDocument document = PDDocument.load(instream);
+		StringBuilder str = new StringBuilder();
+		String[] stopLista = listStop;
+					
+		document.getClass();
+
+		if (!document.isEncrypted()) {
+			
+			PDFTextStripper tStripper = new PDFTextStripper();
+			if (pagIni != -1)
+		    tStripper.setStartPage(pagIni);
+			if (pagFin != -1)
+			tStripper.setEndPage(pagFin);
+		    
+		    String pdfFileInText = tStripper.getText(document);
+		
+		    String lines[] = pdfFileInText.split("\\r?\\n");
+		    for (String line : lines) {
+		    	str.append(line);
+		    }
+		}
+  
+		String temp = str.toString();
+		temp = temp.toLowerCase();
+		  
+		for (int i=0; i<stopLista.length ;i++ ){
+			temp = temp.replace(" " + stopLista[i].toLowerCase()+ " "," ");
+		}
+		
+		return temp;
+	  }
+
 	
 }
