@@ -84,20 +84,33 @@ public class TtsSpanishDefault extends TtsGenerico implements ITts {
 			while(divisionItemTemp[2].getItem()!= null) {
 				//DivisionItem[] divisionItemTemp = divisionItems.get(i).getItem();
 				DivisionItem[] temp = divisionItemTemp[2].getItem();
-				
-				for (int j = 0; j < temp.length; j++) {
-					divisionItemTemp[j] = temp[j];
-					if(divisionItemTemp[j].getTitulo()!= null){
-						System.out.println(divisionItemTemp[j].getTitulo());
+				//temp = [Titulo, Contenido, Item] = [0,1,2]
+				//System.out.println("Tamahno de TEMPORAL: "+temp.length);
+				int j = 0;
+				for (j = 0; j < temp.length; j++) {
+					//divisionItemTemp[j] = temp[j];
+					if(temp[j].getTitulo()!= null){
+						System.out.println(temp[j].getTitulo());
 					}
-					if(divisionItemTemp[j].getContenido()!= null){
-						System.out.println(divisionItemTemp[j].getContenido());
+					if(temp[j].getContenido()!= null){
+						System.out.println(temp[j].getContenido());
+					}
+					if(j==2){
+						System.out.println("divisionItemTemp[2]: "+divisionItemTemp[2].getItem());
+						System.out.println("temp[2]:  "+temp[2].getItem());
+						divisionItemTemp[j] = temp[j];
 					}
 				}
-				
-				System.out.println("Despues del fill: "+divisionItemTemp.length);
-				
-				System.out.println("Despues del agregar 2 elementos: "+divisionItemTemp.length);
+				if(j == 2) {
+					divisionItemTemp[2].setItem(null);
+				}
+				//System.out.println("DEBE SER NULLO"+temp[2].getItem());
+				//if(temp[2].getItem() == null){
+				//	System.out.println("divisionItemTemp[2]: "+divisionItemTemp[2].getItem());
+				//	System.out.println("temp[2]:  "+temp[2].getItem());
+				//	divisionItemTemp[2].getItem() = null;
+				//}
+				//System.out.println("DEBE SER NULL: "+divisionItemTemp[2].getItem());
 			}
 		}
 		
