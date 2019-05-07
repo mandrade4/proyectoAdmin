@@ -19,7 +19,17 @@ import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.pdfbox.text.PDFTextStripperByArea;
 
 public class ReaderPdfImpl implements IReaderPdf {
+/*	Requerimientos hechos
+ * 	1, 2, 13, 7, 8, 11, 12, 6, 4
+ * 	Requerimientos
+ * 	3, 5, 9, 10  	
+ * */
 
+	/*
+	   byte[] d = Files.readAllBytes(Paths.get("D:\\book.pdf"));
+       System.out.println(readPDF(d));
+	 */
+	
 	public String readPDF(byte[] fstream) throws IOException {
 		
 		InputStream instream = new ByteArrayInputStream(fstream);
