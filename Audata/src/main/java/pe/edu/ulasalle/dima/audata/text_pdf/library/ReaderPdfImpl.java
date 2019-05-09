@@ -24,11 +24,6 @@ public class ReaderPdfImpl implements IReaderPdf {
  * 	Requerimientos
  * 	3, 5, 9, 10  	
  * */
-
-	/*
-	   byte[] d = Files.readAllBytes(Paths.get("D:\\book.pdf"));
-       System.out.println(readPDF(d));
-	 */
 	
 	public String readPDF(byte[] fstream) throws IOException {
 		
@@ -146,32 +141,6 @@ public class ReaderPdfImpl implements IReaderPdf {
 		return listBookmarks.get(bookmark);
 	}
 
-
-	public LinkedHashMap<String, Integer> listBookmark(PDOutlineNode bookmark,
-			LinkedHashMap<String, Integer> listBookmarks) throws IOException {
-        
-		PDOutlineItem current = bookmark.getFirstChild();
-        while (current != null) {
-            if (current.getDestination() instanceof PDPageDestination) {
-                PDPageDestination pd = (PDPageDestination) current.getDestination();
-                int rpn = pd.retrievePageNumber()+1;
-                listBookmarks.put(current.getTitle(), rpn);
-            }
-            if (current.getAction() instanceof PDActionGoTo) {
-                PDActionGoTo gta = (PDActionGoTo) current.getAction();
-                if (gta.getDestination() instanceof PDPageDestination) {
-                    PDPageDestination pd = (PDPageDestination) gta.getDestination();
-                    int rpn = pd.retrievePageNumber()+1;
-                    listBookmarks.put(current.getTitle(), rpn);
-                }
-                
-            }
-            listBookmark(current,listBookmarks);
-            current = current.getNextSibling();
-        }
-		return listBookmarks;
-	}
-
 	
 	public int bookmarkPagFin(byte[] fstream, String bookmark) throws IOException {
 		InputStream instream = new ByteArrayInputStream(fstream);
@@ -235,5 +204,82 @@ public class ReaderPdfImpl implements IReaderPdf {
 		return temp;
 	  }
 
+
 	
+	
+	@Override
+	public String readPDF(byte[] fstream, int pagIni, int pagFin, String strIni, String strFin) throws IOException {
+
+		String cadena = readPDF(fstream,pagIni,pagFin);
+		  
+		int posicionInicio = cadena.indexOf(strIni);
+		cadena = cadena.substring(posicionInicio);
+		  
+		cadena = reverseCadena(cadena);
+		strFin = reverseCadena(strFin);
+		  
+		int posicionfin = cadena.indexOf(strFin);
+		cadena = cadena.substring(posicionfin);
+		cadena = reverseCadena(cadena);
+		  
+		return cadena.toLowerCase();
+	}
+	
+	
+
+
+	@Override
+	public String readPDF(byte[] fstream, int pagIni, int pagFin, String strIni, String strFin, String[] stopList)
+			throws IOException {
+		
+		String cadena = readPDF(fstream,pagIni,pagFin,strIni,strFin);
+		
+		for (int i=0; i<stopList.length ;i++ ){
+			cadena = cadena.replace(" " + stopList[i].toLowerCase()+ " "," ");
+	    }
+	    
+	    return cadena;
+	}
+
+	
+	//Funciones adicionales
+	@Override
+	public String reverseCadena(String cadena) {
+		
+		byte [] strAsByteArray = cadena.getBytes();
+		byte [] result =  new byte [strAsByteArray.length];
+		
+		for (int i = 0; i<strAsByteArray.length; i++) {
+			result[i] =  strAsByteArray[strAsByteArray.length-i-1];
+		}
+		
+		return new String(result);
+
+	}
+	
+	public LinkedHashMap<String, Integer> listBookmark(PDOutlineNode bookmark,
+			LinkedHashMap<String, Integer> listBookmarks) throws IOException {
+        
+		PDOutlineItem current = bookmark.getFirstChild();
+        while (current != null) {
+            if (current.getDestination() instanceof PDPageDestination) {
+                PDPageDestination pd = (PDPageDestination) current.getDestination();
+                int rpn = pd.retrievePageNumber()+1;
+                listBookmarks.put(current.getTitle(), rpn);
+            }
+            if (current.getAction() instanceof PDActionGoTo) {
+                PDActionGoTo gta = (PDActionGoTo) current.getAction();
+                if (gta.getDestination() instanceof PDPageDestination) {
+                    PDPageDestination pd = (PDPageDestination) gta.getDestination();
+                    int rpn = pd.retrievePageNumber()+1;
+                    listBookmarks.put(current.getTitle(), rpn);
+                }
+                
+            }
+            listBookmark(current,listBookmarks);
+            current = current.getNextSibling();
+        }
+		return listBookmarks;
+	}
+
 }

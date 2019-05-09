@@ -17,11 +17,11 @@ import pe.edu.ulasalle.dima.audata.text_pdf.library.ReaderPdfImpl;
 public class text_pdfMain {
 
 	@POST
-	@Path("/prueba/{pdf}")
+	@Path("/prueba2/{pdf}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response readPDF(@PathParam("pdf") byte[] fstream) throws IOException {
+	public Response readPDF(@PathParam("pdf") String fstream) throws IOException {
 		ReaderPdfImpl obj = new ReaderPdfImpl();
-		obj.readPDF(fstream);
+//		obj.readPDF(fstream);
 		return Response.ok(obj).build();
 	}
 //	@GET
