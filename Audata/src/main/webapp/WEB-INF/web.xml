@@ -12,8 +12,4 @@
   		<param-value>pe.edu.ulasalle.dima.audata.test</param-value>
   	</init-param>
   </servlet>
-  <servlet-mapping>
-  	<servlet-name>Audata Service</servlet-name>
-  	<url-pattern>/service/*</url-pattern>
-  </servlet-mapping>	
 </web-app>
