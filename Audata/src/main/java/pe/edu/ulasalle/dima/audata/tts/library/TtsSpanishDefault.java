@@ -40,83 +40,141 @@ public class TtsSpanishDefault extends TtsGenerico implements ITts {
 		return b;
 		
 	}
-	
 	// Recorrrer un array de objetos en java
 	public byte[] mp3(DivisionItem divisionItem) {
-		//Array de objetos
-		ArrayList<DivisionItem> divisionItems = new ArrayList<DivisionItem>();
-		//Array de strings
 		ArrayList<String> itemsDivi = new ArrayList<String>();
-		//le agrego el divisionItem al array de objetos
-		divisionItems.add(divisionItem);
 		String text = "coño";
-		//recorremos el array de objetos
-		//ArrayObjeto = [1]
-		for (int i = 0; i < divisionItems.size(); i++) {
-			//Obtenemos el titulo del arrayObjeto
-			String titulo = divisionItems.get(i).getTitulo();
-			//Obtenemos el contenido del arrayObjeto
-			String contenido = divisionItems.get(i).getContenido();
-			//el titulo se guarda en el array de strings
-			itemsDivi.add(titulo);
-			//el contenido se guarda en el array de strings
-			itemsDivi.add(contenido);
-			//Se obtiene el primer titulo 
-			System.out.println(divisionItems.get(i).getTitulo());
-			//Se obtiene el primer contenido
-			System.out.println(divisionItems.get(i).getContenido());
-			//Crear un array de objetos para el primer item
-			DivisionItem[] divisionItemTemp = divisionItems.get(i).getItem();
-			//Imprime el tamaño del array divisionItemTemp
-			System.out.println("Tamahno: "+divisionItemTemp.length);
-			//3
+		
+		String titulo = divisionItem.getTitulo();
+		String contenido = divisionItem.getContenido();
+		itemsDivi.add(titulo);
+		itemsDivi.add(contenido);
+		
+		if(divisionItem.getItem()!= null) {
+			DivisionItem[] divisionItemTemp = divisionItem.getItem();		
 			for (int j = 0; j < divisionItemTemp.length; j++) {
 				if(divisionItemTemp[j].getTitulo()!= null){
-					System.out.println(divisionItemTemp[j].getTitulo());
+					titulo = divisionItemTemp[j].getTitulo();
+					itemsDivi.add(titulo);
 				}
 				if(divisionItemTemp[j].getContenido()!= null){
-					System.out.println(divisionItemTemp[j].getContenido());
+					contenido = divisionItemTemp[j].getContenido();
+					itemsDivi.add(contenido);
 				}		
 			}
-			// DivisionItemTemp = [Titulo, Contenido, Item] = [0,1,2]
-			//[Item[0,1,2]]=null?
-			
-			while(divisionItemTemp[2].getItem()!= null) {
-				//DivisionItem[] divisionItemTemp = divisionItems.get(i).getItem();
-				DivisionItem[] temp = divisionItemTemp[2].getItem();
-				//temp = [Titulo, Contenido, Item] = [0,1,2]
-				//System.out.println("Tamahno de TEMPORAL: "+temp.length);
-				int j = 0;
-				for (j = 0; j < temp.length; j++) {
-					//divisionItemTemp[j] = temp[j];
-					if(temp[j].getTitulo()!= null){
-						System.out.println(temp[j].getTitulo());
+
+			if(divisionItemTemp.length == 3) {
+				while(divisionItemTemp[2].getItem()!= null) {
+					DivisionItem[] temp = divisionItemTemp[2].getItem();
+					int j = 0;
+					for (j = 0; j < temp.length; j++) {
+						if(temp[j].getTitulo()!= null){
+							titulo = temp[j].getTitulo();
+							itemsDivi.add(titulo);
+							//System.out.println(temp[j].getTitulo());
+						}
+						if(temp[j].getContenido()!= null){
+							contenido = temp[j].getContenido();
+							itemsDivi.add(contenido);
+							//System.out.println(temp[j].getContenido());
+						}
+						if(j==2){
+							//System.out.println("divisionItemTemp[2]: "+divisionItemTemp[2].getItem());
+							//System.out.println("temp[2]:  "+temp[2].getItem());
+							divisionItemTemp[j] = temp[j];							
+						}
 					}
-					if(temp[j].getContenido()!= null){
-						System.out.println(temp[j].getContenido());
+					if(j == 2) {
+						divisionItemTemp[2].setItem(null);
 					}
-					if(j==2){
-						System.out.println("divisionItemTemp[2]: "+divisionItemTemp[2].getItem());
-						System.out.println("temp[2]:  "+temp[2].getItem());
-						divisionItemTemp[j] = temp[j];
-					}
-				}
-				if(j == 2) {
-					divisionItemTemp[2].setItem(null);
-				}
-				//System.out.println("DEBE SER NULLO"+temp[2].getItem());
-				//if(temp[2].getItem() == null){
-				//	System.out.println("divisionItemTemp[2]: "+divisionItemTemp[2].getItem());
-				//	System.out.println("temp[2]:  "+temp[2].getItem());
-				//	divisionItemTemp[2].getItem() = null;
-				//}
-				//System.out.println("DEBE SER NULL: "+divisionItemTemp[2].getItem());
+				}		
 			}
 		}
 		
+		for(int k=0; k < itemsDivi.size();k++) {
+			if(k % 2 == 0){
+				System.out.println("Titulo: "+itemsDivi.get(k));
+			}
+			else {
+				System.out.println("Contenido: "+itemsDivi.get(k));
+			}
+		}
+
 		byte[] b = text.getBytes();
 		return b;
 	}
 	
+	public byte[] mp3(DivisionItem[] divisionItem) {
+		ArrayList<String> itemsDivi = new ArrayList<String>();
+		String titulo;
+		String contenido;
+		for (int i=0; i< divisionItem.length; i++){			
+			if(divisionItem[i].getTitulo()!= null){
+				titulo = divisionItem[i].getTitulo();
+				itemsDivi.add(titulo);
+			}
+			
+			if(divisionItem[i].getContenido()!= null){
+				contenido = divisionItem[i].getContenido();
+				itemsDivi.add(contenido);
+			}
+			
+			
+			if(divisionItem[i].getItem()!= null) {
+				DivisionItem[] divisionItemTemp = divisionItem[i].getItem();		
+				for (int j = 0; j < divisionItemTemp.length; j++) {
+					if(divisionItemTemp[j].getTitulo()!= null){
+						titulo = divisionItemTemp[j].getTitulo();
+						itemsDivi.add(titulo);
+					}
+					if(divisionItemTemp[j].getContenido()!= null){
+						contenido = divisionItemTemp[j].getContenido();
+						itemsDivi.add(contenido);
+					}		
+				}
+
+				if(divisionItemTemp.length == 3) {
+					while(divisionItemTemp[2].getItem()!= null) {
+						DivisionItem[] temp = divisionItemTemp[2].getItem();
+						int j = 0;
+						for (j = 0; j < temp.length; j++) {
+							if(temp[j].getTitulo()!= null){
+								titulo = temp[j].getTitulo();
+								itemsDivi.add(titulo);
+								//System.out.println(temp[j].getTitulo());
+							}
+							if(temp[j].getContenido()!= null){
+								contenido = temp[j].getContenido();
+								itemsDivi.add(contenido);
+								//System.out.println(temp[j].getContenido());
+							}
+							if(j==2){
+								//System.out.println("divisionItemTemp[2]: "+divisionItemTemp[2].getItem());
+								//System.out.println("temp[2]:  "+temp[2].getItem());
+								divisionItemTemp[j] = temp[j];							
+							}
+						}
+						if(j == 2) {
+							divisionItemTemp[2].setItem(null);
+						}
+					}		
+				}
+			}			
+		}
+		
+		
+		for(int k=0; k < itemsDivi.size();k++) {
+			if(k % 2 == 0){
+				System.out.println("Titulo: "+itemsDivi.get(k));
+			}
+			else {
+				System.out.println("Contenido: "+itemsDivi.get(k));
+			}
+		}
+		
+		String text = "coño";
+		byte[] b = text.getBytes();
+		return b;	
+	}
 
 }

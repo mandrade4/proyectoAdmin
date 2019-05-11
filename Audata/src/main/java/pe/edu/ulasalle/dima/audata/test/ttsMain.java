@@ -42,4 +42,14 @@ public class ttsMain {
 		return Response.status(Response.Status.CREATED).entity(divisionItem).build();
 	}
 	
+	@POST
+	@Path("/talkMultiDivisionItem")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response talkMultiDivisionItem(DivisionItem[] divisionItem) {
+		TtsSpanishDefault obj = new TtsSpanishDefault();
+		obj.mp3(divisionItem);
+		return Response.status(Response.Status.CREATED).entity(obj).build();
+	}
+	
 }
