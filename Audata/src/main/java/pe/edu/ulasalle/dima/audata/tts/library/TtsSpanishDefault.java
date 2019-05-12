@@ -25,7 +25,7 @@ public class TtsSpanishDefault extends TtsGenerico implements ITts {
 		UUID uuid = UUID.randomUUID();
         String UUIDStringRandom = uuid.toString();
         
-		String prg = "import pyttsx3\nengine = pyttsx3.init()\nengine.say("+"'"+text+"'"+")\nengine.runAndWait()";
+		String prg = "from comtypes.client import CreateObject\nengine = CreateObject(\"SAPI.SpVoice\")\nstream = CreateObject(\"SAPI.SpFileStream\")\nfrom comtypes.gen import SpeechLib\nstream.Open('"+UUIDStringRandom+".mp3', SpeechLib.SSFMCreateForWrite)\nengine.AudioOutputStream = stream\nengine.speak('"+text+"')\nstream.Close()";
 		try {
 			
 			BufferedWriter out = new BufferedWriter(new FileWriter("audio/"+UUIDStringRandom+".py"));
