@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 
+import org.apache.pdfbox.pdmodel.interactive.documentnavigation.outline.PDOutlineItem;
 import org.apache.pdfbox.pdmodel.interactive.documentnavigation.outline.PDOutlineNode;
 
 
@@ -37,4 +38,8 @@ public interface IReaderPdf {
 	
 	public String reverseCadena(String cadena);
 
+	public LinkedHashMap<PDOutlineItem, Integer> bookmarksInfo(LinkedHashMap<PDOutlineItem, Integer> map,
+			PDOutlineNode bookmark, Integer level) throws IOException;
+	
+	public int getLevel(LinkedHashMap<PDOutlineItem, Integer> map, String bookmark);
 }

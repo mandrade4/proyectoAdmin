@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.encryption.InvalidPasswordException;
@@ -143,23 +144,39 @@ public class ReaderPdfImpl implements IReaderPdf {
 
 	
 	public int bookmarkPagFin(byte[] fstream, String bookmark) throws IOException {
+		
 		InputStream instream = new ByteArrayInputStream(fstream);
     	PDDocument doc = PDDocument.load(instream);
         PDDocumentOutline outline =  doc.getDocumentCatalog().getDocumentOutline();
         outline.openNode();
         
-        LinkedHashMap<String,Integer> listBookmarks = new LinkedHashMap<String,Integer>();
-        listBookmark(outline,listBookmarks);
-        List<String> keys = new ArrayList<String>(listBookmarks.keySet());
-        List<Integer> values = new ArrayList<Integer>(listBookmarks.values());
-		
-        if (values.get(keys.indexOf(bookmark))>values.size()) {
-        	return values.get(keys.indexOf(bookmark));
-        }else {
-        	return values.get(keys.indexOf(bookmark)+1);
-        }
-	
-    }
+        LinkedHashMap<PDOutlineItem,Integer> map = new LinkedHashMap<PDOutlineItem,Integer>();
+        LinkedHashMap<String,Integer> listB = new LinkedHashMap<String,Integer>();
+        listBookmark(outline,listB);
+        map = bookmarksInfo(map,outline,0);
+
+        int nivel = getLevel(map,bookmark);
+        
+        List<String> titlesLevel = new ArrayList<String>();
+        List<String> keys = new ArrayList<String>(listB.keySet());
+        List<Integer> values = new ArrayList<Integer>(listB.values());
+                      
+    	for(Map.Entry<PDOutlineItem, Integer> iter : map.entrySet()) {
+    		if (iter.getValue() == nivel) {
+    			titlesLevel.add(iter.getKey().getTitle());
+    		}
+    	}
+    	System.out.println(listB);
+    	if(bookmark.equals(titlesLevel.get(titlesLevel.size()-1))) {
+    		System.out.println(values.get(keys.indexOf(bookmark)));
+    	} else {
+
+    		System.out.println(values.get(keys.indexOf(titlesLevel.get(titlesLevel.indexOf(bookmark)+1))));
+    	}
+    	
+		return 0;
+    	
+	}
 	
 	
 	public String readPDF(byte[] fstream, String[] listStop) throws IOException {
@@ -280,6 +297,34 @@ public class ReaderPdfImpl implements IReaderPdf {
             current = current.getNextSibling();
         }
 		return listBookmarks;
+	}
+	
+	public LinkedHashMap<PDOutlineItem, Integer> bookmarksInfo(LinkedHashMap<PDOutlineItem, Integer> map,
+			PDOutlineNode bookmark, Integer level) throws IOException {
+
+		PDOutlineItem current = bookmark.getFirstChild();
+		while (current != null) {
+			level++;
+			map.put(current, level);
+			System.out.println( current.getTitle() +"->" + level);
+			bookmarksInfo(map, current, level);
+			current = current.getNextSibling();
+			level--;
+		}
+
+		return map;
+	}
+	
+	public int getLevel(LinkedHashMap<PDOutlineItem, Integer> map, String bookmark) {
+        
+		List<String> keys = new ArrayList<String>();
+    	for(Map.Entry<PDOutlineItem, Integer> iter : map.entrySet()) {
+    		keys.add(iter.getKey().getTitle());
+    	}
+        List<Integer> values = new ArrayList<Integer>(map.values());
+		
+//        return values.get(keys.indexOf(bookmark));     
+        return values.get(keys.indexOf(bookmark));
 	}
 
 }

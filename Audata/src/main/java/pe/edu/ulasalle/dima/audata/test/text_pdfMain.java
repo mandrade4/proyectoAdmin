@@ -3,6 +3,7 @@ package pe.edu.ulasalle.dima.audata.test;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -19,17 +20,20 @@ public class text_pdfMain {
 	@POST
 	@Path("/prueba2/{pdf}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response readPDF(@PathParam("pdf") String fstream) throws IOException {
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response readPDF(@PathParam("pdf") byte[] fstream) throws IOException {
 		ReaderPdfImpl obj = new ReaderPdfImpl();
-//		obj.readPDF(fstream);
-		return Response.ok(obj).build();
+		String retorno = obj.readPDF(fstream);
+		System.out.println(retorno);
+		return Response.ok(retorno).build();
 	}
+
 //	@GET
-//	@Path("/prueba/{nombre}")
+//	@Path("/prueba2/{nombre}")
 //	@Produces(MediaType.APPLICATION_JSON)
 //	public String decirHola(@PathParam("nombre") String nombre) {
 //		String hello = "hello " + nombre;
-//		return hello;
+//		return Response.ok(nombre);
 //	}
-	
+//	
 }
