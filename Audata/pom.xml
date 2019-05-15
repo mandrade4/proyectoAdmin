@@ -55,6 +55,20 @@
 			<artifactId>pdfbox</artifactId>
 			<version>2.0.6</version>
 		</dependency>
+		
+		<dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-multipart-provider</artifactId>
+            <version>3.1.4.Final</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-multipart</artifactId>
+            <version>2.26</version>
+        </dependency>
+        
 	</dependencies>
 	<build>
 		<plugins>
