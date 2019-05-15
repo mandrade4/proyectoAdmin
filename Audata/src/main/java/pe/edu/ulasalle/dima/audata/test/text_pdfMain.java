@@ -17,23 +17,51 @@ import pe.edu.ulasalle.dima.audata.text_pdf.library.ReaderPdfImpl;
 @Path("/pdf")
 public class text_pdfMain {
 
-	@POST
-	@Path("/prueba2/{pdf}")
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response readPDF(@PathParam("pdf") byte[] fstream) throws IOException {
-		ReaderPdfImpl obj = new ReaderPdfImpl();
-		String retorno = obj.readPDF(fstream);
-		System.out.println(retorno);
-		return Response.ok(retorno).build();
-	}
+	@GET
+    @Path("/prueba2/{nombre}")
+    public String hola(@PathParam("nombre") String nombre) {
+        String hello = "hello " + nombre;
+        System.out.println(hello);
+        return hello;
+    }
 
-//	@GET
-//	@Path("/prueba2/{nombre}")
-//	@Produces(MediaType.APPLICATION_JSON)
-//	public String decirHola(@PathParam("nombre") String nombre) {
-//		String hello = "hello " + nombre;
-//		return Response.ok(nombre);
-//	}
-//	
+    @POST
+    @Path("/upload")
+    @Consumes("multipart/form-data")
+    public Response uploadFile(@MultipartForm FileUploadForm form) throws IOException {
+        
+        IReaderPdf obj = new ReaderPdfImpl();
+        String retorno = obj.readPDF(form.getData());
+        
+        return Response.status(200)
+                .entity(retorno).build();
+
+    }
+
+    @POST
+    @Path("/up2")
+    @Consumes("multipart/form-data")
+    public Response uploadFile2(@MultipartForm FileUploadForm form) throws IOException {
+
+        IReaderPdf obj = new ReaderPdfImpl();
+        String retorno = obj.readPDF(form.getData(),form.getInicio(),form.getFin());
+        
+        return Response.status(200)
+                .entity(retorno).build();
+
+    }
+
+    
+    @POST
+    @Path("/up3")
+    @Consumes("multipart/form-data")
+    public Response uploadFile3(@MultipartForm FileUploadForm form) throws IOException {
+
+        IReaderPdf obj = new ReaderPdfImpl();
+        String retorno = obj.readPDF(form.getData(),form.getStopList());
+        
+        return Response.status(200)
+                .entity(retorno).build();
+
+    }
 }

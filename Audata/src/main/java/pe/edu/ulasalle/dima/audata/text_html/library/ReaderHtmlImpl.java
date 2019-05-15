@@ -18,6 +18,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 public class ReaderHtmlImpl implements IReaderHtml {
+	//private static final String ENCODING = null;
 	String[] tagList;
 	String[] stopTagList;
 	String[] stopTagContentList;
@@ -271,6 +272,24 @@ public class ReaderHtmlImpl implements IReaderHtml {
 */
 	     return "pepehands";
 	 }
+	 
+	 public String Probando(String filePath,String a) throws IOException {
+		// load file
+		 File inputFile = new File(filePath);
+		    // parse file as HTML document
+		 Document doc = Jsoup.parse(filePath);
+		    // select element by <a> 
+		 Elements elements = doc.select(a);
+		 
+	     return "pepehands";
+	 }
+	 
+	 public String leerSinTag(String html) throws IOException {
+
+		    String textOnly = Jsoup.parse(html.toString()).text();
+		    return textOnly; 
+		    }
+	 
 		
     public static void main(String[] args) throws IOException
     {
@@ -280,7 +299,7 @@ public class ReaderHtmlImpl implements IReaderHtml {
                 + "<body>Body content<p>Parrafo1<p>Parrafo2</p></p></body></html>";
     	String html2 = IJava2.procesarHTML(archivo);
     	//FUNCIONES
-    	//System.out.println(IJava2.leerTags(htmlString)); //pitito
+    	System.out.println(IJava2.leerTags(htmlString)); //pitito
     	//System.out.println(IJava2.leerTags(archivo));  //pitito
     	//IJava2.leerTags(archivo); //pitito
     	//System.out.println(IJava2.leerSinTags(html2)); //pitito
@@ -291,14 +310,14 @@ public class ReaderHtmlImpl implements IReaderHtml {
     	//System.out.println(IJava2.leerTagContents(htmlString,"title"));//pitito
     	//IJava2.leerTagContents(htmlString,"p");//pitito
     	//IJava2.leerTagContentsbyRestrictions(htmlString, "p");
-    	String stopTagList[] = {"p"};
+    	//String stopTagList[] = {"p"};
     	//String stopTagContentList[] = {""};
     	//System.out.println(stopTagList[0]);
     	//IJava2.leerTagContents(html2,"p",stopTagList, stopTagContentList);
-    	IJava2.stopTagList(stopTagList,htmlString);
+    	//IJava2.stopTagList(stopTagList,htmlString);
     	//IJava2.stopTagContentList(stopTagContentList);
     	//Java2.leerTagContents(html2, "p", stopTagList, stopTagContentList);
     	//IJava2.DivisorHtmlPorTag(html2);
-    	DivisionItem java;
+    	//DivisionItem java;
     }
 }
