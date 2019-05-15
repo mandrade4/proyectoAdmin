@@ -12,6 +12,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
+
+import pe.edu.ulasalle.dima.audata.text_pdf.library.IReaderPdf;
 import pe.edu.ulasalle.dima.audata.text_pdf.library.ReaderPdfImpl;
 
 @Path("/pdf")
