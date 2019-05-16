@@ -1,10 +1,6 @@
 package pe.edu.ulasalle.dima.audata.tts.library;
 import java.io.*;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -223,13 +219,173 @@ public class TtsSpanishDefault extends TtsGenerico implements ITts {
 				out.write(prg);
 				out.close();
 				Runtime.getRuntime().exec("python audio/"+UUIDStringRandom+".py ");
+				TimeUnit.SECONDS.sleep(10);
 			} catch (IOException e) {
+				e.printStackTrace();
+			}catch (InterruptedException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
-			byte[] b = text.getBytes();
-			return b;
+			InputStream inStream;
+			ByteArrayOutputStream b = null;
+			String flow =UUIDStringRandom+".aac";
+			try {
+				inStream = new FileInputStream(flow);
+				b = new ByteArrayOutputStream();
+			    	byte[] buffer = new byte[8192];
+			  	  int bytesRead;
+			  	  while ((bytesRead = inStream.read(buffer)) > 0) {
+			  	  b.write(buffer, 0, bytesRead);
+			    }
+			    
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println(b.toByteArray());
+			return b.toByteArray();
 			
 		}
 		
+	
+	public byte[] aac(DivisionItem divisionItem) {
+		ArrayList<String> itemsDivi = new ArrayList<String>();
+		String text = "coño";
+		
+		String titulo = divisionItem.getTitulo();
+		String contenido = divisionItem.getContenido();
+		itemsDivi.add(titulo);
+		itemsDivi.add(contenido);
+		
+		if(divisionItem.getItem()!= null) {
+			DivisionItem[] divisionItemTemp = divisionItem.getItem();		
+			for (int j = 0; j < divisionItemTemp.length; j++) {
+				if(divisionItemTemp[j].getTitulo()!= null){
+					titulo = divisionItemTemp[j].getTitulo();
+					itemsDivi.add(titulo);
+				}
+				if(divisionItemTemp[j].getContenido()!= null){
+					contenido = divisionItemTemp[j].getContenido();
+					itemsDivi.add(contenido);
+				}		
+			}
+
+			if(divisionItemTemp.length == 3) {
+				while(divisionItemTemp[2].getItem()!= null) {
+					DivisionItem[] temp = divisionItemTemp[2].getItem();
+					int j = 0;
+					for (j = 0; j < temp.length; j++) {
+						if(temp[j].getTitulo()!= null){
+							titulo = temp[j].getTitulo();
+							itemsDivi.add(titulo);
+							//System.out.println(temp[j].getTitulo());
+						}
+						if(temp[j].getContenido()!= null){
+							contenido = temp[j].getContenido();
+							itemsDivi.add(contenido);
+							//System.out.println(temp[j].getContenido());
+						}
+						if(j==2){
+							//System.out.println("divisionItemTemp[2]: "+divisionItemTemp[2].getItem());
+							//System.out.println("temp[2]:  "+temp[2].getItem());
+							divisionItemTemp[j] = temp[j];							
+						}
+					}
+					if(j == 2) {
+						divisionItemTemp[2].setItem(null);
+					}
+				}		
+			}
+		}
+		
+		for(int k=0; k < itemsDivi.size();k++) {
+			if(k % 2 == 0){
+				System.out.println("Titulo: "+itemsDivi.get(k));
+			}
+			else {
+				System.out.println("Contenido: "+itemsDivi.get(k));
+			}
+		}
+
+		byte[] b = text.getBytes();
+		return b;
+	}
+	
+	public byte[] aac(DivisionItem[] divisionItem) {
+		ArrayList<String> itemsDivi = new ArrayList<String>();
+		String titulo;
+		String contenido;
+		for (int i=0; i< divisionItem.length; i++){			
+			if(divisionItem[i].getTitulo()!= null){
+				titulo = divisionItem[i].getTitulo();
+				itemsDivi.add(titulo);
+			}
+			
+			if(divisionItem[i].getContenido()!= null){
+				contenido = divisionItem[i].getContenido();
+				itemsDivi.add(contenido);
+			}
+			
+			
+			if(divisionItem[i].getItem()!= null) {
+				DivisionItem[] divisionItemTemp = divisionItem[i].getItem();		
+				for (int j = 0; j < divisionItemTemp.length; j++) {
+					if(divisionItemTemp[j].getTitulo()!= null){
+						titulo = divisionItemTemp[j].getTitulo();
+						itemsDivi.add(titulo);
+					}
+					if(divisionItemTemp[j].getContenido()!= null){
+						contenido = divisionItemTemp[j].getContenido();
+						itemsDivi.add(contenido);
+					}		
+				}
+
+				if(divisionItemTemp.length == 3) {
+					while(divisionItemTemp[2].getItem()!= null) {
+						DivisionItem[] temp = divisionItemTemp[2].getItem();
+						int j = 0;
+						for (j = 0; j < temp.length; j++) {
+							if(temp[j].getTitulo()!= null){
+								titulo = temp[j].getTitulo();
+								itemsDivi.add(titulo);
+								//System.out.println(temp[j].getTitulo());
+							}
+							if(temp[j].getContenido()!= null){
+								contenido = temp[j].getContenido();
+								itemsDivi.add(contenido);
+								//System.out.println(temp[j].getContenido());
+							}
+							if(j==2){
+								//System.out.println("divisionItemTemp[2]: "+divisionItemTemp[2].getItem());
+								//System.out.println("temp[2]:  "+temp[2].getItem());
+								divisionItemTemp[j] = temp[j];							
+							}
+						}
+						if(j == 2) {
+							divisionItemTemp[2].setItem(null);
+						}
+					}		
+				}
+			}			
+		}
+		
+		
+		for(int k=0; k < itemsDivi.size();k++) {
+			if(k % 2 == 0){
+				System.out.println("Titulo: "+itemsDivi.get(k));
+			}
+			else {
+				System.out.println("Contenido: "+itemsDivi.get(k));
+			}
+		}
+		
+		String text = "coño";
+		byte[] b = text.getBytes();
+		return b;	
+	}
+	
 }

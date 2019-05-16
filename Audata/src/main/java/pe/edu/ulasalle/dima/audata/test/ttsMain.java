@@ -61,4 +61,24 @@ public class ttsMain {
 		return Response.status(Response.Status.CREATED).entity(obj).build();
 	}
 	
+	@POST
+	@Path("/talkOneDivisionItem2")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response talkOneDivisionItem2(DivisionItem divisionItem) {
+		TtsSpanishDefault obj = new TtsSpanishDefault();
+		obj.mp3(divisionItem);
+		return Response.status(Response.Status.CREATED).entity(divisionItem).build();
+	}
+	
+	@POST
+	@Path("/talkMultiDivisionItem2")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response talkMultiDivisionItem2(DivisionItem[] divisionItem) {
+		TtsSpanishDefault obj = new TtsSpanishDefault();
+		obj.mp3(divisionItem);
+		return Response.status(Response.Status.CREATED).entity(obj).build();
+	}
+	
 }
