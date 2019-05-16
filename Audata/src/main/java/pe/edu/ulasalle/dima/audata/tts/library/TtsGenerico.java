@@ -2,14 +2,14 @@ package pe.edu.ulasalle.dima.audata.tts.library;
 
 public class TtsGenerico {
 	
-	protected String lenguage;
+	protected String language;
 
-	public String getLenguage() {
-		return lenguage;
+	public String getLanguage() {
+		return language;
 	}
 
-	public void setLenguage(String lenguage) {
-		this.lenguage = lenguage;
+	public void setLanguage(String language) {
+		this.language = language;
 	}
 	
 	
