@@ -1,7 +1,5 @@
 package pe.edu.ulasalle.dima.audata.test;
 
-import java.io.IOException;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -31,7 +29,7 @@ public class ttsMain {
 	public Response talk2(@PathParam("text") String text) {
 		TtsSpanishDefault obj = new TtsSpanishDefault();
 		obj.aac(text);
-		return Response.ok(obj).build();
+		return Response.ok(text).build();
 	}
 	
 	@GET
@@ -39,7 +37,7 @@ public class ttsMain {
 	public Response talk(@PathParam("text") String text) {
 		TtsSpanishDefault obj = new TtsSpanishDefault();
 		obj.mp3(text);
-		return Response.ok(obj).build();
+		return Response.ok(text).build();
 	}
 	@POST
 	@Path("/talkOneDivisionItem")

@@ -30,11 +30,10 @@ public class TtsSpanishDefault extends TtsGenerico implements ITts {
 			out.write(prg);
 			out.close();
 			Runtime.getRuntime().exec("python audio/"+UUIDStringRandom+".py ");
-			TimeUnit.SECONDS.sleep(10);
+			TimeUnit.SECONDS.sleep(20);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -52,10 +51,8 @@ public class TtsSpanishDefault extends TtsGenerico implements ITts {
 		    }
 		    
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println(b.toByteArray());
@@ -63,10 +60,8 @@ public class TtsSpanishDefault extends TtsGenerico implements ITts {
 	}
 	
 	
-	// Recorrrer un array de objetos en java
 	public byte[] mp3(DivisionItem divisionItem) {
 		ArrayList<String> itemsDivi = new ArrayList<String>();
-		String text = "coño";
 		
 		String titulo = divisionItem.getTitulo();
 		String contenido = divisionItem.getContenido();
@@ -94,16 +89,12 @@ public class TtsSpanishDefault extends TtsGenerico implements ITts {
 						if(temp[j].getTitulo()!= null){
 							titulo = temp[j].getTitulo();
 							itemsDivi.add(titulo);
-							//System.out.println(temp[j].getTitulo());
 						}
 						if(temp[j].getContenido()!= null){
 							contenido = temp[j].getContenido();
 							itemsDivi.add(contenido);
-							//System.out.println(temp[j].getContenido());
 						}
 						if(j==2){
-							//System.out.println("divisionItemTemp[2]: "+divisionItemTemp[2].getItem());
-							//System.out.println("temp[2]:  "+temp[2].getItem());
 							divisionItemTemp[j] = temp[j];							
 						}
 					}
@@ -122,9 +113,14 @@ public class TtsSpanishDefault extends TtsGenerico implements ITts {
 				System.out.println("Contenido: "+itemsDivi.get(k));
 			}
 		}
-
-		byte[] b = text.getBytes();
-		return b;
+		
+		String listString = "";
+		
+		for (String s : itemsDivi) {
+			listString += s + "." + "\t";
+		}
+		
+		return mp3(listString);
 	}
 	
 	public byte[] mp3(DivisionItem[] divisionItem) {
@@ -164,16 +160,12 @@ public class TtsSpanishDefault extends TtsGenerico implements ITts {
 							if(temp[j].getTitulo()!= null){
 								titulo = temp[j].getTitulo();
 								itemsDivi.add(titulo);
-								//System.out.println(temp[j].getTitulo());
 							}
 							if(temp[j].getContenido()!= null){
 								contenido = temp[j].getContenido();
 								itemsDivi.add(contenido);
-								//System.out.println(temp[j].getContenido());
 							}
 							if(j==2){
-								//System.out.println("divisionItemTemp[2]: "+divisionItemTemp[2].getItem());
-								//System.out.println("temp[2]:  "+temp[2].getItem());
 								divisionItemTemp[j] = temp[j];							
 							}
 						}
@@ -195,9 +187,13 @@ public class TtsSpanishDefault extends TtsGenerico implements ITts {
 			}
 		}
 		
-		String text = "coño";
-		byte[] b = text.getBytes();
-		return b;	
+		String listString = "";
+		
+		for (String s : itemsDivi) {
+			listString += s + "." + "\t";
+		}
+		
+		return mp3(listString);
 	}
 
 	
@@ -223,7 +219,6 @@ public class TtsSpanishDefault extends TtsGenerico implements ITts {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -240,10 +235,8 @@ public class TtsSpanishDefault extends TtsGenerico implements ITts {
 			    }
 			    
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			System.out.println(b.toByteArray());
@@ -254,7 +247,6 @@ public class TtsSpanishDefault extends TtsGenerico implements ITts {
 	
 	public byte[] aac(DivisionItem divisionItem) {
 		ArrayList<String> itemsDivi = new ArrayList<String>();
-		String text = "coño";
 		
 		String titulo = divisionItem.getTitulo();
 		String contenido = divisionItem.getContenido();
@@ -282,16 +274,12 @@ public class TtsSpanishDefault extends TtsGenerico implements ITts {
 						if(temp[j].getTitulo()!= null){
 							titulo = temp[j].getTitulo();
 							itemsDivi.add(titulo);
-							//System.out.println(temp[j].getTitulo());
 						}
 						if(temp[j].getContenido()!= null){
 							contenido = temp[j].getContenido();
 							itemsDivi.add(contenido);
-							//System.out.println(temp[j].getContenido());
 						}
 						if(j==2){
-							//System.out.println("divisionItemTemp[2]: "+divisionItemTemp[2].getItem());
-							//System.out.println("temp[2]:  "+temp[2].getItem());
 							divisionItemTemp[j] = temp[j];							
 						}
 					}
@@ -311,8 +299,13 @@ public class TtsSpanishDefault extends TtsGenerico implements ITts {
 			}
 		}
 
-		byte[] b = text.getBytes();
-		return b;
+		String listString = "";
+		
+		for (String s : itemsDivi) {
+			listString += s + "." + "\t";
+		}
+		
+		return aac(listString);
 	}
 	
 	public byte[] aac(DivisionItem[] divisionItem) {
@@ -352,16 +345,12 @@ public class TtsSpanishDefault extends TtsGenerico implements ITts {
 							if(temp[j].getTitulo()!= null){
 								titulo = temp[j].getTitulo();
 								itemsDivi.add(titulo);
-								//System.out.println(temp[j].getTitulo());
 							}
 							if(temp[j].getContenido()!= null){
 								contenido = temp[j].getContenido();
 								itemsDivi.add(contenido);
-								//System.out.println(temp[j].getContenido());
 							}
 							if(j==2){
-								//System.out.println("divisionItemTemp[2]: "+divisionItemTemp[2].getItem());
-								//System.out.println("temp[2]:  "+temp[2].getItem());
 								divisionItemTemp[j] = temp[j];							
 							}
 						}
@@ -383,9 +372,13 @@ public class TtsSpanishDefault extends TtsGenerico implements ITts {
 			}
 		}
 		
-		String text = "coño";
-		byte[] b = text.getBytes();
-		return b;	
+		String listString = "";
+		
+		for (String s : itemsDivi) {
+			listString += s + "." + "\t";
+		}
+		
+		return aac(listString);	
 	}
 	
 }
