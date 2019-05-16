@@ -6,8 +6,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.UUID;
-
-
+import java.util.concurrent.TimeUnit;
 
 import pe.edu.ulasalle.dima.audata.dto.DivisionItem;
 import pe.edu.ulasalle.dima.audata.tts.controller.ITts;
@@ -35,11 +34,36 @@ public class TtsSpanishDefault extends TtsGenerico implements ITts {
 			out.write(prg);
 			out.close();
 			Runtime.getRuntime().exec("python audio/"+UUIDStringRandom+".py ");
+			TimeUnit.SECONDS.sleep(10);
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		byte[] bytes =null;
-		return bytes;
+
+		
+		InputStream inStream;
+		ByteArrayOutputStream b = null;
+		String flow =UUIDStringRandom+".mp3";
+		try {
+			inStream = new FileInputStream(flow);
+			b = new ByteArrayOutputStream();
+		    	byte[] buffer = new byte[8192];
+		  	  int bytesRead;
+		  	  while ((bytesRead = inStream.read(buffer)) > 0) {
+		  	  b.write(buffer, 0, bytesRead);
+		    }
+		    
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(b.toByteArray());
+		return b.toByteArray();
 	}
 	
 	
