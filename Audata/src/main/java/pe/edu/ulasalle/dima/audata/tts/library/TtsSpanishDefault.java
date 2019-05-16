@@ -1,8 +1,12 @@
 package pe.edu.ulasalle.dima.audata.tts.library;
 import java.io.*;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.UUID;
+
 
 
 import pe.edu.ulasalle.dima.audata.dto.DivisionItem;
@@ -14,7 +18,7 @@ public class TtsSpanishDefault extends TtsGenerico implements ITts {
 		super();
 	}
 	
-	public byte[] mp3(String text) {
+	public byte[] mp3(String text){
 		
 		File file = new File("audio");
 		
@@ -24,7 +28,6 @@ public class TtsSpanishDefault extends TtsGenerico implements ITts {
 		
 		UUID uuid = UUID.randomUUID();
         String UUIDStringRandom = uuid.toString();
-        
 		String prg = "from comtypes.client import CreateObject\nengine = CreateObject(\"SAPI.SpVoice\")\nstream = CreateObject(\"SAPI.SpFileStream\")\nfrom comtypes.gen import SpeechLib\nstream.Open('"+UUIDStringRandom+".mp3', SpeechLib.SSFMCreateForWrite)\nengine.AudioOutputStream = stream\nengine.speak('"+text+"')\nstream.Close()";
 		try {
 			
@@ -35,11 +38,11 @@ public class TtsSpanishDefault extends TtsGenerico implements ITts {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		byte[] b = text.getBytes();
-		return b;
-		
+		byte[] bytes =null;
+		return bytes;
 	}
+	
+	
 	// Recorrrer un array de objetos en java
 	public byte[] mp3(DivisionItem divisionItem) {
 		ArrayList<String> itemsDivi = new ArrayList<String>();
@@ -177,4 +180,32 @@ public class TtsSpanishDefault extends TtsGenerico implements ITts {
 		return b;	
 	}
 
+	
+	public byte[] aac(String text) {
+			
+			File file = new File("audio");
+			
+			if (!file.exists()) {
+				file.mkdir();
+			}
+			
+			UUID uuid = UUID.randomUUID();
+	        String UUIDStringRandom = uuid.toString();
+	        
+			String prg = "from comtypes.client import CreateObject\nengine = CreateObject(\"SAPI.SpVoice\")\nstream = CreateObject(\"SAPI.SpFileStream\")\nfrom comtypes.gen import SpeechLib\nstream.Open('"+UUIDStringRandom+".aac', SpeechLib.SSFMCreateForWrite)\nengine.AudioOutputStream = stream\nengine.speak('"+text+"')\nstream.Close()";
+			try {
+				
+				BufferedWriter out = new BufferedWriter(new FileWriter("audio/"+UUIDStringRandom+".py"));
+				out.write(prg);
+				out.close();
+				Runtime.getRuntime().exec("python audio/"+UUIDStringRandom+".py ");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			byte[] b = text.getBytes();
+			return b;
+			
+		}
+		
 }
