@@ -20,33 +20,41 @@ public class ttsMain {
 	@Path("/prueba/{nombre}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String decirHola(@PathParam("nombre") String nombre) {
+		
 		String hello = "hello " + nombre;
 		return hello;
+		
 	}
 	
 	@GET
 	@Path("/talk2/{text}")
 	public Response talk2(@PathParam("text") String text) {
+		
 		TtsSpanishDefault obj = new TtsSpanishDefault();
 		obj.aac(text);
 		return Response.ok(text).build();
+		
 	}
 	
 	@GET
 	@Path("/talk/{text}")
 	public Response talk(@PathParam("text") String text) {
+		
 		TtsSpanishDefault obj = new TtsSpanishDefault();
 		obj.mp3(text);
 		return Response.ok(text).build();
+		
 	}
 	@POST
 	@Path("/talkOneDivisionItem")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response talkOneDivisionItem(DivisionItem divisionItem) {
+		
 		TtsSpanishDefault obj = new TtsSpanishDefault();
 		obj.mp3(divisionItem);
 		return Response.status(Response.Status.CREATED).entity(divisionItem).build();
+		
 	}
 	
 	@POST
@@ -54,9 +62,11 @@ public class ttsMain {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response talkMultiDivisionItem(DivisionItem[] divisionItem) {
+		
 		TtsSpanishDefault obj = new TtsSpanishDefault();
 		obj.mp3(divisionItem);
 		return Response.status(Response.Status.CREATED).entity(obj).build();
+		
 	}
 	
 	@POST
@@ -64,9 +74,11 @@ public class ttsMain {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response talkOneDivisionItem2(DivisionItem divisionItem) {
+		
 		TtsSpanishDefault obj = new TtsSpanishDefault();
 		obj.mp3(divisionItem);
 		return Response.status(Response.Status.CREATED).entity(divisionItem).build();
+		
 	}
 	
 	@POST
@@ -74,9 +86,11 @@ public class ttsMain {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response talkMultiDivisionItem2(DivisionItem[] divisionItem) {
+		
 		TtsSpanishDefault obj = new TtsSpanishDefault();
 		obj.mp3(divisionItem);
 		return Response.status(Response.Status.CREATED).entity(obj).build();
+		
 	}
 	
 }
