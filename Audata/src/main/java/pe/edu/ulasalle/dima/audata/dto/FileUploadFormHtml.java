@@ -6,7 +6,7 @@ import org.jboss.resteasy.annotations.providers.multipart.PartType;
 public class FileUploadFormHtml {
 	private String data;
     private String[] stopTagList = {"a","p"};
-    private String[] stopTagContentList;
+    private String[] stopTagContentList = {"Parrafo"};
     private String inicio;
     private String fin;
     private String tag;
