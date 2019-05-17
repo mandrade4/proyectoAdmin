@@ -2,6 +2,7 @@ package pe.edu.ulasalle.dima.audata.text_pdf.library;
 
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -21,9 +22,7 @@ import org.apache.pdfbox.text.PDFTextStripperByArea;
 
 public class ReaderPdfImpl implements IReaderPdf {
 /*	Requerimientos hechos
- * 	1, 2, 13, 7, 8, 11, 12, 6, 4
- * 	Requerimientos
- * 	3, 5, 9, 10  	
+ * 	1, 2, 3,4,5,6,7,8,9,11,12   
  * */
 	
 	public String readPDF(byte[] fstream) throws IOException {
@@ -53,63 +52,101 @@ public class ReaderPdfImpl implements IReaderPdf {
 		
 	}
 
+	@Override
+	public String readPDF(byte[] fstream, String pagIni, String pagFin) throws FileNotFoundException, IOException {
+		try {
+			
+			int pInit = Integer.parseInt(pagIni);
+			int pFin  = Integer.parseInt(pagFin);
+			
+			if((0<pInit && pInit<numeroPaginas(fstream)) && (0<pFin && pFin<numeroPaginas(fstream)) && (pInit<=pFin)) {
+				InputStream instream = new ByteArrayInputStream(fstream);
+				PDDocument document = PDDocument.load(instream);
+				StringBuilder str = new StringBuilder();
+				
+				document.getClass();
+		
+				if (!document.isEncrypted()) {
+					
+			          PDFTextStripper tStripper = new PDFTextStripper();
+			
+			          tStripper.setStartPage(pInit);
+			          tStripper.setEndPage(pFin);
+			          
+			          String pdfFileInText = tStripper.getText(document);
+			
+			          String lines[] = pdfFileInText.split("\\r?\\n");
+			          for (String line : lines) {
+			          	str.append(line);
+			          }
+				}
+				return str.toString();
+			}
+			else {
+				return "error";
+			}
+		}catch (NumberFormatException nfe){
+			return "error";
+		}
+	}
+
+	@Override
+	public String readPDF(byte[] fstream, String pagIni, String pagFin, String strIni, String strFin) throws IOException {
+		
+		try {
+			int pInit = Integer.parseInt(pagIni);
+			int pFin  = Integer.parseInt(pagFin);
+			
+			if((0<pInit && pInit<numeroPaginas(fstream)) && (0<pFin && pFin<numeroPaginas(fstream)) && (pInit<=pFin)){
+				String cadena = readPDF(fstream,pagIni,pagFin);
+				  
+				int posicionInicio = cadena.indexOf(strIni);
+				cadena = cadena.substring(posicionInicio);
+				  
+				cadena = reverseCadena(cadena);
+				strFin = reverseCadena(strFin);
+				  
+				int posicionfin = cadena.indexOf(strFin);
+				cadena = cadena.substring(posicionfin);
+				cadena = reverseCadena(cadena);
+				  
+				return cadena.toLowerCase();
+			}
+			else {
+				return "error";
+			}
+			
+		}catch (NumberFormatException nfe){
+			return "error";
+		}
+
+	}
+	
+	public String readPDF(byte[] fstream, String pagIni, String pagFin, String[] listStop) throws IOException {
+		
+		String cadena = readPDF(fstream,pagIni,pagFin);
+		String cadena2 = stoplist(cadena, listStop);
+		return cadena2;
+
+	}
 	
 	@Override
-	public String readPDF(byte[] fstream, int pagIni, int pagFin) throws IOException{
+	public String readPDF(byte[] fstream, String pagIni, String pagFin, String strIni, String strFin, String[] stopList)
+			throws IOException {
 		
-		InputStream instream = new ByteArrayInputStream(fstream);
-		PDDocument document = PDDocument.load(instream);
-    	StringBuilder str = new StringBuilder();
-		
-		document.getClass();
-
-        if (!document.isEncrypted()) {
-		
-            PDFTextStripper tStripper = new PDFTextStripper();
-
-            tStripper.setStartPage(pagIni);
-            tStripper.setEndPage(pagFin);
-            
-            String pdfFileInText = tStripper.getText(document);
-
-            String lines[] = pdfFileInText.split("\\r?\\n");
-            for (String line : lines) {
-            	str.append(line);
-            }
-        }
-        
-		return str.toString();
+		String cadena = readPDF(fstream,pagIni,pagFin,strIni,strFin);
+		String cadena2 = stoplist(cadena, stopList);
+	    
+	    return cadena2;
 	}
-
-
-	@Override
-	public String readPDF(byte[] fstream, int page) throws IOException {
+	
+	public String readPDF(byte[] fstream, String[] stopList) throws IOException {
 		
-		InputStream instream = new ByteArrayInputStream(fstream);
-		PDDocument document = PDDocument.load(instream);
-    	StringBuilder str = new StringBuilder();
+		String cadena = readPDF(fstream);
+		String cadena2 = stoplist(cadena, stopList);
+		return cadena2;
 		
-		document.getClass();
-
-        if (!document.isEncrypted()) {
-		
-            PDFTextStripper tStripper = new PDFTextStripper();
-
-            tStripper.setStartPage(page);
-            tStripper.setEndPage(page);
-            
-            
-            String pdfFileInText = tStripper.getText(document);
-
-            String lines[] = pdfFileInText.split("\\r?\\n");
-            for (String line : lines) {
-            	str.append(line);
-            }
-        }
-        
-		return str.toString();
 	}
-
 	
 	@Override
 	public int numeroPaginas(byte[] fstream) throws IOException {
@@ -128,10 +165,103 @@ public class ReaderPdfImpl implements IReaderPdf {
 		
 		return count;
 	}
+	
+	public ArrayList<String> listaBookmark(byte[] fstream) throws IOException{
+		
+		InputStream instream = new ByteArrayInputStream(fstream);
+		PDDocument document = PDDocument.load(instream);
+		PDDocumentOutline outline =  document.getDocumentCatalog().getDocumentOutline();
+		
+		LinkedHashMap<String,Integer> listBookmark = new LinkedHashMap<String,Integer>();
+		listBookmark(outline,listBookmark);
+		
+		ArrayList<String> listaBookmark = new ArrayList<String>();
+		for(Map.Entry<String,Integer> iter : listBookmark.entrySet()) {
+			listaBookmark.add(iter.getKey());
+		}
+		
+		return listaBookmark;
+		
+	}
+	
+	public String leerBookmark(byte[] inputStream, String bookmark) throws IOException{
+		
+		InputStream instream = new ByteArrayInputStream(inputStream);
+		PDDocument doc = PDDocument.load(instream);
+		PDDocumentOutline outlines = doc.getDocumentCatalog().getDocumentOutline();
+		
+		if (outlines == null) {
+			return "Este documento no contiene marcadores";
+		}
+		
+        LinkedHashMap<PDOutlineItem,Integer> listBookMarks = new LinkedHashMap<PDOutlineItem,Integer>();
+        bookmarksInfo(listBookMarks, outlines, 0);		
+        Integer lvlIni = 0; 
+        Integer lvlEnd = 0;
+        PDOutlineItem ini = null; 
+        PDOutlineItem end = null;
+        
+        for (Map.Entry<PDOutlineItem, Integer> iter : listBookMarks.entrySet()) {
+        	
+        	lvlEnd = iter.getValue();
+        	if(lvlIni - lvlEnd > 0) {
+        		end = iter.getKey();
+        		break;
+        	} 
+        	
+        	if (lvlIni != 0 && lvlIni == iter.getValue()) {
+        		end = iter.getKey();
+        		break;
+        	} else if (iter.getKey().getTitle().equals(bookmark)) {
+        		lvlIni = iter.getValue();
+        		ini = iter.getKey();
+        	} 
+        }
+        
+        if(ini == null) {
+    		return "Marcador no encontrado";
+        }
+        
+        PDFTextStripper stripper = new PDFTextStripper();
+		
+		stripper.setStartBookmark(ini);
+		
+		if (end != null) {
+			stripper.setEndBookmark(end);
+			
+			String pdfFileInText = stripper.getText(doc);
+			int posicionInicio = pdfFileInText.indexOf(ini.getTitle());
+			pdfFileInText = pdfFileInText.substring(posicionInicio);
+			
+			pdfFileInText = reverseCadena(pdfFileInText);
+			String strFin = reverseCadena(end.getTitle());
 
-
+			int posicionFin = pdfFileInText.indexOf(strFin);
+			pdfFileInText = pdfFileInText.substring(posicionFin);
+			pdfFileInText = reverseCadena(pdfFileInText);
+			
+			return pdfFileInText.replace(end.getTitle(), "");
+		}
+		
+		String pdfFileInText = stripper.getText(doc);
+		
+		return pdfFileInText;
+		
+	}
+		
+	public String leerBookmark(byte[] inputStream, String bookmark, String[] stopList) throws IOException{
+		
+		String temp = leerBookmark (inputStream, bookmark);
+	    temp = temp.toLowerCase();
+	    
+	    String cadena = stoplist(temp,stopList);
+	    
+	    return cadena;
+	}
+	
 	@Override
 	public int bookmarkPagIni(byte[] fstream, String bookmark) throws IOException {
+		
 		InputStream instream = new ByteArrayInputStream(fstream);
     	PDDocument doc = PDDocument.load(instream);
         PDDocumentOutline outline =  doc.getDocumentCatalog().getDocumentOutline();
@@ -140,8 +270,8 @@ public class ReaderPdfImpl implements IReaderPdf {
 		listBookmark(outline,listBookmarks);
 		
 		return listBookmarks.get(bookmark);
+		
 	}
-
 	
 	public int bookmarkPagFin(byte[] fstream, String bookmark) throws IOException {
 		
@@ -166,100 +296,28 @@ public class ReaderPdfImpl implements IReaderPdf {
     			titlesLevel.add(iter.getKey().getTitle());
     		}
     	}
-    	System.out.println(listB);
+    	
     	if(bookmark.equals(titlesLevel.get(titlesLevel.size()-1))) {
-    		System.out.println(values.get(keys.indexOf(bookmark)));
+    		return values.get(keys.indexOf(bookmark));
     	} else {
-
-    		System.out.println(values.get(keys.indexOf(titlesLevel.get(titlesLevel.indexOf(bookmark)+1))));
+    		return values.get(keys.indexOf(titlesLevel.get(titlesLevel.indexOf(bookmark)+1)));
     	}
-    	
-		return 0;
-    	
+
 	}
-	
-	
-	public String readPDF(byte[] fstream, String[] listStop) throws IOException {
-			
-		return readPDF(fstream, -1,  -1, listStop); 
-		
-	}
-		  
-		  
-	public String readPDF(byte[] fstream, int pagIni, int pagFin, String[] listStop) throws IOException {
-		  
-		InputStream instream = new ByteArrayInputStream(fstream);
-		PDDocument document = PDDocument.load(instream);
-		StringBuilder str = new StringBuilder();
-		String[] stopLista = listStop;
-					
-		document.getClass();
-
-		if (!document.isEncrypted()) {
-			
-			PDFTextStripper tStripper = new PDFTextStripper();
-			if (pagIni != -1)
-		    tStripper.setStartPage(pagIni);
-			if (pagFin != -1)
-			tStripper.setEndPage(pagFin);
-		    
-		    String pdfFileInText = tStripper.getText(document);
-		
-		    String lines[] = pdfFileInText.split("\\r?\\n");
-		    for (String line : lines) {
-		    	str.append(line);
-		    }
-		}
-  
-		String temp = str.toString();
-		temp = temp.toLowerCase();
-		  
-		for (int i=0; i<stopLista.length ;i++ ){
-			temp = temp.replace(" " + stopLista[i].toLowerCase()+ " "," ");
-		}
-		
-		return temp;
-	  }
-
-
-	
 	
 	@Override
-	public String readPDF(byte[] fstream, int pagIni, int pagFin, String strIni, String strFin) throws IOException {
-
-		String cadena = readPDF(fstream,pagIni,pagFin);
-		  
-		int posicionInicio = cadena.indexOf(strIni);
-		cadena = cadena.substring(posicionInicio);
-		  
-		cadena = reverseCadena(cadena);
-		strFin = reverseCadena(strFin);
-		  
-		int posicionfin = cadena.indexOf(strFin);
-		cadena = cadena.substring(posicionfin);
-		cadena = reverseCadena(cadena);
-		  
-		return cadena.toLowerCase();
-	}
+	public String readPDF(byte[] fstream, String page) throws IOException {
 	
+		String result = readPDF(fstream, page, page);
+		return result;
 	
-
-
-	@Override
-	public String readPDF(byte[] fstream, int pagIni, int pagFin, String strIni, String strFin, String[] stopList)
-			throws IOException {
-		
-		String cadena = readPDF(fstream,pagIni,pagFin,strIni,strFin);
-		
-		for (int i=0; i<stopList.length ;i++ ){
-			cadena = cadena.replace(" " + stopList[i].toLowerCase()+ " "," ");
-	    }
-	    
-	    return cadena;
 	}
 
+
+	/*
+	 *FUNCIONES  EXTRA 
+	 */
 	
-	//Funciones adicionales
 	@Override
 	public String reverseCadena(String cadena) {
 		
@@ -274,7 +332,7 @@ public class ReaderPdfImpl implements IReaderPdf {
 
 	}
 	
-	public LinkedHashMap<String, Integer> listBookmark(PDOutlineNode bookmark,
+	public LinkedHashMap<String,Integer> listBookmark(PDOutlineNode bookmark,
 			LinkedHashMap<String, Integer> listBookmarks) throws IOException {
         
 		PDOutlineItem current = bookmark.getFirstChild();
@@ -306,7 +364,6 @@ public class ReaderPdfImpl implements IReaderPdf {
 		while (current != null) {
 			level++;
 			map.put(current, level);
-			System.out.println( current.getTitle() +"->" + level);
 			bookmarksInfo(map, current, level);
 			current = current.getNextSibling();
 			level--;
@@ -322,9 +379,32 @@ public class ReaderPdfImpl implements IReaderPdf {
     		keys.add(iter.getKey().getTitle());
     	}
         List<Integer> values = new ArrayList<Integer>(map.values());
-		
-//        return values.get(keys.indexOf(bookmark));     
+    
         return values.get(keys.indexOf(bookmark));
+	}
+
+	@Override
+	public String stoplist(String cadena, String[] stopList) {
+		cadena = cadena.toLowerCase();
+		for (int i=0; i<stopList.length ;i++ ){
+			cadena = cadena.replace(" " + stopList[i].toLowerCase()+ " "," ");
+			cadena = cadena.replace(" " + stopList[i].toLowerCase()+ "."," ");
+			cadena = cadena.replace(" " + stopList[i].toLowerCase()+ ", "," ");
+			cadena = cadena.replace(" " + stopList[i].toLowerCase()+ "; "," ");
+			cadena = cadena.replace(" " + stopList[i].toLowerCase()+ ": "," ");
+			cadena = cadena.replace(" (" + stopList[i].toLowerCase()+ ") "," ");
+			cadena = cadena.replace(" (" + stopList[i].toLowerCase()+ "), "," ");
+			cadena = cadena.replace(" (" + stopList[i].toLowerCase()+ "). "," ");
+			cadena = cadena.replace(" ¿" + stopList[i].toLowerCase()+ "? "," ");
+			cadena = cadena.replace(" <" + stopList[i].toLowerCase()+ "> "," ");
+			cadena = cadena.replace(" [" + stopList[i].toLowerCase()+ "] "," ");
+			cadena = cadena.replace(" [" + stopList[i].toLowerCase()+ " ","[");
+			cadena = cadena.replace(" " + stopList[i].toLowerCase()+ "] ","]");
+			cadena = cadena.replace(" \"" + stopList[i].toLowerCase()+ "\" "," ");
+			cadena = cadena.replace(" {" + stopList[i].toLowerCase()+ "} "," ");
+			
+	    }
+	    return cadena;
 	}
 
 }

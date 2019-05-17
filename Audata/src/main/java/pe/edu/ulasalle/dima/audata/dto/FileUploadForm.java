@@ -6,38 +6,57 @@ import org.jboss.resteasy.annotations.providers.multipart.PartType;
 public class FileUploadForm {
 
     private byte[] data;
-    private int inicio;
-    private int fin;
-    private String[] stopList = {"pdf", "advanced"};
+    private String[] stopList = {"ADVANCED","ELEMENTS","pdf"};
     private String palabraInicio;
     private String palabraFin;
     private String bookmark;
+    
     private int pagina;
+
+    private String paginaInicio;
+    private String paginaFin;
     
+    public FileUploadForm() {
+    }
     
-    public String getBookmark() {
-		return bookmark;
+    public String getPaginaInicio() {
+		return paginaInicio;
 	}
+    
+    @FormParam("paginaInicio")
+	public void setPaginaInicio(String paginaInicio) {
+		this.paginaInicio = paginaInicio;
+	}
+
+	public String getPaginaFin() {
+		return paginaFin;
+	}
+	
+	@FormParam("paginaFin")
+	public void setPaginaFin(String paginaFin) {
+		this.paginaFin = paginaFin;
+	}
+
+	public String getBookmark() {
+        return bookmark;
+    }
 
     @FormParam("sbook")
-	public void setBookmark(String bookmark) {
-		this.bookmark = bookmark;
-	}
+    public void setBookmark(String bookmark) {
+        this.bookmark = bookmark;
+    }
 
     public int getPagina() {
-		return pagina;
-	}
+        return pagina;
+    }
 
     @FormParam("page")
-	public void setPagina(int pagina) {
-		this.pagina = pagina;
-	}
+    public void setPagina(int pagina) {
+        this.pagina = pagina;
+    }
 
-	public String[] getStopList() {
-		return stopList;
-	}
-
-	public FileUploadForm() {
+    public String[] getStopList() {
+        return stopList;
     }
 
     public byte[] getData() {
@@ -50,42 +69,22 @@ public class FileUploadForm {
         this.data = data;
     }
 
-    public int getInicio() {
-        return inicio;
+    public String getPalabraInicio() {
+        return palabraInicio;
     }
 
-    @FormParam("init")
-    public void setInicio(int inicio) {
-        this.inicio = inicio;
+    @FormParam("pini")
+    public void setPalabraInicio(String palabraInicio) {
+        this.palabraInicio = palabraInicio;
     }
 
-    public int getFin() {
-        return fin;
+    public String getPalabraFin() {
+        return palabraFin;
     }
 
-    @FormParam("end")
-    public void setFin(int fin) {
-        this.fin = fin;
+    @FormParam("pfin")
+    public void setPalabraFin(String palabraFin) {
+        this.palabraFin = palabraFin;
     }
-
-	public String getPalabraInicio() {
-		return palabraInicio;
-	}
-
-	@FormParam("pini")
-	public void setPalabraInicio(String palabraInicio) {
-		this.palabraInicio = palabraInicio;
-	}
-
-	public String getPalabraFin() {
-		return palabraFin;
-	}
-
-	@FormParam("pfin")
-	public void setPalabraFin(String palabraFin) {
-		this.palabraFin = palabraFin;
-	}
-    
-    
 
 }
