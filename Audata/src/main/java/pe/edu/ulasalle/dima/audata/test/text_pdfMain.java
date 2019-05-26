@@ -16,8 +16,8 @@ import javax.ws.rs.core.Response;
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 
 import pe.edu.ulasalle.dima.audata.dto.FileUploadForm;
-import pe.edu.ulasalle.dima.audata.text_pdf.library.IReaderPdf;
-import pe.edu.ulasalle.dima.audata.text_pdf.library.ReaderPdfImpl;
+import pe.edu.ulasalle.dima.audata.text_pdf.controller.IReaderPdf;
+import pe.edu.ulasalle.dima.audata.text_pdf.controller.ReaderPdfImpl;
 
 @Path("/pdf")
 public class text_pdfMain {

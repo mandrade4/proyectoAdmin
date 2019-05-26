@@ -11,7 +11,7 @@ import org.apache.pdfbox.pdmodel.interactive.documentnavigation.outline.PDOutlin
 import org.apache.pdfbox.pdmodel.interactive.documentnavigation.outline.PDOutlineNode;
 
 
-public interface IReaderPdf {
+public interface IReaderPdfLibrary {
 	
 	public String readPDF( byte[] fstream )throws IOException;
 	
