@@ -1,7 +1,6 @@
-package pe.edu.ulasalle.dima.audata.text_pdf.library;
+package pe.edu.ulasalle.dima.audata.text_pdf.engine;
 
 import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.encryption.InvalidPasswordException;
 import org.apache.pdfbox.pdmodel.interactive.action.PDActionGoTo;
 import org.apache.pdfbox.pdmodel.interactive.documentnavigation.destination.PDPageDestination;
 import org.apache.pdfbox.pdmodel.interactive.documentnavigation.outline.PDDocumentOutline;
@@ -20,11 +18,9 @@ import org.apache.pdfbox.pdmodel.interactive.documentnavigation.outline.PDOutlin
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.pdfbox.text.PDFTextStripperByArea;
 
-public class ReaderPdfImpl implements IReaderPdf {
-/*	Requerimientos hechos
- * 	1, 2, 3,4,5,6,7,8,9,11,12   
- * */
-	
+public class ReaderPdfImplEngine implements IReaderPdfEngine {
+
+	//PDF ENGINE
 	public String readPDF(byte[] fstream) throws IOException {
 		
 		InputStream instream = new ByteArrayInputStream(fstream);
@@ -32,20 +28,18 @@ public class ReaderPdfImpl implements IReaderPdf {
     	StringBuilder str = new StringBuilder();
 		
 		document.getClass();
-
-        if (!document.isEncrypted()) {
 		
-            PDFTextStripperByArea stripper = new PDFTextStripperByArea();
-            stripper.setSortByPosition(true);
+        PDFTextStripperByArea stripper = new PDFTextStripperByArea();
+        stripper.setSortByPosition(true);
 
-            PDFTextStripper tStripper = new PDFTextStripper();
+        PDFTextStripper tStripper = new PDFTextStripper();
 
-            String pdfFileInText = tStripper.getText(document);
+        String pdfFileInText = tStripper.getText(document);
 
-            String lines[] = pdfFileInText.split("\\r?\\n");
-            for (String line : lines) {
-            	str.append(line);
-            }
+        String lines[] = pdfFileInText.split("\\r?\\n");
+        for (String line : lines) {
+        	str.append(line);
+            
         }
         
 		return str.toString();
@@ -58,6 +52,7 @@ public class ReaderPdfImpl implements IReaderPdf {
 			
 			int pInit = Integer.parseInt(pagIni);
 			int pFin  = Integer.parseInt(pagFin);
+			System.out.println(pInit+" "+pFin);
 			
 			if((0<pInit && pInit<numeroPaginas(fstream)) && (0<pFin && pFin<numeroPaginas(fstream)) && (pInit<=pFin)) {
 				InputStream instream = new ByteArrayInputStream(fstream);
@@ -99,18 +94,28 @@ public class ReaderPdfImpl implements IReaderPdf {
 			
 			if((0<pInit && pInit<numeroPaginas(fstream)) && (0<pFin && pFin<numeroPaginas(fstream)) && (pInit<=pFin)){
 				String cadena = readPDF(fstream,pagIni,pagFin);
-				  
-				int posicionInicio = cadena.indexOf(strIni);
-				cadena = cadena.substring(posicionInicio);
-				  
-				cadena = reverseCadena(cadena);
-				strFin = reverseCadena(strFin);
-				  
-				int posicionfin = cadena.indexOf(strFin);
-				cadena = cadena.substring(posicionfin);
-				cadena = reverseCadena(cadena);
-				  
-				return cadena.toLowerCase();
+				cadena = cadena.toLowerCase();
+				strIni = strIni.toLowerCase();
+				strFin = strFin.toLowerCase();
+				if(cadena.contains(strIni)== true && cadena.contains(strFin)==true) {
+
+					int posicionInicio = cadena.indexOf(strIni);
+					cadena = cadena.substring(posicionInicio);
+					  
+					cadena = reverseCadena(cadena);
+					strFin = reverseCadena(strFin);
+					  
+					int posicionfin = cadena.indexOf(strFin);
+					cadena = cadena.substring(posicionfin);
+					cadena = reverseCadena(cadena);
+					  
+					return cadena.toLowerCase();
+					
+				}
+				else {
+					return "palabra no encontrada";
+				}
+				
 			}
 			else {
 				return "error";
@@ -387,6 +392,7 @@ public class ReaderPdfImpl implements IReaderPdf {
 	public String stoplist(String cadena, String[] stopList) {
 		cadena = cadena.toLowerCase();
 		for (int i=0; i<stopList.length ;i++ ){
+		
 			cadena = cadena.replace(" " + stopList[i].toLowerCase()+ " "," ");
 			cadena = cadena.replace(" " + stopList[i].toLowerCase()+ "."," ");
 			cadena = cadena.replace(" " + stopList[i].toLowerCase()+ ", "," ");
@@ -395,7 +401,7 @@ public class ReaderPdfImpl implements IReaderPdf {
 			cadena = cadena.replace(" (" + stopList[i].toLowerCase()+ ") "," ");
 			cadena = cadena.replace(" (" + stopList[i].toLowerCase()+ "), "," ");
 			cadena = cadena.replace(" (" + stopList[i].toLowerCase()+ "). "," ");
-			cadena = cadena.replace(" ¿" + stopList[i].toLowerCase()+ "? "," ");
+			cadena = cadena.replace(" Â¿" + stopList[i].toLowerCase()+ "? "," ");
 			cadena = cadena.replace(" <" + stopList[i].toLowerCase()+ "> "," ");
 			cadena = cadena.replace(" [" + stopList[i].toLowerCase()+ "] "," ");
 			cadena = cadena.replace(" [" + stopList[i].toLowerCase()+ " ","[");
@@ -407,4 +413,5 @@ public class ReaderPdfImpl implements IReaderPdf {
 	    return cadena;
 	}
 
+	
 }

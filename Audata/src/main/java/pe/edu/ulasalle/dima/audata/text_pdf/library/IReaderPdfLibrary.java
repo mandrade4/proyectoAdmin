@@ -1,12 +1,19 @@
-package pe.edu.ulasalle.dima.audata.text_pdf.controller;
+package pe.edu.ulasalle.dima.audata.text_pdf.library;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
-public interface IReaderPdf {
+import org.apache.pdfbox.pdmodel.interactive.documentnavigation.outline.PDOutlineItem;
+import org.apache.pdfbox.pdmodel.interactive.documentnavigation.outline.PDOutlineNode;
 
-  public String readPDF( byte[] fstream )throws IOException;
+
+public interface IReaderPdfLibrary {
+	
+	public String readPDF( byte[] fstream )throws IOException;
 	
 	public String readPDF(byte[] fstream, String pagIni, String pagFin)throws FileNotFoundException,IOException;
 
@@ -32,4 +39,20 @@ public interface IReaderPdf {
 	
 	public String readPDF( byte[] fstream, String page) throws IOException;
 
+	/*
+	 * FUNCIONES EXTRA
+	 */
+	
+	public LinkedHashMap<String, Integer> listBookmark (PDOutlineNode bookmark, 
+			LinkedHashMap<String,Integer> listBookmarks) throws IOException;
+	
+	public String reverseCadena(String cadena);
+
+	public String stoplist(String cadena, String[] stopList);
+	
+	public LinkedHashMap<PDOutlineItem, Integer> bookmarksInfo(LinkedHashMap<PDOutlineItem, Integer> map,
+			PDOutlineNode bookmark, Integer level) throws IOException;
+	
+	public int getLevel(LinkedHashMap<PDOutlineItem, Integer> map, String bookmark);
+	
 }

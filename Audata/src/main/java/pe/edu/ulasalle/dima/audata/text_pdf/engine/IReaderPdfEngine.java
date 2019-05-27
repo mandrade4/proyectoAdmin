@@ -1,7 +1,5 @@
-package pe.edu.ulasalle.dima.audata.text_pdf.library;
+package pe.edu.ulasalle.dima.audata.text_pdf.engine;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,9 +8,8 @@ import java.util.LinkedHashMap;
 import org.apache.pdfbox.pdmodel.interactive.documentnavigation.outline.PDOutlineItem;
 import org.apache.pdfbox.pdmodel.interactive.documentnavigation.outline.PDOutlineNode;
 
+public interface IReaderPdfEngine {
 
-public interface IReaderPdf {
-	
 	public String readPDF( byte[] fstream )throws IOException;
 	
 	public String readPDF(byte[] fstream, String pagIni, String pagFin)throws FileNotFoundException,IOException;
