@@ -10,7 +10,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import pe.edu.ulasalle.dima.audata.dto.DivisionItem;
-import pe.edu.ulasalle.dima.audata.tts.library.TtsSpanishDefault;
+import pe.edu.ulasalle.dima.audata.tts.engine.TtsSpanishDefault;
 
 
 @Path("/tts")
