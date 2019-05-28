@@ -1,6 +1,6 @@
 package pe.edu.ulasalle.dima.audata.tts.library;
 
-public class TtsGenerico {
+public class TtsGenericoLibrary {
 	
 	protected String language;
 

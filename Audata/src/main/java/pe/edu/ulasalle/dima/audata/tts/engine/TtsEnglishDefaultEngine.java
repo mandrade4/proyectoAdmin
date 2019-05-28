@@ -13,12 +13,12 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import pe.edu.ulasalle.dima.audata.dto.DivisionItem;
-import pe.edu.ulasalle.dima.audata.tts.engine.TtsGenerico;
+import pe.edu.ulasalle.dima.audata.tts.engine.TtsGenericoEngine;
 import pe.edu.ulasalle.dima.audata.tts.engine.ITts;
 
-public class TtsEnglishDefault extends TtsGenerico implements ITts {
+public class TtsEnglishDefaultEngine extends TtsGenericoEngine implements ITts {
 	
-	public TtsEnglishDefault() {
+	public TtsEnglishDefaultEngine() {
 		
 		super();
 		
