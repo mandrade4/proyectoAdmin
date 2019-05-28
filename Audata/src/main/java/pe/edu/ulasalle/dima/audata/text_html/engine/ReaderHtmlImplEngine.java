@@ -1,6 +1,5 @@
-package pe.edu.ulasalle.dima.audata.text_html.library;
+package pe.edu.ulasalle.dima.audata.text_html.engine;
 
-import pe.edu.ulasalle.dima.audata.text_html.library.IReaderHtml;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -20,14 +19,14 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-public class ReaderHtmlImpl implements IReaderHtml {
+public class ReaderHtmlImplEngine implements IReaderHtmlEngine {
 	String[] tagList;
 	String[] stopTagList;
 	String[] stopTagContentList;
 	String tagContent;
 	
     //Constructor con el mismo nombre de la clase
-    public ReaderHtmlImpl(){}
+    public ReaderHtmlImplEngine(){}
 
     //Métodos de la clase
     
@@ -181,7 +180,7 @@ public class ReaderHtmlImpl implements IReaderHtml {
 	
 	public String[] DivisorHtmlPorTag(String htmlI) throws IOException{
 	    stopTagList= tagList;
-	    ReaderHtmlImpl reader = new ReaderHtmlImpl();
+	    ReaderHtmlImplEngine reader = new ReaderHtmlImplEngine();
 	    String[] divisorItems = reader.leerTags(htmlI);	
 	    List<String> tagList = new ArrayList<String>();
 	    for(int x = 1; x < divisorItems.length; x++){ 
@@ -273,12 +272,12 @@ public class ReaderHtmlImpl implements IReaderHtml {
     public static void main(String[] args) throws IOException
     {
     	//ARCHIVOS DE EJEMPLO
-    	//ReaderHtmlImpl IJava2 = new ReaderHtmlImpl();
-    	//String archivo = ("C:/Users/USUARIO/Desktop/Yasiel Final/Archivos/ArchivoBueno.html");
+    	ReaderHtmlImplEngine IJava2 = new ReaderHtmlImplEngine();
+    	String archivo = ("C:/Users/USUARIO/Desktop/Yasiel Final/Archivos/ArchivoBueno.html");
     	//String htmlString = "<html><head><title>My title</title></head>" + "<body>Body content<p>Parrafo1<p>Parrafo2</p></p></body></html>";
-    	//String html2 = IJava2.procesarHTML(archivo);
+    	String html2 = IJava2.procesarHTML(archivo);
     	//FUNCIONES
-    	//System.out.println(IJava2.leerSinTags(html2)); //funciona
+    	System.out.println(IJava2.leerSinTags(html2)); //funciona
     	//System.out.println(IJava2.leerSinTagParametros(archivo,"Parrafo2","comunidad")); //funciona
     	//System.out.println(IJava2.leerTags(html2));  //funciona
     	//IJava2.leerTags(archivo); //funciona

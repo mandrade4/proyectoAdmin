@@ -1,10 +1,10 @@
-package pe.edu.ulasalle.dima.audata.text_html.library;
+package pe.edu.ulasalle.dima.audata.text_html.engine;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
-public interface IReaderHtml {
+public interface IReaderHtmlEngine {
 
 	public String leerSinTags( String html ) throws IOException;
 	

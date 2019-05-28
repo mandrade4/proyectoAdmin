@@ -12,8 +12,9 @@ import javax.ws.rs.core.Response;
 
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 import pe.edu.ulasalle.dima.audata.dto.FileUploadFormHtml;
-import pe.edu.ulasalle.dima.audata.text_html.library.IReaderHtml;
-import pe.edu.ulasalle.dima.audata.text_html.library.ReaderHtmlImpl;
+
+import pe.edu.ulasalle.dima.audata.text_html.controller.IReaderHtml;
+import pe.edu.ulasalle.dima.audata.text_html.controller.ReaderHtmlImpl;
 
 
 @Path("/html")
