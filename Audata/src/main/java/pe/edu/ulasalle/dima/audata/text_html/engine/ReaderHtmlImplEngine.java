@@ -34,6 +34,14 @@ public class ReaderHtmlImplEngine implements IReaderHtmlEngine {
     	Document doc = Jsoup.parse(htmlI);	
     	return doc.text();
     }
+    
+    public void leer() throws IOException {
+        String webPage = "https://www.ulasalle.edu.pe/";
+        String html = Jsoup.connect(webPage).get().html();
+        Document doc = Jsoup.parse(html);
+        //System.out.println(html);
+        System.out.println(doc.text());
+    }
 
     public String[] leerTags(String htmlI) throws IOException{
     	List<String> tagList = new ArrayList<String>();
@@ -277,7 +285,7 @@ public class ReaderHtmlImplEngine implements IReaderHtmlEngine {
     	//String htmlString = "<html><head><title>My title</title></head>" + "<body>Body content<p>Parrafo1<p>Parrafo2</p></p></body></html>";
     	String html2 = IJava2.procesarHTML(archivo);
     	//FUNCIONES
-    	System.out.println(IJava2.leerSinTags(html2)); //funciona
+    	//System.out.println(IJava2.leerSinTags(html2)); //funciona
     	//System.out.println(IJava2.leerSinTagParametros(archivo,"Parrafo2","comunidad")); //funciona
     	//System.out.println(IJava2.leerTags(html2));  //funciona
     	//IJava2.leerTags(archivo); //funciona
@@ -292,6 +300,6 @@ public class ReaderHtmlImplEngine implements IReaderHtmlEngine {
     	//String stopTagList[] = {"body"};//funciona
     	//IJava2.stopTagList(stopTagList,htmlString);//funciona
     	//System.out.println(IJava2.leerSinTagPorFraseTitulo(html2));//funciona
-
+    	IJava2.leer();
     }
 }
