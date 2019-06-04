@@ -1,6 +1,12 @@
 package pe.edu.ulasalle.dima.audata.api.controller;
 
-import pe.edu.ulasalle.dima.audata.tts.controller.*; 
+import pe.edu.ulasalle.dima.audata.tts.controller.*;
+import pe.edu.ulasalle.dima.audata.text_html.controller.*;
+import pe.edu.ulasalle.dima.audata.text_pdf.controller.*;
+import java.io.IOException;
+
+import pe.edu.ulasalle.dima.audata.dto.DTOapi;
+
 
 public class ApiImpl implements IAudataApi {
 
@@ -11,4 +17,30 @@ public class ApiImpl implements IAudataApi {
 		
 	}
 
+	@Override
+	public byte[] aac(String text) {
+
+		TtsSpanishDefault obj = new TtsSpanishDefault();
+		return obj.aac(text);
+		
+	}
+
+	@Override
+	public byte[] mp3HtmlSinTags(String text) throws IOException {
+		
+		IReaderHtml obj = new ReaderHtmlImpl();
+		String html = obj.leer(text);
+		return mp3(html);
+	
+	}
+
+	@Override
+	public byte[] mp3Pdf(byte[] fstream, String pagina) throws IOException {
+		
+		IReaderPdf obj = new ReaderPdfImpl();
+		String pdf = obj.readPDF(fstream, pagina);
+		return mp3(pdf);
+		
+	}
+	
 }

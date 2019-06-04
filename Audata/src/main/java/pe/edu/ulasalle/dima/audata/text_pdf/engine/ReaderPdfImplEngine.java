@@ -38,8 +38,7 @@ public class ReaderPdfImplEngine implements IReaderPdfEngine {
 
         String lines[] = pdfFileInText.split("\\r?\\n");
         for (String line : lines) {
-        	str.append(line);
-            
+        	str.append(line);            
         }
         
 		return str.toString();
@@ -392,7 +391,6 @@ public class ReaderPdfImplEngine implements IReaderPdfEngine {
 	public String stoplist(String cadena, String[] stopList) {
 		cadena = cadena.toLowerCase();
 		for (int i=0; i<stopList.length ;i++ ){
-		
 			cadena = cadena.replace(" " + stopList[i].toLowerCase()+ " "," ");
 			cadena = cadena.replace(" " + stopList[i].toLowerCase()+ "."," ");
 			cadena = cadena.replace(" " + stopList[i].toLowerCase()+ ", "," ");
