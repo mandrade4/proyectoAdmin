@@ -8,6 +8,8 @@ public interface IReaderHtmlEngine {
 
 	public String leerSinTags( String html ) throws IOException;
 	
+	public String leer(String html ) throws IOException;
+	
 	public String[] leerTags (String htmlI) throws IOException;
 	
 	public String leerTagContents ( String htmlI, String tagI) throws IOException;

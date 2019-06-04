@@ -130,5 +130,18 @@ public class text_htmlMain {
                 .entity(retorno).build();
 
     }
+
+	@POST
+    @Path("/pruebahtml10")
+    @Consumes("multipart/form-data")
+    public Response uploadedFileHtml9(@MultipartForm FileUploadFormHtml form) throws IOException {
+        
+		IReaderHtml obj = new ReaderHtmlImpl();
+        String html = obj.leer(form.getData());
+        
+        return Response.status(200)
+                .entity(html).build();
+
+    }
 	
 }

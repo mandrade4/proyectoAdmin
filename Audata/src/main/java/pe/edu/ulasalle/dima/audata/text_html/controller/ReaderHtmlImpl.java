@@ -16,6 +16,14 @@ public class ReaderHtmlImpl implements IReaderHtml {
 		
 		return obj.leerSinTags(html);
 	}
+	
+	@Override
+	public String leer(String html) throws IOException {
+		
+		IReaderHtmlLibrary obj = new ReaderHtmlImplLibrary();
+		
+		return obj.leer(html);
+	}
 
 	@Override
 	public String[] leerTags(String htmlI) throws IOException {

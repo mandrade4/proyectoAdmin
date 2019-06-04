@@ -35,12 +35,13 @@ public class ReaderHtmlImplEngine implements IReaderHtmlEngine {
     	return doc.text();
     }
     
-    public void leer() throws IOException {
-        String webPage = "https://www.ulasalle.edu.pe/";
+    public String leer(String htmlI) throws IOException {
+        String webPage = htmlI;
         String html = Jsoup.connect(webPage).get().html();
         Document doc = Jsoup.parse(html);
         //System.out.println(html);
         System.out.println(doc.text());
+        return doc.text();
     }
 
     public String[] leerTags(String htmlI) throws IOException{
@@ -300,6 +301,6 @@ public class ReaderHtmlImplEngine implements IReaderHtmlEngine {
     	//String stopTagList[] = {"body"};//funciona
     	//IJava2.stopTagList(stopTagList,htmlString);//funciona
     	//System.out.println(IJava2.leerSinTagPorFraseTitulo(html2));//funciona
-    	IJava2.leer();
+    	IJava2.leer("https://www.hazunaweb.com/curso-de-html/estructura-basica-una-pagina-web/");
     }
 }

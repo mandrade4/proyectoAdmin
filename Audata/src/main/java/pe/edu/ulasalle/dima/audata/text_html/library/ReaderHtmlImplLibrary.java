@@ -42,6 +42,16 @@ public class ReaderHtmlImplLibrary implements IReaderHtmlLibrary{
 			return "El Html no contiene texto";
 		}
     }
+    
+    public String leer(String htmlI) throws IOException {
+    	IReaderHtmlEngine obj = new ReaderHtmlImplEngine();
+		String text = obj.leer(htmlI); 
+		if (!text.isBlank()) {
+			return text;
+		}else{
+			return "El Html no contiene texto";
+		}
+    }
 
     public String[] leerTags(String htmlI) throws IOException{
     	ReaderHtmlImplEngine obj = new ReaderHtmlImplEngine();

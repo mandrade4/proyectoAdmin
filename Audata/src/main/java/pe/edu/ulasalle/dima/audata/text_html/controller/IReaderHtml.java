@@ -8,6 +8,8 @@ public interface IReaderHtml {
 
 	public String leerSinTags( String html ) throws IOException;
 	
+	public String leer(String html) throws IOException;
+	
 	public String[] leerTags (String htmlI) throws IOException;
 	
 	public String leerTagContents ( String htmlI, String tagI) throws IOException;
@@ -21,4 +23,5 @@ public interface IReaderHtml {
     public String leerSinTagParametros( String html,String a ,String b ) throws FileNotFoundException, IOException;
 
     public List<String> leerSinTagPorFraseTitulo( String html) throws FileNotFoundException, IOException;
+
 }
