@@ -44,8 +44,8 @@ public class TtsEnglishDefaultEngine extends TtsGenericoEngine implements ITts {
 			BufferedWriter out = new BufferedWriter(new FileWriter("audio/" + uuidStringRandom + ".py"));
 			out.write(prg);
 			out.close();
-			Runtime.getRuntime().exec("python audio/"+uuidStringRandom+".py ");
-			TimeUnit.SECONDS.sleep(20);
+			Process p=Runtime.getRuntime().exec("python audio/"+uuidStringRandom+".py ");
+			p.waitFor();
 			
 		} catch (IOException e) {
 			
@@ -332,8 +332,8 @@ public class TtsEnglishDefaultEngine extends TtsGenericoEngine implements ITts {
 				BufferedWriter out = new BufferedWriter(new FileWriter("audio/" + uuidStringRandom + ".py"));
 				out.write(prg);
 				out.close();
-				Runtime.getRuntime().exec("python audio/" + uuidStringRandom + ".py ");
-				TimeUnit.SECONDS.sleep(20);
+				Process p=Runtime.getRuntime().exec("python audio/"+uuidStringRandom+".py ");
+				p.waitFor();
 
 			} catch (IOException e) {
 				
