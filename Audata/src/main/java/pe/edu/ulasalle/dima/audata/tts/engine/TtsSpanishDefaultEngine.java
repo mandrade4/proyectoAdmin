@@ -34,7 +34,7 @@ public class TtsSpanishDefaultEngine extends TtsGenericoEngine implements ITts {
 		
 		UUID uuid = UUID.randomUUID();
 		String uuidStringRandom = uuid.toString();
-		String prg = "from comtypes.client import CreateObject\nengine = CreateObject(\"SAPI.SpVoice\")"
+		String prg = "import os\nos.chdir('C://wildfly-15.0.0.Final//welcome-content')\nfrom comtypes.client import CreateObject\nengine = CreateObject(\"SAPI.SpVoice\")"
 				+ "\nstream = CreateObject(\"SAPI.SpFileStream\")\nfrom comtypes.gen import SpeechLib"
 				+ "\nstream.Open('"  +uuidStringRandom + ".mp3', SpeechLib.SSFMCreateForWrite)"
 				+ "\nengine.AudioOutputStream = stream\nengine.speak('" + text + "')\nstream.Close()";
@@ -61,7 +61,7 @@ public class TtsSpanishDefaultEngine extends TtsGenericoEngine implements ITts {
 		
 		ByteArrayOutputStream b = null;
 		
-		String flow = uuidStringRandom + ".mp3";
+		String flow = "../welcome-content/"+uuidStringRandom + ".mp3";
 		
 		try {
 			
