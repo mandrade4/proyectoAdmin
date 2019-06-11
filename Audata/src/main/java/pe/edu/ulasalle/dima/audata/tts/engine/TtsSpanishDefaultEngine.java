@@ -11,7 +11,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
-
+import javax.sound.sampled.*;
 import pe.edu.ulasalle.dima.audata.dto.DivisionItem;
 import pe.edu.ulasalle.dima.audata.tts.engine.TtsGenericoEngine;
 import pe.edu.ulasalle.dima.audata.tts.engine.ITts;
@@ -34,7 +34,7 @@ public class TtsSpanishDefaultEngine extends TtsGenericoEngine implements ITts {
 		
 		UUID uuid = UUID.randomUUID();
 		String uuidStringRandom = uuid.toString();
-		String prg = "import os\nos.chdir('C://wildfly-15.0.0.Final//welcome-content')\nfrom comtypes.client import CreateObject\nengine = CreateObject(\"SAPI.SpVoice\")"
+		String prg = "from comtypes.client import CreateObject\nengine = CreateObject(\"SAPI.SpVoice\")"
 				+ "\nstream = CreateObject(\"SAPI.SpFileStream\")\nfrom comtypes.gen import SpeechLib"
 				+ "\nstream.Open('"  +uuidStringRandom + ".mp3', SpeechLib.SSFMCreateForWrite)"
 				+ "\nengine.AudioOutputStream = stream\nengine.speak('" + text + "')\nstream.Close()";
@@ -61,7 +61,7 @@ public class TtsSpanishDefaultEngine extends TtsGenericoEngine implements ITts {
 		
 		ByteArrayOutputStream b = null;
 		
-		String flow = "../welcome-content/"+uuidStringRandom + ".mp3";
+		String flow = uuidStringRandom + ".mp3";
 		
 		try {
 			
@@ -85,7 +85,12 @@ public class TtsSpanishDefaultEngine extends TtsGenericoEngine implements ITts {
 			e.printStackTrace();
 			
 		}
+		/*
+		byte[] bytes=uuidStringRandom.getBytes();
+		System.out.println(bytes);
 		
+		String s = new String(bytes);
+		System.out.println(s);*/
 		System.out.println(b.toByteArray());
 		return b.toByteArray();
 		
