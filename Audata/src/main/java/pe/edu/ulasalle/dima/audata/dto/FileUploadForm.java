@@ -6,11 +6,12 @@ import org.jboss.resteasy.annotations.providers.multipart.PartType;
 public class FileUploadForm {
 
     private byte[] data;
-    private String[] stopList = {"ADVANCED","ELEMENTS","pdf"};
-    private String palabraInicio;
+    private String[] stopList;
+    private String sL;
+	private String palabraInicio;
     private String palabraFin;
     private String bookmark;
-    
+   
     private int pagina;
 
     private String paginaInicio;
@@ -18,6 +19,17 @@ public class FileUploadForm {
     
     public FileUploadForm() {
     }
+
+
+    public String getsL() {
+		return sL;
+	}
+
+    @FormParam("sL")
+	public void setsL(String sL) {
+    	stopList = sL.split("::");  	
+//		this.sL = sL;
+	}
     
     public String getPaginaInicio() {
 		return paginaInicio;
@@ -58,8 +70,13 @@ public class FileUploadForm {
     public String[] getStopList() {
         return stopList;
     }
+//    
+//    @FormParam("stop")
+//    public void setStopList(String[] stopList) {
+//		this.stopList = stopList;
+//	}
 
-    public byte[] getData() {
+	public byte[] getData() {
         return data;
     }
 

@@ -7,13 +7,23 @@ public class DTOapi {
 
     private byte[] data;   
     private int pagina;
-
+    private String bookmark;
     private String paginaInicio;
     private String paginaFin;
+	private String palabraInicio;
+	private String palabraFin;
     
     public DTOapi() {
     }
     
+	public String getBookmark() {
+		return bookmark;
+	}
+	
+	@FormParam("bookmark")
+	public void setBookmark(String bookmark) {
+		this.bookmark = bookmark;
+	}
     public String getPaginaInicio() {
 		return paginaInicio;
 	}
@@ -27,6 +37,15 @@ public class DTOapi {
         return pagina;
     }
 
+	public String getPaginaFin() {
+		return paginaFin;
+	}
+	
+	@FormParam("paginaFin")
+	public void setPaginaFin(String paginaFin) {
+		this.paginaFin = paginaFin;
+	}
+    
     @FormParam("page")
     public void setPagina(int pagina) {
         this.pagina = pagina;
@@ -43,5 +62,22 @@ public class DTOapi {
         this.data = data;
     }
 
+    public String getPalabraInicio() {
+        return palabraInicio;
+    }
+    
+    @FormParam("pini")
+    public void setPalabraInicio(String palabraInicio) {
+        this.palabraInicio = palabraInicio;
+    }
+
+    public String getPalabraFin() {
+        return palabraFin;
+    }
+
+    @FormParam("pfin")
+    public void setPalabraFin(String palabraFin) {
+        this.palabraFin = palabraFin;
+    }
 
 }

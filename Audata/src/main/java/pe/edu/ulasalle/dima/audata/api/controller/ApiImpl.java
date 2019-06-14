@@ -39,7 +39,106 @@ public class ApiImpl implements IAudataApi {
 		
 		IReaderPdf obj = new ReaderPdfImpl();
 		String pdf = obj.readPDF(fstream, pagina);
+//		System.out.println(pdf);
 		return mp3(pdf);
+		
+	}
+
+	@Override
+	public byte[] mp3Pdf(byte[] fstream, String pagIni, String pagFin, String strIni, String strFin) throws IOException {
+
+		IReaderPdf obj = new ReaderPdfImpl();
+		String pdf = obj.readPDF(fstream, pagIni, pagFin, strIni, strFin);
+//		System.out.println(pdf);
+		return mp3(pdf);
+		
+	}
+
+	@Override
+	public byte[] mp3Pdf(byte[] fstream) throws IOException {
+
+		IReaderPdf obj = new ReaderPdfImpl();
+		String pdf = obj.readPDF(fstream);
+//		System.out.println(pdf);
+		return mp3(pdf);
+	}
+	
+	//chino
+	@Override
+	public byte[] mp3Pdf(byte[] fstream, String pagIni, String pagFin) throws IOException {
+		
+		IReaderPdf obj = new ReaderPdfImpl();
+		String pdf = obj.readPDF(fstream, pagIni,pagFin);
+		return mp3(pdf);
+
+	}
+
+	@Override
+	public byte[] mp3PdfBoomark(byte[] fstream, String bookmark) throws IOException {
+		
+		IReaderPdf obj = new ReaderPdfImpl();
+		String pdf = obj.leerBookmark(fstream, bookmark);
+		return mp3(pdf);
+		
+	}
+
+	@Override
+	public byte[] mp3Pdf(byte[] fstream, int pagIni, int pagFin, String[] stopList) throws IOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public byte[] mp3Pdf(byte[] fstream, String[] stopList) throws IOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public byte[] aacPdf(byte[] fstream, String pagIni, String pagFin, String strIni, String strFin) throws IOException {
+		
+		IReaderPdf obj = new ReaderPdfImpl();
+		String pdf = obj.readPDF(fstream, pagIni, pagFin, strIni, strFin);
+		return aac(pdf);
+		
+	}
+	
+	//jeanpol
+	@Override
+	public byte[] aacPdf(byte[] fstream, String pagina) throws IOException {
+		
+		IReaderPdf obj = new ReaderPdfImpl();
+		String pdf = obj.readPDF(fstream, pagina);
+		return aac(pdf);
+		
+	}
+
+	@Override
+	public byte[] aacPdf(byte[] fstream, String[] stopList) throws IOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public byte[] aacPdf(byte[] fstream, String pagIni, String pagFin, String strIni, String strFin, String[] stopList)
+			throws IOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public byte[] aacPdf(byte[] fstream, String pagIni, String pagFin) throws IOException {
+		IReaderPdf obj = new ReaderPdfImpl();
+		String pdf = obj.readPDF(fstream, pagIni,pagFin);
+		return aac(pdf);
+		
+	}
+
+	@Override
+	public byte[] aacPdfBoomark(byte[] fstream, String bookmark) throws IOException {
+		IReaderPdf obj = new ReaderPdfImpl();
+		String pdf = obj.leerBookmark(fstream, bookmark);
+		return aac(pdf);
 		
 	}
 	

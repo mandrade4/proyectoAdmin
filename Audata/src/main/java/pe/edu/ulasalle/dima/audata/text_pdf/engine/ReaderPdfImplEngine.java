@@ -53,7 +53,7 @@ public class ReaderPdfImplEngine implements IReaderPdfEngine {
 			int pFin  = Integer.parseInt(pagFin);
 			System.out.println(pInit+" "+pFin);
 			
-			if((0<pInit && pInit<numeroPaginas(fstream)) && (0<pFin && pFin<numeroPaginas(fstream)) && (pInit<=pFin)) {
+			if((0<pInit && pInit<=numeroPaginas(fstream)) && (0<pFin && pFin<=numeroPaginas(fstream)) && (pInit<=pFin)) {
 				InputStream instream = new ByteArrayInputStream(fstream);
 				PDDocument document = PDDocument.load(instream);
 				StringBuilder str = new StringBuilder();
@@ -77,10 +77,10 @@ public class ReaderPdfImplEngine implements IReaderPdfEngine {
 				return str.toString();
 			}
 			else {
-				return "error";
+				return "error intervalos de pagina no valido";
 			}
 		}catch (NumberFormatException nfe){
-			return "error";
+			return "error ingresar solo numeros";
 		}
 	}
 
@@ -91,7 +91,7 @@ public class ReaderPdfImplEngine implements IReaderPdfEngine {
 			int pInit = Integer.parseInt(pagIni);
 			int pFin  = Integer.parseInt(pagFin);
 			
-			if((0<pInit && pInit<numeroPaginas(fstream)) && (0<pFin && pFin<numeroPaginas(fstream)) && (pInit<=pFin)){
+			if((0<pInit && pInit<=numeroPaginas(fstream)) && (0<pFin && pFin<=numeroPaginas(fstream)) && (pInit<=pFin)){
 				String cadena = readPDF(fstream,pagIni,pagFin);
 				cadena = cadena.toLowerCase();
 				strIni = strIni.toLowerCase();
@@ -114,14 +114,13 @@ public class ReaderPdfImplEngine implements IReaderPdfEngine {
 				else {
 					return "palabra no encontrada";
 				}
-				
 			}
 			else {
-				return "error";
+				return "error intervalos de pagina no valido";
 			}
 			
 		}catch (NumberFormatException nfe){
-			return "error";
+			return "error ingresar solo numeros";
 		}
 
 	}
@@ -392,6 +391,7 @@ public class ReaderPdfImplEngine implements IReaderPdfEngine {
 		cadena = cadena.toLowerCase();
 		for (int i=0; i<stopList.length ;i++ ){
 			cadena = cadena.replace(" " + stopList[i].toLowerCase()+ " "," ");
+			cadena = cadena.replace("" + stopList[i].toLowerCase()+ " "," ");
 			cadena = cadena.replace(" " + stopList[i].toLowerCase()+ "."," ");
 			cadena = cadena.replace(" " + stopList[i].toLowerCase()+ ", "," ");
 			cadena = cadena.replace(" " + stopList[i].toLowerCase()+ "; "," ");
@@ -399,10 +399,10 @@ public class ReaderPdfImplEngine implements IReaderPdfEngine {
 			cadena = cadena.replace(" (" + stopList[i].toLowerCase()+ ") "," ");
 			cadena = cadena.replace(" (" + stopList[i].toLowerCase()+ "), "," ");
 			cadena = cadena.replace(" (" + stopList[i].toLowerCase()+ "). "," ");
-			cadena = cadena.replace(" Â¿" + stopList[i].toLowerCase()+ "? "," ");
+			cadena = cadena.replace(" ¿" + stopList[i].toLowerCase()+ "? "," ");
 			cadena = cadena.replace(" <" + stopList[i].toLowerCase()+ "> "," ");
-			cadena = cadena.replace(" [" + stopList[i].toLowerCase()+ "] "," ");
-			cadena = cadena.replace(" [" + stopList[i].toLowerCase()+ " ","[");
+			cadena = cadena.replace("[" + stopList[i].toLowerCase()+ "]"," ");
+			cadena = cadena.replace("[" + stopList[i].toLowerCase()+ " ","[");
 			cadena = cadena.replace(" " + stopList[i].toLowerCase()+ "] ","]");
 			cadena = cadena.replace(" \"" + stopList[i].toLowerCase()+ "\" "," ");
 			cadena = cadena.replace(" {" + stopList[i].toLowerCase()+ "} "," ");
