@@ -31,8 +31,8 @@ public class ttsMain {
 	public Response talk2(@PathParam("text") String text) {
 		
 		TtsSpanishDefault obj = new TtsSpanishDefault();
-		obj.aac(text);
-		return Response.ok(text).build();
+		byte[] by=obj.aac(text);
+		return Response.ok(by).build();
 		
 	}
 	
@@ -53,8 +53,8 @@ public class ttsMain {
 	public Response talkOneDivisionItem(DivisionItem divisionItem) {
 		
 		TtsSpanishDefault obj = new TtsSpanishDefault();
-		obj.mp3(divisionItem);
-		return Response.status(Response.Status.CREATED).entity(divisionItem).build();
+		byte[] by =obj.mp3(divisionItem);
+		return Response.ok(by).build();
 		
 	}
 	
@@ -65,8 +65,8 @@ public class ttsMain {
 	public Response talkMultiDivisionItem(DivisionItem[] divisionItem) {
 		
 		TtsSpanishDefault obj = new TtsSpanishDefault();
-		obj.mp3(divisionItem);
-		return Response.status(Response.Status.CREATED).entity(obj).build();
+		byte[] by =obj.mp3(divisionItem);
+		return Response.ok(by).build();
 		
 	}
 	
@@ -77,8 +77,8 @@ public class ttsMain {
 	public Response talkOneDivisionItem2(DivisionItem divisionItem) {
 		
 		TtsSpanishDefault obj = new TtsSpanishDefault();
-		obj.mp3(divisionItem);
-		return Response.status(Response.Status.CREATED).entity(divisionItem).build();
+		byte[] by =obj.aac(divisionItem);
+		return Response.ok(by).build();
 		
 	}
 	
@@ -89,8 +89,8 @@ public class ttsMain {
 	public Response talkMultiDivisionItem2(DivisionItem[] divisionItem) {
 		
 		TtsSpanishDefault obj = new TtsSpanishDefault();
-		obj.mp3(divisionItem);
-		return Response.status(Response.Status.CREATED).entity(obj).build();
+		byte[] by =obj.aac(divisionItem);
+		return Response.ok(by).build();
 		
 	}
 	
