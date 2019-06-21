@@ -41,8 +41,9 @@ public class ttsMain {
 	public Response talk(@PathParam("text") String text) {
 		
 		TtsSpanishDefault obj = new TtsSpanishDefault();
-		obj.mp3(text);
-		return Response.ok(text).build();
+		byte[] by = obj.mp3(text);
+		
+		return Response.ok(by).build();
 		
 	}
 	@POST
