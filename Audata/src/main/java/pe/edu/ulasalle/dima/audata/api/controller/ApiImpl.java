@@ -151,4 +151,8 @@ public class ApiImpl implements IAudataApi {
 		
 	}
 	
+	public String gaaa() {
+		return "gaaaaaaaa";
+	}
+	
 }
