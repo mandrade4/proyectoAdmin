@@ -13,6 +13,11 @@ public interface IAudataApi {
 	
 	public byte[] mp3Pdf( byte[] fstream, String pagina) throws IOException;
 	
+	//25-06
+	public byte[] mp3Pdf( byte[] fstream, String pagIni, String pagFin, String strIni, String strFin, String[] stopList ) throws IOException;
+	
+	public byte[] mp3PdfBookmark( byte[] fstream, String bookmark, String[] stopList) throws IOException;
+	
 	public byte[] mp3Pdf( byte[] fstream, String pagIni, String pagFin, String strIni, String strFin ) throws IOException; 
 
 	public byte[] mp3Pdf ( byte[] fstream ) throws IOException;

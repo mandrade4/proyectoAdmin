@@ -40,9 +40,9 @@ public class apiTest {
 	 * mp3Pdf de determinada pagina
 	 */
     @POST
-    @Path("/funcion3")
+    @Path("/funcion17")
     @Consumes("multipart/form-data")
-    public Response funcion3(@MultipartForm DTOapi form) throws IOException {
+    public Response funcion17(@MultipartForm DTOapi form) throws IOException {
 
     	IAudataApi a = new ApiImpl();
     	byte[] retorno = a.mp3Pdf(form.getData(), form.getPaginaInicio());
@@ -53,12 +53,48 @@ public class apiTest {
     }
     
     /*
+     * mp3 con intervalo de paginas, palabras y stoplist
+     * anadida 25-06
+     */
+    
+    @POST
+    @Path("/funcion18")
+    @Consumes("multipart/form-data")
+    public Response funcion18(@MultipartForm DTOapi form) throws IOException {
+
+    	IAudataApi a = new ApiImpl();
+    	byte[] retorno = a.mp3Pdf(form.getData(), form.getPaginaInicio(), form.getPaginaFin(), 
+    							  form.getPalabraInicio(), form.getPalabraFin(), form.getStopList());
+    	System.out.println("Entro!");
+        return Response.status(200)
+                .entity(retorno).build();
+
+    }
+    
+    /*
+     * mp3 de un bookmark con stoplist
+     * anadida 25-06
+     */
+    @POST
+    @Path("/funcion19")
+    @Consumes("multipart/form-data")
+    public Response funcion19(@MultipartForm DTOapi form) throws IOException {
+
+    	IAudataApi a = new ApiImpl();
+    	byte[] retorno = a.mp3PdfBookmark(form.getData(), form.getBookmark(), form.getStopList());
+    	System.out.println("Entro!");
+        return Response.status(200)
+                .entity(retorno).build();
+
+    }
+    
+    /*
      * mp3 con intervalo de paginas y palabras
      */
     @POST
-    @Path("/funcion4")
+    @Path("/funcion20")
     @Consumes("multipart/form-data")
-    public Response funcion4(@MultipartForm DTOapi form) throws IOException {
+    public Response funcion20(@MultipartForm DTOapi form) throws IOException {
 
     	IAudataApi a = new ApiImpl();
     	byte[] retorno = a.mp3Pdf(form.getData(), form.getPaginaInicio(), form.getPaginaFin(), form.getPalabraInicio(), form.getPalabraFin());
@@ -72,9 +108,9 @@ public class apiTest {
      * mp3 del texto de un PDF
      */
     @POST
-    @Path("/funcion5")
+    @Path("/funcion21")
     @Consumes("multipart/form-data")
-    public Response funcion5(@MultipartForm FileUploadForm form) throws IOException {
+    public Response funcion21(@MultipartForm FileUploadForm form) throws IOException {
         
     	IAudataApi a = new ApiImpl();
     	byte[] retorno = a.mp3Pdf(form.getData());
