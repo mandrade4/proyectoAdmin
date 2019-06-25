@@ -70,11 +70,6 @@ public class FileUploadForm {
     public String[] getStopList() {
         return stopList;
     }
-//    
-//    @FormParam("stop")
-//    public void setStopList(String[] stopList) {
-//		this.stopList = stopList;
-//	}
 
 	public byte[] getData() {
         return data;

@@ -389,7 +389,17 @@ public class ReaderPdfImplEngine implements IReaderPdfEngine {
 	@Override
 	public String stoplist(String cadena, String[] stopList) {
 		cadena = cadena.toLowerCase();
+		
+		for (int i=0; i<stopList.length ;i++) {
+			stopList[i] = stopList[i].replaceAll("\r\n", " ");
+			stopList[i] = stopList[i].replace("  "," ");
+		}
+		
 		for (int i=0; i<stopList.length ;i++ ){
+			
+			cadena = cadena.replace(stopList[i].toLowerCase()+ " "," ");
+			cadena = cadena.replace(" " + stopList[i].toLowerCase()," ");
+			
 			cadena = cadena.replace(" " + stopList[i].toLowerCase()+ " "," ");
 			cadena = cadena.replace("" + stopList[i].toLowerCase()+ " "," ");
 			cadena = cadena.replace(" " + stopList[i].toLowerCase()+ "."," ");
@@ -407,6 +417,7 @@ public class ReaderPdfImplEngine implements IReaderPdfEngine {
 			cadena = cadena.replace(" \"" + stopList[i].toLowerCase()+ "\" "," ");
 			cadena = cadena.replace(" {" + stopList[i].toLowerCase()+ "} "," ");
 			
+			System.out.println(stopList[i]);
 	    }
 	    return cadena;
 	}

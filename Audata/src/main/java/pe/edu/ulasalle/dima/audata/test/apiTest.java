@@ -126,6 +126,30 @@ public class apiTest {
     }
     
     @POST
+    @Path("/funcion04")
+    @Consumes("multipart/form-data")
+    public Response funcion04(@MultipartForm DTOapi form) throws IOException {
+
+    	IAudataApi a = new ApiImpl();
+    	byte[] retorno = a.mp3Pdf(form.getData(), form.getPaginaInicio(), form.getPaginaFin(),form.getStopList());
+        return Response.status(200)
+                .entity(retorno).build();
+
+    }
+    
+    @POST
+    @Path("/funcion05")
+    @Consumes("multipart/form-data")
+    public Response funcion05(@MultipartForm DTOapi form) throws IOException {
+
+    	IAudataApi a = new ApiImpl();
+    	byte[] retorno = a.mp3Pdf(form.getData(), form.getStopList());
+        return Response.status(200)
+                .entity(retorno).build();
+
+    }
+    
+    @POST
     @Path("/funcion003")
     @Consumes("multipart/form-data")
     public Response funcion003(@MultipartForm DTOapi form) throws IOException {
