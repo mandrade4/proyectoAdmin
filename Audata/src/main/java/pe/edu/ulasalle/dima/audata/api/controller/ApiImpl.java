@@ -83,15 +83,20 @@ public class ApiImpl implements IAudataApi {
 	}
 
 	@Override
-	public byte[] mp3Pdf(byte[] fstream, int pagIni, int pagFin, String[] stopList) throws IOException {
-		// TODO Auto-generated method stub
-		return null;
+	public byte[] mp3Pdf(byte[] fstream, String pagIni, String pagFin, String[] stopList) throws IOException {
+		
+		IReaderPdf obj = new ReaderPdfImpl();
+		String pdf = obj.readPDF(fstream, pagIni, pagFin, stopList);
+		
+		return mp3(pdf);
 	}
 
 	@Override
 	public byte[] mp3Pdf(byte[] fstream, String[] stopList) throws IOException {
-		// TODO Auto-generated method stub
-		return null;
+		IReaderPdf obj = new ReaderPdfImpl();
+		String pdf = obj.readPDF(fstream, stopList);
+		
+		return mp3(pdf);
 	}
 
 	@Override
@@ -102,6 +107,7 @@ public class ApiImpl implements IAudataApi {
 		return aac(pdf);
 		
 	}
+	
 	
 	//jeanpol
 	@Override

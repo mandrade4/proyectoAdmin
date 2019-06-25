@@ -23,7 +23,7 @@ public interface IAudataApi {
 	
 	public byte[] mp3PdfBoomark( byte[] fstream, String bookmark)throws IOException;
 	
-	public byte[] mp3Pdf( byte[] fstream, int pagIni, int pagFin, String[] stopList)throws IOException;
+	public byte[] mp3Pdf( byte[] fstream, String pagIni, String pagFin, String[] stopList)throws IOException;
 	
 	public byte[] mp3Pdf( byte[] fstream, String[] stopList)throws IOException;
 	

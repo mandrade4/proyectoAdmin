@@ -12,8 +12,23 @@ public class DTOapi {
     private String paginaFin;
 	private String palabraInicio;
 	private String palabraFin;
+    private String[] stopList;
+    private String sL;
     
     public DTOapi() {
+    }
+    
+    public String getsL() {
+		return sL;
+	}
+
+    @FormParam("sL")
+	public void setsL(String sL) {
+    	stopList = sL.split("::");  	
+	}
+    
+    public String[] getStopList() {
+        return stopList;
     }
     
 	public String getBookmark() {
