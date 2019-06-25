@@ -53,6 +53,23 @@ public class apiTest {
     }
     
     /*
+     * mp3 con intervalo de paginas, palabras y stoplist
+     */
+    
+    @POST
+    @Path("/funcion3")
+    @Consumes("multipart/form-data")
+    public Response funcion6(@MultipartForm DTOapi form) throws IOException {
+
+    	IAudataApi a = new ApiImpl();
+    	byte[] retorno = a.mp3Pdf(form.getData(), form.getPaginaInicio(), form.getPaginaFin(), form.getPalabraInicio(), form.getPalabraFin());
+    	System.out.println("Entro!");
+        return Response.status(200)
+                .entity(retorno).build();
+
+    }
+    
+    /*
      * mp3 con intervalo de paginas y palabras
      */
     @POST
