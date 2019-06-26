@@ -139,15 +139,18 @@ public class ApiImpl implements IAudataApi {
 
 	@Override
 	public byte[] aacPdf(byte[] fstream, String[] stopList) throws IOException {
-		// TODO Auto-generated method stub
-		return null;
+		IReaderPdf obj = new ReaderPdfImpl();
+		String pdf = obj.readPDF(fstream, stopList);
+		
+		return aac(pdf);
 	}
 
 	@Override
-	public byte[] aacPdf(byte[] fstream, String pagIni, String pagFin, String strIni, String strFin, String[] stopList)
-			throws IOException {
-		// TODO Auto-generated method stub
-		return null;
+	public byte[] aacPdf(byte[] fstream, String pagIni, String pagFin, String strIni, String strFin, String[] stopList) throws IOException {
+		IReaderPdf obj = new ReaderPdfImpl();
+		String pdf = obj.readPDF(fstream, pagIni, pagFin, strIni, strFin, stopList);
+		
+		return aac(pdf);
 	}
 
 	@Override
@@ -164,6 +167,10 @@ public class ApiImpl implements IAudataApi {
 		String pdf = obj.leerBookmark(fstream, bookmark);
 		return aac(pdf);
 		
+	}
+	
+	public String gaaa() {
+		return "gaaaaaaaa";
 	}
 	
 }
