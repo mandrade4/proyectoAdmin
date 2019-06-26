@@ -42,7 +42,7 @@ public class apiTest {
     @POST
     @Path("/funcion17")
     @Consumes("multipart/form-data")
-    public Response funcion17(@MultipartForm DTOapi form) throws IOException {
+    public Response funcion17(@MultipartForm FileUploadForm form) throws IOException {
 
     	IAudataApi a = new ApiImpl();
     	byte[] retorno = a.mp3Pdf(form.getData(), form.getPaginaInicio());
