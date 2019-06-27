@@ -15,6 +15,14 @@ public class DTOapi {
     private String[] stopList;
     private String sL;
     
+    //edu
+    private String title;
+    private String dataHtml;
+	private String tag;
+    private String divisor;
+    private String[] stopTagList;
+    private String[] stopTagContentList;
+    
     public DTOapi() {
     }
     
@@ -94,5 +102,62 @@ public class DTOapi {
     public void setPalabraFin(String palabraFin) {
         this.palabraFin = palabraFin;
     }
+
+    //HTML
+    
+    public String getTag() {
+		return tag;
+	}
+    
+    @FormParam("tag")
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
+    
+	public String getDivisor() {
+		return divisor;
+	}
+	
+    @FormParam("divisor")
+	public void setDivisor(String divisor) {
+		this.divisor = divisor;
+	}
+    
+    public String getDataHtml() {
+		return dataHtml;
+	}
+
+    @FormParam("uploadedFile2")
+    @PartType("application/octet-stream")
+	public void setDataHtml(String dataHtml) {
+		this.dataHtml = dataHtml;
+	}
+
+	public String[] getStopTagList() {
+		return stopTagList;
+	}
+
+    @FormParam("stopTagList")
+	public void setStopTagList(String[] stopTagList) {
+		this.stopTagList = stopTagList;
+	}
+
+	public String[] getStopTagContentList() {
+		return stopTagContentList;
+	}
+
+    @FormParam("stopTagContentList")
+	public void setStopTagContentList(String[] stopTagContentList) {
+		this.stopTagContentList = stopTagContentList;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+	
+	@FormParam("title")
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
 }

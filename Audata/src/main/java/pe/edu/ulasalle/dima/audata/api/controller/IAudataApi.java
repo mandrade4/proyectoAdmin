@@ -55,7 +55,7 @@ public interface IAudataApi {
 	
 	public byte[] mp3Html(String text, String divisor) throws IOException;
 
-	public byte[] aacHtmlSinTags(String text, String tag) throws IOException;
+	public byte[] aacHtmlSinTags(String text) throws IOException;
 	
 	public byte[] aacHtmlTagContents(String text, String tag) throws IOException;
 	

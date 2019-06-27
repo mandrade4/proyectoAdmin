@@ -189,7 +189,6 @@ public class ApiImpl implements IAudataApi {
 	}
 	
 	@Override
-	//TERMINAR
 	public byte[] mp3HtmlTagContents(String text, String tag, String[] stopTagList, String[] stopTagContentList) throws IOException {
 		
 		IReaderHtml obj = new ReaderHtmlImpl();
@@ -211,10 +210,11 @@ public class ApiImpl implements IAudataApi {
 			String html = String.join(",", html1);
 			return mp3(html);
 		}
-
+		
 	}
+	
 	@Override	
-	public byte[] aacHtmlSinTags(String text, String tag) throws IOException{
+	public byte[] aacHtmlSinTags(String text) throws IOException{
 		
 		IReaderHtml obj = new ReaderHtmlImpl();
 		String html = obj.leer(text);
@@ -232,7 +232,6 @@ public class ApiImpl implements IAudataApi {
 	}
 
 	@Override
-	//TERMINAR
 	public byte[] aacHtmlTagContents(String text, String tag, String[] stopTagList, String[] stopTagContentList) throws IOException{
 		
 		IReaderHtml obj = new ReaderHtmlImpl();
