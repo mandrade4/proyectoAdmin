@@ -243,4 +243,43 @@ public class apiTest {
 
     }
     
+    @POST
+    @Path("/funcionhtml1")
+    @Consumes("multipart/form-data")
+    public Response funcionhtml1(@MultipartForm DTOapi form) throws IOException {
+
+    	IAudataApi a = new ApiImpl();
+    	byte[] retorno = a.mp3HtmlSinTags(form.getDataHtml());
+    	System.out.println("Entro!");
+        return Response.status(200)
+                .entity(retorno).build();
+
+    }
+    
+    @POST
+    @Path("/funcionhtml2")
+    @Consumes("multipart/form-data")
+    public Response funcionhtml2(@MultipartForm DTOapi form) throws IOException {
+
+    	IAudataApi a = new ApiImpl();
+    	byte[] retorno = a.mp3HtmlTagContents(form.getDataHtml(),form.getTag());
+    	System.out.println("Entro!");
+        return Response.status(200)
+                .entity(retorno).build();
+
+    }
+    
+    @POST
+    @Path("/funcionhtml3")
+    @Consumes("multipart/form-data")
+    public Response funcionhtml3(@MultipartForm DTOapi form) throws IOException {
+
+    	IAudataApi a = new ApiImpl();
+    	byte[] retorno = a.mp3Html(form.getDataHtml(), form.getDivisor());
+    	System.out.println("Entro!");
+        return Response.status(200)
+                .entity(retorno).build();
+
+    }
+    
 }

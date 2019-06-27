@@ -29,7 +29,6 @@ public class ReaderHtmlImplEngine implements IReaderHtmlEngine {
     public ReaderHtmlImplEngine(){}
 
     //Métodos de la clase
-    
     public String leerSinTags(String htmlI) throws IOException {
     	Document doc = Jsoup.parse(htmlI);	
     	return doc.text();
@@ -39,8 +38,6 @@ public class ReaderHtmlImplEngine implements IReaderHtmlEngine {
         String webPage = htmlI;
         String html = Jsoup.connect(webPage).get().html();
         Document doc = Jsoup.parse(html);
-        //System.out.println(html);
-        System.out.println(doc.text());
         return doc.text();
     }
 
@@ -64,19 +61,46 @@ public class ReaderHtmlImplEngine implements IReaderHtmlEngine {
         	
     	return arr;
     }
+    
+    public String[] leerTagsURL(String htmlI) throws IOException{
+    	List<String> tagList = new ArrayList<String>();
+    	String webPage = htmlI;
+        String html = Jsoup.connect(webPage).get().html();
+        Document doc = Jsoup.parse(html);
+        int i=0;
+        for(Element elem : doc.select("*")){
+            String a = elem.tagName();
+            tagList.add(a);
+            tagList.get(i);
+            i++;
+        }
 
-    public String leerTagContents(String htmlI, String tagI) throws IOException
+        String[] arr = new String[tagList.size()]; 
+        for (int j =0; j < tagList.size(); j++) 
+            arr[j] = tagList.get(j);
+        
+        for (int k =0; k < tagList.size(); k++) 
+        	System.out.println(arr[k]);
+        	
+    	return arr;
+    }
+
+    public String leerTagContents(String htmlI, String tagI)
     {	
-    	String TagContent2 = null;
-    	try {
     	Document document = Jsoup.parse(htmlI);
     	Elements link = document.select(tagI); 
         System.out.println("Texto obtenido de la etiqueta: " + link.text());
-        TagContent2 = link.text();
-    	}catch (Exception e) {
-    		System.out.println("Error: El tag ingresado no existe dentro del documento");
-    	}
-		return TagContent2;
+		return link.text();
+    }
+    
+    public String leerTagContentsURL(String htmlI, String tagI) throws IOException
+    {	
+    	String webPage = htmlI;
+    	String html = Jsoup.connect(webPage).get().html();
+    	Document doc = Jsoup.parse(html);
+    	Elements link = doc.select(tagI); 
+        //System.out.println(link.text());
+        return link.text();
     }
   
     public String leerTagContents(String htmlI,String tagI,String[] stopTagListI,String[] stopTagContentList) throws IOException
@@ -154,8 +178,50 @@ public class ReaderHtmlImplEngine implements IReaderHtmlEngine {
 	    if (!encontrado)
 	    	System.out.println("etiqueta no encontrado");
 	    System.out.println(tagList);
-		return leerTagContents(htmlI,nom[o]);
+		return "ok";
  }
+	
+	public String stopTagListURL(String htmlI,String [] nombres) throws IOException{
+		List<String> tagList = new ArrayList<String>();
+		String webPage = htmlI;
+		String html = Jsoup.connect(webPage).get().html();
+		Document doc = Jsoup.parse(html);
+		int i=0;
+		for(Element elem : doc.select("*")){
+			String a = elem.tagName();
+			tagList.add(a);
+			tagList.get(i);
+			i++;
+		}
+
+		String[] arr = new String[tagList.size()]; 
+		for (int j =0; j < tagList.size(); j++) 
+			arr[j] = tagList.get(j);
+
+		List<String> stopTagLista = tagList;
+		System.out.println(tagList);
+		String nom[];
+		int n,o;
+		boolean encontrado = false;
+		nom = nombres;
+		for(o = 0; o < nom.length; o++) 
+		{
+			for(n = 0; n < stopTagLista.size(); n++)	
+			{ 
+				if (nom[o].equals(stopTagLista.get(n)))	
+				{
+					System.out.println("dato encontrado");
+					encontrado = true;
+					stopTagLista.remove(nom[o]);
+					System.out.println();
+				}
+			}
+		}	
+		if (!encontrado)
+			System.out.println("etiqueta no encontrado");
+		System.out.println(tagList);
+		return "ok";
+	}
     
     public String procesarHTML(String archivo) {
         StringBuilder sb = new StringBuilder();
@@ -188,7 +254,7 @@ public class ReaderHtmlImplEngine implements IReaderHtmlEngine {
     }
 	
 	public String[] DivisorHtmlPorTag(String htmlI) throws IOException{
-	    stopTagList= tagList;
+
 	    ReaderHtmlImplEngine reader = new ReaderHtmlImplEngine();
 	    String[] divisorItems = reader.leerTags(htmlI);	
 	    List<String> tagList = new ArrayList<String>();
@@ -203,41 +269,58 @@ public class ReaderHtmlImplEngine implements IReaderHtmlEngine {
         
 	    return arr;
 	}
-	 
-	 public String leerSinTagParametros( String html,String a ,String b ) throws FileNotFoundException, IOException{
-			
-		 FileInputStream f = new FileInputStream(html);
-		 StringBuilder sb = new StringBuilder();
-		 Reader r = new InputStreamReader(f, "UTF-8"); 
-		 BufferedReader br = new BufferedReader(r);
-		 String line;
-		    
-		 while ( (line=br.readLine()) != null ) {
-			 sb.append(line);
-		 }
-		 br.close();
-		 int positiona = sb.indexOf(a);
-		 int positionb = sb.indexOf(b);
-		 String result = "";
-		 if(positiona != -1 ){
-			 if(positionb != -1) {
-				 result = sb.substring(positiona, positionb);
-				 result += b;
-			 }else {
-				 System.out.println("la palabra " + b +" no ha sido encontrada");
-			 }
-		 }
-		 
-		 else {
-			 System.out.println("la palabra "+ a +  "  no ha sido encontrada");
-		 }
-
-		    String textOnly = Jsoup.parse(result).text();
-		    return textOnly;
-		}
+	
+	public String[] DivisorHtmlPorTagURL(String htmlI) throws IOException{
 		
+	    ReaderHtmlImplEngine reader = new ReaderHtmlImplEngine();
+	    String[] divisorItems = reader.leerTagsURL(htmlI);	
+	    //System.out.println(divisorItems.length);
+	    List<String> tagList = new ArrayList<String>();
+	    for(int x = 1; x < divisorItems.length; x++){ 
+	    	String b = leerTagContents(htmlI,divisorItems[x]);
+	    	tagList.add(b);
+	    }
+	    
+        String[] arr = new String[tagList.size()]; 
+        for(int j = 0; j < tagList.size(); j++) 
+            arr[j] = tagList.get(j);
+        
+	    return arr;
+	}
 	 
-	public List<String> leerSinTagPorFraseTitulo( String html) throws FileNotFoundException, IOException{
+	public String leerSinTagParametros(String html, String a, String b) throws FileNotFoundException, IOException {
+
+		FileInputStream f = new FileInputStream(html);
+		StringBuilder sb = new StringBuilder();
+		Reader r = new InputStreamReader(f, "UTF-8");
+		BufferedReader br = new BufferedReader(r);
+		String line;
+
+		while ((line = br.readLine()) != null) {
+			sb.append(line);
+		}
+		br.close();
+		int positiona = sb.indexOf(a);
+		int positionb = sb.indexOf(b);
+		String result = "";
+		if (positiona != -1) {
+			if (positionb != -1) {
+				result = sb.substring(positiona, positionb);
+				result += b;
+			} else {
+				System.out.println("la palabra " + b + " no ha sido encontrada");
+			}
+		}
+
+		else {
+			System.out.println("la palabra " + a + "  no ha sido encontrada");
+		}
+
+		String textOnly = Jsoup.parse(result).text();
+		return textOnly;
+	}
+
+	public List<String> leerSinTagPorFraseTitulo(String html) throws FileNotFoundException, IOException {
 		List<String> mylist = new ArrayList<String>();
 		String aux = "";
 		String item;
@@ -246,61 +329,249 @@ public class ReaderHtmlImplEngine implements IReaderHtmlEngine {
 		Matcher matcher = null;
 		while (true) {
 			matcher = pattern.matcher(html);
-			int positiona=-1;
-			if(matcher.find()){
+			int positiona = -1;
+			if (matcher.find()) {
 				positiona = matcher.start();
 			}
-		    	
-			aux = html.substring(positiona+1);
+
+			aux = html.substring(positiona + 1);
 			matcher = pattern.matcher(aux);
-		    	
+
 			int positionb = -1;
-			if(matcher.find()){
+			if (matcher.find()) {
 				positionb = matcher.start();
 			}
-			if( positiona != -1)
-				if( positionb != -1 ) {
-					item = html.substring(positiona, (positiona+positionb) );
-					html = html.substring(positiona+positionb );
-					item = Jsoup.parse(item.toString()).text();    
+			if (positiona != -1)
+				if (positionb != -1) {
+					item = html.substring(positiona, (positiona + positionb));
+					html = html.substring(positiona + positionb);
+					item = Jsoup.parse(item.toString()).text();
 					mylist.add(item);
-				}
-				else {
-					html = html.substring(positiona);    		    
-					html = Jsoup.parse(html.toString()).text();   
+				} else {
+					html = html.substring(positiona);
+					html = Jsoup.parse(html.toString()).text();
 					mylist.add(html);
 					break;
 				}
 			else {
-		    		break;
-		    	}
-		    }
-		    return mylist;
-		  }
+				break;
+			}
+		}
+		return mylist;
+	}
+
+	public String leerSinTagURL(String html1) throws IOException {
+
+		String webPage = html1;
+		String html = Jsoup.connect(webPage).get().html();
+		Document doc = Jsoup.parse(html);
+		String textOnly = doc.text();
+		return textOnly;
+
+	}
+
+	public String leerSinTagParametrosURL(String html, String a, String b) throws FileNotFoundException, IOException {
+
+		String webPage = html;
+		String htmlc = Jsoup.connect(webPage).get().html();
+
+		int positiona = htmlc.indexOf(a);
+		int positionb = htmlc.indexOf(b);
+		String result = "";
+		if (positiona != -1) {
+
+			if (positionb != -1) {
+				result = htmlc.substring(positiona, positionb);
+				result += b;
+			} else {
+				System.out.println("la palabra " + b + " no ha sido encontrada");
+			}
+		} else {
+			System.out.println("la palabra " + a + "  no ha sido encontrada");
+		}
+
+		String textOnly = Jsoup.parse(result).text();
+		return textOnly;
+
+	}
+
+	public List<String> leerSinTagPorFraseTituloURL(String html) throws FileNotFoundException, IOException {
+
+		String webPage = html;
+		String htmlc = Jsoup.connect(webPage).get().html();
+
+		List<String> mylist = new ArrayList<String>();
+
+		String line;
+		String aux = "";
+		String item;
+		String patternStr = "<h[1-6]>";
+		Pattern pattern = Pattern.compile(patternStr);
+		Matcher matcher = null;
+		while (true) {
+			matcher = pattern.matcher(htmlc);
+			int positiona = -1;
+			if (matcher.find()) {
+				positiona = matcher.start();
+			}
+
+			aux = htmlc.substring(positiona + 1);
+			matcher = pattern.matcher(aux);
+
+			int positionb = -1;
+			if (matcher.find()) {
+				positionb = matcher.start();
+			}
+			if (positiona != -1)
+				if (positionb != -1) {
+					item = htmlc.substring(positiona, (positiona + positionb));
+					htmlc = htmlc.substring(positiona + positionb);
+					item = Jsoup.parse(item.toString()).text();
+
+					mylist.add(item);
+				} else {
+					htmlc = htmlc.substring(positiona);
+
+					htmlc = Jsoup.parse(htmlc.toString()).text();
+
+					mylist.add(htmlc);
+
+					break;
+				}
+			else {
+				break;
+			}
+
+		}
+		return mylist;
+	}
 	
+	public String leerTagsDeUnTag(String htmlI,String nombres,String[] stopTagContentList) throws IOException{
+		List<String> tagList = new ArrayList<String>();
+    	Document doc = Jsoup.parse(htmlI);
+        int i=0;
+        for(Element elem : doc.select("*")){
+            String a = elem.tagName();
+            //String a2= elem.text();
+            tagList.add(a);
+            //tagList.add(a);
+            tagList.get(i);
+            i++;
+        }
+
+        //String[] arr = new String[tagList.size()]; 
+        //for (int j =0; j < tagList.size(); j++) 
+        //    arr[j] = tagList.get(j);
+
+        //List<String> stopTagLista = tagList;
+	    //System.out.println(tagList);
+        String nom;
+	    int n,o;
+	    boolean encontrado = false;
+	    nom = nombres;
+	    for(o = 0; o < 1; o++) 
+	    {
+		    for(n = 0; n < tagList.size(); n++)	
+	    	{ 
+	    		if (!nom.equals(tagList.get(n)))	
+	    		{
+	    			//System.out.println("dato encontrado");
+					encontrado = true;
+					tagList.clear();
+					tagList.add(nom);
+					System.out.println();
+	    		}
+	    	}
+	    }	
+	    if (!encontrado)
+	    	System.out.println("etiqueta no encontrado");
+	    String tag = String.join("", tagList);
+		//System.out.println(tag);
+	    //return leerTagContentsURL(htmlI,tag);
+		String content = leerTagContentsURL(htmlI,tag);
+		//for(int x=0;x<stopTagContentList.length;x++) {
+			//String = palabraEliminar(content,stopTagContentList[x]);
+			//System.out.println(palabraEliminar(content,stopTagContentList[x]));
+		//}
+		//System.out.println(String);
+		return eliminandoContentList(content,stopTagContentList);
+	}
+	
+	public void stopTagLista(String [] nombres,String htmlI) throws IOException{
+
+		List<String> tagList = new ArrayList<String>();
+		Document doc = Jsoup.parse(htmlI);
+		int i=0;
+		for(Element elem : doc.select("*")){
+			String a = elem.tagName();
+			tagList.add(a);
+			tagList.get(i);
+			i++;
+		}
+
+		String[] arr = new String[tagList.size()]; 
+		for (int j =0; j < tagList.size(); j++) 
+			arr[j] = tagList.get(j);
+
+		List<String> stopTagLista = tagList;
+		System.out.println(tagList);
+		//System.out.println(stopTagLista.size());
+		String nom[];
+		int n,o;
+		boolean encontrado = false;
+		nom = nombres;
+		for(o = 0; o < nom.length; o++) 
+		{
+			for(n = 0; n < stopTagLista.size(); n++)	
+			{ 
+				if (nom[o].equals(stopTagLista.get(n)))	
+				{
+					System.out.println("dato encontrado");
+					encontrado = true;
+					stopTagLista.remove(nom[o]);
+					leerTagContents(htmlI,nom[o]); //e
+				}
+			}
+		}	
+		if (!encontrado)
+			System.out.println("etiqueta no encontrado");
+		System.out.println(tagList);
+		//System.out.println(stopTagLista.size());
+	}
+	public String palabraEliminar(String oracion,String palabra) {
+		if(oracion.contains(palabra))
+			return oracion.replaceAll(palabra, "");
+		return oracion;
+	}
+	
+	public String palabraEliminarList(String oracion,String[] palabra) { 
+		for(int i = 0;i<palabra.length;i++) {
+			if(oracion.contains(palabra[i]))
+				return oracion.replaceAll(palabra[i], "");
+		}
+		return oracion;
+	}
+	public String eliminandoContentList(String url,String purge[]) {
+		//String url = "http://www.superfect.com";
+		System.out.println(url);
+		//String purge[] = {"www.", "http://", "https://", "ftp://"};
+		String result = url;
+		for (int i = 0; i < purge.length; ++i)
+		{
+		    result = result.replace(purge[i], "");
+		}
+		return result;
+	}
+
     public static void main(String[] args) throws IOException
     {
-    	//ARCHIVOS DE EJEMPLO
     	ReaderHtmlImplEngine IJava2 = new ReaderHtmlImplEngine();
-    	String archivo = ("C:/Users/USUARIO/Desktop/Yasiel Final/Archivos/ArchivoBueno.html");
-    	//String htmlString = "<html><head><title>My title</title></head>" + "<body>Body content<p>Parrafo1<p>Parrafo2</p></p></body></html>";
-    	String html2 = IJava2.procesarHTML(archivo);
-    	//FUNCIONES
-    	//System.out.println(IJava2.leerSinTags(html2)); //funciona
-    	//System.out.println(IJava2.leerSinTagParametros(archivo,"Parrafo2","comunidad")); //funciona
-    	//System.out.println(IJava2.leerTags(html2));  //funciona
-    	//IJava2.leerTags(archivo); //funciona
-    	//System.out.println(IJava2.leerSinTags(html2)); //funciona
-    	//System.out.println(IJava2.leerSinTags(htmlString)); //funciona
-    	//IJava2.leerTagContents(html2,"body");//funciona
-    	//System.out.println(IJava2.leerTagContents(html2,"p"));//funciona
-    	//IJava2.leerTagContents(htmlString,"title");//funciona
-    	//System.out.println(IJava2.leerTagContents(htmlString,"title"));//funciona
-    	//IJava2.leerTagContents(htmlString,"p");//funciona
-    	//IJava2.DivisorHtmlPorTag(html2);//funciona
-    	//String stopTagList[] = {"body"};//funciona
-    	//IJava2.stopTagList(stopTagList,htmlString);//funciona
-    	//System.out.println(IJava2.leerSinTagPorFraseTitulo(html2));//funciona
-    	IJava2.leer("https://www.hazunaweb.com/curso-de-html/estructura-basica-una-pagina-web/");
+    	String htmlString = "<html><head><title>My title</title></head><body>Body content<p1>Parrafo1<p2>Parrafo2</p2></p1><p3>Parrafo3</p3></body></html>";
+    	String stopTagList[] = {"p1"};//funciona
+    	//System.out.println(IJava2.leer("https://www.hazunaweb.com/curso-de-html/estructura-basica-una-pagina-web/")); //funciona
+    	//System.out.println(IJava2.leer("https://www.ulasalle.edu.pe/")); //funciona	
+    	String stopTagContentList[] = {"Estructura","web","HTML"};//funciona
+    	System.out.println(IJava2.leerTagsDeUnTag("https://www.hazunaweb.com/curso-de-html/estructura-basica-una-pagina-web/","body",stopTagContentList)); //PITITO
+    	IJava2.stopTagLista(stopTagList,htmlString);
     }
 }

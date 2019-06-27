@@ -4,6 +4,8 @@ import pe.edu.ulasalle.dima.audata.tts.controller.*;
 import pe.edu.ulasalle.dima.audata.text_html.controller.*;
 import pe.edu.ulasalle.dima.audata.text_pdf.controller.*;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 import pe.edu.ulasalle.dima.audata.dto.DTOapi;
 
@@ -23,15 +25,6 @@ public class ApiImpl implements IAudataApi {
 		TtsSpanishDefault obj = new TtsSpanishDefault();
 		return obj.aac(text);
 		
-	}
-
-	@Override
-	public byte[] mp3HtmlSinTags(String text) throws IOException {
-		
-		IReaderHtml obj = new ReaderHtmlImpl();
-		String html = obj.leer(text);
-		return mp3(html);
-	
 	}
 
 	@Override
@@ -169,8 +162,90 @@ public class ApiImpl implements IAudataApi {
 		
 	}
 	
-	public String gaaa() {
-		return "gaaaaaaaa";
+	//edu
+	@Override	
+	public byte[] aacPdfTitle(byte[] fstream, String title) throws IOException{
+		
+		IReaderPdf obj = new ReaderPdfImpl();
+		String pdf = obj.readPDF(fstream);
+		return aac(pdf);
+	}
+	
+	@Override
+	public byte[] mp3HtmlSinTags(String text) throws IOException {
+		
+		IReaderHtml obj = new ReaderHtmlImpl();
+		String html = obj.leer(text);
+		return mp3(html);
+	
+	}
+		
+	@Override
+	public byte[] mp3HtmlTagContents(String text, String tag) throws IOException {
+		
+		IReaderHtml obj = new ReaderHtmlImpl();
+		String html = obj.leerTagContentsURL(text, tag);
+		return mp3(html);
+	}
+	
+	@Override
+	//TERMINAR
+	public byte[] mp3HtmlTagContents(String text, String tag, String[] stopTagList, String[] stopTagContentList) throws IOException {
+		
+		IReaderHtml obj = new ReaderHtmlImpl();
+		String html = obj.leerTagContentsURL(text, tag);
+		return mp3(html);
+	}
+
+	@Override
+	public byte[] mp3Html(String text, String divisor) throws IOException {
+		
+		IReaderHtml obj = new ReaderHtmlImpl();
+		if (divisor=="TAG") {
+			String html = Arrays.toString(obj.DivisorHtmlPorTagURL(text));
+			return mp3(html);
+		}
+		else {
+			
+			List<String> html1 = obj.leerSinTagPorFraseTituloURL(text);
+			String html = String.join(",", html1);
+			return mp3(html);
+		}
+
+	}
+	@Override	
+	public byte[] aacHtmlSinTags(String text, String tag) throws IOException{
+		
+		IReaderHtml obj = new ReaderHtmlImpl();
+		String html = obj.leer(text);
+		return aac(html);
+		
+	}
+	
+	@Override
+	public byte[] aacHtmlTagContents(String text, String tag) throws IOException{
+		
+		IReaderHtml obj = new ReaderHtmlImpl();
+		String html = obj.leerTagContentsURL(text, tag);
+		return aac(html);
+		
+	}
+
+	@Override
+	//TERMINAR
+	public byte[] aacHtmlTagContents(String text, String tag, String[] stopTagList, String[] stopTagContentList) throws IOException{
+		
+		IReaderHtml obj = new ReaderHtmlImpl();
+		String html = obj.leerTagContents(text, tag, stopTagList, stopTagContentList);
+		return aac(html);
+	}
+	
+	@Override
+	public byte[] aacPdf(byte[] fstream) throws IOException{
+		
+		IReaderPdf obj = new ReaderPdfImpl();
+		String pdf = obj.readPDF(fstream);
+		return aac(pdf);
 	}
 	
 }

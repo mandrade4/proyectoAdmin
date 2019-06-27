@@ -27,14 +27,34 @@ public class ReaderHtmlImpl implements IReaderHtml {
 
 	@Override
 	public String[] leerTags(String htmlI) throws IOException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		IReaderHtmlLibrary obj = new ReaderHtmlImplLibrary();
+		
+		return obj.leerTags(htmlI);
+	}
+	
+	@Override
+	public String[] leerTagsURL(String htmlI) throws IOException {
+		
+		IReaderHtmlLibrary obj = new ReaderHtmlImplLibrary();
+		
+		return obj.leerTagsURL(htmlI);
 	}
 
 	@Override
 	public String leerTagContents(String htmlI, String tagI) throws IOException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		IReaderHtmlLibrary obj = new ReaderHtmlImplLibrary();
+		
+		return obj.leerTagContents(htmlI, tagI);
+	}
+	
+	@Override
+	public String leerTagContentsURL(String htmlI, String tagI) throws IOException {
+		
+		IReaderHtmlLibrary obj = new ReaderHtmlImplLibrary();
+		
+		return obj.leerTagContentsURL(htmlI, tagI);
 	}
 
 	@Override
@@ -52,8 +72,18 @@ public class ReaderHtmlImpl implements IReaderHtml {
 
 	@Override
 	public String[] DivisorHtmlPorTag(String htmlI) throws IOException {
-		// TODO Auto-generated method stub
-		return null;
+
+		IReaderHtmlLibrary obj = new ReaderHtmlImplLibrary();
+		
+		return obj.DivisorHtmlPorTag(htmlI);
+	}
+	
+	@Override
+	public String[] DivisorHtmlPorTagURL(String htmlI) throws IOException {
+
+		IReaderHtmlLibrary obj = new ReaderHtmlImplLibrary();
+		
+		return obj.DivisorHtmlPorTagURL(htmlI);
 	}
 
 	@Override
@@ -64,8 +94,33 @@ public class ReaderHtmlImpl implements IReaderHtml {
 
 	@Override
 	public List<String> leerSinTagPorFraseTitulo(String html) throws FileNotFoundException, IOException {
+		
+		IReaderHtmlLibrary obj = new ReaderHtmlImplLibrary();
+		
+		return obj.leerSinTagPorFraseTitulo(html);
+		
+	}
+	
+	@Override
+	public String leerSinTagURL(String html1) throws IOException{
+		
+		IReaderHtmlLibrary obj = new ReaderHtmlImplLibrary();
+		
+		return obj.leerSinTagURL(html1);
+	}
+	
+	@Override
+	public String leerSinTagParametrosURL( String html,String a ,String b ) throws FileNotFoundException, IOException{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	@Override
+	public List<String> leerSinTagPorFraseTituloURL( String html) throws FileNotFoundException, IOException{
+		
+		IReaderHtmlLibrary obj = new ReaderHtmlImplLibrary();
+		
+		return obj.leerSinTagPorFraseTituloURL(html);
+	}
+	
 }
