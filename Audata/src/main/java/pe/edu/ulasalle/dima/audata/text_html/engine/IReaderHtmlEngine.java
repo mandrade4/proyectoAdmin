@@ -20,12 +20,6 @@ public interface IReaderHtmlEngine {
 	
 	public String leerTagContents ( String htmlI, String tagI, String[] stopTagListI,String[] stopTagContentList) throws IOException;
     
-    public String stopTagList (String [] nombres, String htmlI) throws IOException;
-    
-    public String[] DivisorHtmlPorTag(String htmlI) throws IOException;
-    
-    public String[] DivisorHtmlPorTagURL(String htmlI) throws IOException;
-    
     public String leerSinTagParametros( String html,String a ,String b ) throws FileNotFoundException, IOException;
 
     public List<String> leerSinTagPorFraseTitulo( String html) throws FileNotFoundException, IOException;
@@ -33,6 +27,8 @@ public interface IReaderHtmlEngine {
     public String leerSinTagURL(String html1) throws IOException;
     
     public String leerSinTagParametrosURL( String html,String a ,String b ) throws FileNotFoundException, IOException;
+    
+    public List<String> DivisorHtmlPorTagURL(String htmlI) throws IOException;
     
     public List<String> leerSinTagPorFraseTituloURL( String html) throws FileNotFoundException, IOException;
 }

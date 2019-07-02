@@ -253,7 +253,6 @@ public class apiTest {
     	IAudataApi a = new ApiImpl();
     	byte[] retorno = a.aacPdfTitle(form.getData(),form.getTitle());
     	System.out.println("Entro!");
-    	System.out.println(form.getTitle());
         return Response.status(200)
                 .entity(retorno).build();
 
@@ -287,12 +286,11 @@ public class apiTest {
     
     @POST
     @Path("/funcionhtml3")
-    /////////////////////
     @Consumes("multipart/form-data")
     public Response funcionhtml3(@MultipartForm DTOapi form) throws IOException {
 
     	IAudataApi a = new ApiImpl();
-    	byte[] retorno = a.mp3HtmlTagContents(form.getDataHtml(), form.getTag());
+    	byte[] retorno = a.mp3HtmlTagContents(form.getDataHtml(), form.getTag(), form.getStopList(), form.getStopTagContentList());
     	System.out.println("Entro!");
         return Response.status(200)
                 .entity(retorno).build();
@@ -340,17 +338,18 @@ public class apiTest {
     
     @POST
     @Path("/funcionhtml7")
-    /////////////////////
     @Consumes("multipart/form-data")
     public Response funcionhtml7(@MultipartForm DTOapi form) throws IOException {
 
     	IAudataApi a = new ApiImpl();
-    	byte[] retorno = a.aacHtmlTagContents(form.getDataHtml(), form.getTag());
+    	byte[] retorno = a.aacHtmlTagContents(form.getDataHtml(), form.getTag(), form.getStopList(), form.getStopTagContentList());
     	System.out.println("Entro!");
         return Response.status(200)
                 .entity(retorno).build();
 
     }
+    
+    
     
     @POST
     @Path("/funcionpdf002")
@@ -365,5 +364,44 @@ public class apiTest {
 
     }
     
+    //rosa
+    @POST
+    @Path("/funcion011")
+    @Consumes("multipart/form-data")
+    public Response funcion011(@MultipartForm DTOapi form) throws IOException {
+
+    	IAudataApi a = new ApiImpl();
+    	byte[] retorno = a.mp3HtmlSinTagParametros(form.getDataHtml(),form.getPalabraInicio(),form.getPalabraFin());
+    	System.out.println("Entro!");
+        return Response.status(200)
+                .entity(retorno).build();
+
+    }
+    
+	@POST
+    @Path("/funcion012")
+    @Consumes("multipart/form-data")
+    public Response funcion012(@MultipartForm DTOapi form) throws IOException {
+
+    	IAudataApi a = new ApiImpl();
+    	byte[] retorno = a.aacHtmlSinTagParametros(form.getDataHtml(),form.getPalabraInicio(),form.getPalabraFin());
+    	System.out.println("Entro!");
+        return Response.status(200)
+                .entity(retorno).build();
+	}
+    
+	@POST
+	@Path("/funcion033")
+	@Consumes("multipart/form-data")
+
+	public Response funcion033(@MultipartForm DTOapi form) throws IOException {
+
+		IAudataApi a = new ApiImpl();
+		byte[] retorno = a.aacPdfBookmark(form.getData(), form.getBookmark(), form.getStopList());
+		System.out.println("Entro!");
+		return Response.status(200)
+				.entity(retorno).build();
+
+}
     
 }

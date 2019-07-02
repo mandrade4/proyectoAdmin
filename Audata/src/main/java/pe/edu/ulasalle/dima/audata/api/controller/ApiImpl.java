@@ -200,17 +200,25 @@ public class ApiImpl implements IAudataApi {
 	public byte[] mp3Html(String text, String divisor) throws IOException {
 		
 		IReaderHtml obj = new ReaderHtmlImpl();
-		if (divisor=="TAG") {
-			String html = Arrays.toString(obj.DivisorHtmlPorTagURL(text));
-			return mp3(html);
-		}
-		else {
-			
-			List<String> html1 = obj.leerSinTagPorFraseTituloURL(text);
+		if(divisor.equals("tag")) {
+			List<String> html1 = obj.DivisorHtmlPorTagURL(text);
 			String html = String.join(",", html1);
+			System.out.println(divisor);
+			System.out.println("divisor por tag");
 			return mp3(html);
 		}
-		
+		else if (divisor.equals("frase")) {
+			List<String> html2 = obj.leerSinTagPorFraseTituloURL(text);
+			String html3 = String.join(",", html2);
+			System.out.println(divisor);
+			System.out.println("divisor por frase de titulo");
+			return mp3(html3);
+		}
+		else{
+			String a = "Ingrese un divisor valido (por tag o frase)";
+			System.out.println(a);
+			return a.getBytes();
+		}
 	}
 	
 	@Override	
@@ -247,4 +255,29 @@ public class ApiImpl implements IAudataApi {
 		return aac(pdf);
 	}
 	
+	//rosa
+	
+	@Override
+	public byte[] aacPdfBookmark(byte[] fstream, String Bookmark, String[] StopList) throws IOException{
+		
+		IReaderPdf obj = new ReaderPdfImpl();
+		String pdf = obj.leerBookmark(fstream, Bookmark, StopList);
+		return aac(pdf);
+	}
+	
+	@Override
+	public byte[] mp3HtmlSinTagParametros(String htmlI, String a,String b) throws IOException{//cambiar
+		
+		IReaderHtml obj = new ReaderHtmlImpl();
+		String html = obj.leerSinTagParametrosURL(htmlI, a, b);
+		return aac(html);
+	}
+		
+	@Override
+	public byte[] aacHtmlSinTagParametros(String htmlI, String a,String b) throws IOException{//cambiar
+		
+		IReaderHtml obj = new ReaderHtmlImpl();
+		String html = obj.leerSinTagParametrosURL(htmlI, a, b);
+		return aac(html);
+	}
 }

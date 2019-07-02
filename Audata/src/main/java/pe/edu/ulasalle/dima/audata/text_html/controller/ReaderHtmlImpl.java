@@ -60,26 +60,12 @@ public class ReaderHtmlImpl implements IReaderHtml {
 	@Override
 	public String leerTagContents(String htmlI, String tagI, String[] stopTagListI, String[] stopTagContentList)
 			throws IOException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String stopTagList(String[] nombres, String htmlI) throws IOException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String[] DivisorHtmlPorTag(String htmlI) throws IOException {
-
 		IReaderHtmlLibrary obj = new ReaderHtmlImplLibrary();
-		
-		return obj.DivisorHtmlPorTag(htmlI);
+		return obj.leerTagContents(htmlI, tagI, stopTagListI, stopTagContentList);
 	}
 	
 	@Override
-	public String[] DivisorHtmlPorTagURL(String htmlI) throws IOException {
+	public List<String> DivisorHtmlPorTagURL(String htmlI) throws IOException {
 
 		IReaderHtmlLibrary obj = new ReaderHtmlImplLibrary();
 		
@@ -88,8 +74,10 @@ public class ReaderHtmlImpl implements IReaderHtml {
 
 	@Override
 	public String leerSinTagParametros(String html, String a, String b) throws FileNotFoundException, IOException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		IReaderHtmlLibrary obj = new ReaderHtmlImplLibrary();
+		
+		return obj.leerSinTagParametros(html, a, b);
 	}
 
 	@Override
@@ -111,8 +99,10 @@ public class ReaderHtmlImpl implements IReaderHtml {
 	
 	@Override
 	public String leerSinTagParametrosURL( String html,String a ,String b ) throws FileNotFoundException, IOException{
-		// TODO Auto-generated method stub
-		return null;
+		
+		IReaderHtmlLibrary obj = new ReaderHtmlImplLibrary();
+		
+		return obj.leerSinTagParametrosURL(html, a, b);
 	}
 	
 	@Override

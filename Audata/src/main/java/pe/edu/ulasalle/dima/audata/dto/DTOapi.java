@@ -22,6 +22,8 @@ public class DTOapi {
     private String divisor;
     private String[] stopTagList;
     private String[] stopTagContentList;
+    private String stL;
+    private String stcL;
     
     public DTOapi() {
     }
@@ -137,18 +139,8 @@ public class DTOapi {
 		return stopTagList;
 	}
 
-    @FormParam("stopTagList")
-	public void setStopTagList(String[] stopTagList) {
-		this.stopTagList = stopTagList;
-	}
-
 	public String[] getStopTagContentList() {
 		return stopTagContentList;
-	}
-
-    @FormParam("stopTagContentList")
-	public void setStopTagContentList(String[] stopTagContentList) {
-		this.stopTagContentList = stopTagContentList;
 	}
 
 	public String getTitle() {
@@ -158,6 +150,24 @@ public class DTOapi {
 	@FormParam("title")
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public String getStL() {
+		return stL;
+	}
+
+    @FormParam("stL")
+	public void setStL(String stL) {
+		this.stopTagList = stL.split("::");
+	}
+
+	public String getStcL() {
+		return stcL;
+	}
+	
+    @FormParam("stcL")
+	public void setStcL(String stcL) {
+    	stopTagContentList = stcL.split("::");  	
 	}
 
 }

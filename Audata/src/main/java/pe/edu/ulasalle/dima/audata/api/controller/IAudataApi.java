@@ -63,4 +63,12 @@ public interface IAudataApi {
 	
 	public byte[] aacPdf(byte[] fstream) throws IOException;
 
+	//rosa
+
+	public byte[] aacPdfBookmark(byte[] fstream, String Bookmark, String[] StopList) throws IOException;
+
+	public byte[] aacHtmlSinTagParametros(String htmlI, String a, String b) throws IOException;
+	
+	public byte[] mp3HtmlSinTagParametros(String htmlI, String a, String b) throws IOException;
+
 }

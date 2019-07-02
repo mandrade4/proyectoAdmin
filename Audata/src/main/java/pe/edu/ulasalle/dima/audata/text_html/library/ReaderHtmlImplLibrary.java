@@ -89,7 +89,7 @@ public class ReaderHtmlImplLibrary implements IReaderHtmlLibrary{
 		if (!text.isBlank()) {
 			return text;
 		}else{
-			return "La etiqueta no contiene texto";
+			return "La etiqueta no existe";
 		}
 		//return text;
     }
@@ -105,16 +105,6 @@ public class ReaderHtmlImplLibrary implements IReaderHtmlLibrary{
 		}
     }
     
-	public String stopTagList(String [] nombres,String htmlI) throws IOException{ 
-    	ReaderHtmlImplEngine obj = new ReaderHtmlImplEngine();
-		String text = obj.stopTagList(nombres,htmlI);
-		if (text.isBlank()) {
-			return text;
-		}else{
-			return "La(s) palabra(s) no esta(n) en el texto";
-		}
- }
-    
     public String procesarHTML(String archivo) {
         ReaderHtmlImplEngine obj = new ReaderHtmlImplEngine();
 		String text = obj.procesarHTML(archivo);
@@ -124,32 +114,27 @@ public class ReaderHtmlImplLibrary implements IReaderHtmlLibrary{
 			return "Ingrese un archivo HTML";
 		}
 	}
-	
-	public String[] DivisorHtmlPorTag(String htmlI) throws IOException {
+
+	public List<String> DivisorHtmlPorTagURL(String htmlI) throws IOException {
     	ReaderHtmlImplEngine obj = new ReaderHtmlImplEngine();
-		String text[] = obj.DivisorHtmlPorTag(htmlI);
-		String[] a = {"El Html no contiene etiquetas"};
-		if (text.length>0) {
+    	List<String> text = obj.DivisorHtmlPorTagURL(htmlI);
+    	List<String> list = new ArrayList<>();
+    	list.add("El html no contiene etiquetas");
+		if (!text.isEmpty()) {
 			return text;
 		}else{
-			return a;
-		}
-	}
-	
-	public String[] DivisorHtmlPorTagURL(String htmlI) throws IOException {
-    	ReaderHtmlImplEngine obj = new ReaderHtmlImplEngine();
-		String text[] = obj.DivisorHtmlPorTagURL(htmlI);
-		String[] a = {"El Html no contiene etiquetas"};
-		if (text.length>0) {
 			return text;
-		}else{
-			return a;
 		}
 	}
 
 	public String leerSinTagParametros(String html, String a, String b) throws FileNotFoundException, IOException {
-		// TODO Auto-generated method stub
-		return null;
+		IReaderHtmlEngine obj = new ReaderHtmlImplEngine();
+		String text = obj.leerSinTagParametrosURL(html, a, b); 
+		if (!text.isBlank()) {
+			return text;
+		}else{
+			return "Error, ingrese los parametros correctos";
+		}
 	}
 
 	public List<String> leerSinTagPorFraseTitulo(String html) throws FileNotFoundException, IOException {
@@ -175,8 +160,13 @@ public class ReaderHtmlImplLibrary implements IReaderHtmlLibrary{
 	}
 
 	public String leerSinTagParametrosURL(String html, String a, String b) throws FileNotFoundException, IOException {
-		// TODO Auto-generated method stub
-		return null;
+		IReaderHtmlEngine obj = new ReaderHtmlImplEngine();
+		String text = obj.leerSinTagParametrosURL(html, a, b); 
+		if (!text.isBlank()) {
+			return text;
+		}else{
+			return "Error, ingrese los parametros correctos";
+		}
 	}
 
 	public List<String> leerSinTagPorFraseTituloURL(String html) throws FileNotFoundException, IOException {
