@@ -163,13 +163,6 @@ public class ApiImpl implements IAudataApi {
 	}
 	
 	//edu
-	@Override	
-	public byte[] aacPdfTitle(byte[] fstream, String title) throws IOException{
-		
-		IReaderPdf obj = new ReaderPdfImpl();
-		String pdf = obj.readPDF(fstream);
-		return aac(pdf);
-	}
 	
 	@Override
 	public byte[] mp3HtmlSinTags(String text) throws IOException {

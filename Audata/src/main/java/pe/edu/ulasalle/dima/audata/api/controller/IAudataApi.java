@@ -44,9 +44,7 @@ public interface IAudataApi {
 	public byte[] aacPdfBoomark( byte[] fstream, String bookmark)throws IOException;
 		
 	//edu
-	
-	public byte[] aacPdfTitle(byte[] fstream, String title) throws IOException;
-	
+		
 	public byte[] mp3HtmlSinTags(String text) throws IOException;
 	
 	public byte[] mp3HtmlTagContents(String text, String tag) throws IOException;

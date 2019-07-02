@@ -246,19 +246,6 @@ public class apiTest {
     //edu
     
     @POST
-    @Path("/funcionpdf001")
-    @Consumes("multipart/form-data")
-    public Response funcionpdf001(@MultipartForm DTOapi form) throws IOException {
-
-    	IAudataApi a = new ApiImpl();
-    	byte[] retorno = a.aacPdfTitle(form.getData(),form.getTitle());
-    	System.out.println("Entro!");
-        return Response.status(200)
-                .entity(retorno).build();
-
-    }
-    
-    @POST
     @Path("/funcionhtml1")
     @Consumes("multipart/form-data")
     public Response funcionhtml1(@MultipartForm DTOapi form) throws IOException {
@@ -348,8 +335,6 @@ public class apiTest {
                 .entity(retorno).build();
 
     }
-    
-    
     
     @POST
     @Path("/funcionpdf002")
