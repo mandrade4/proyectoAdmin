@@ -22,6 +22,7 @@ import pe.edu.ulasalle.dima.audata.tts.controller.TtsSpanishDefault;
 @Path("/api")
 public class apiTest {
 
+	String hola ="s";
 	@GET
     @Path("/funcion1/{text}")	
     public byte[] funcion1(@PathParam("text") String nombre) {
@@ -53,7 +54,7 @@ public class apiTest {
     }
     
     /*
-     * mp3 con intervalo de paginas, palabras y stoplist
+     * mp3 con intervalo de paginas,  palabras y stoplist
      * anadida 25-06
      */
     
@@ -119,11 +120,28 @@ public class apiTest {
 
     }
     
+    /*
+     * AAC de un rango determinado de paginas con stoplist
+     */
+    
+    @POST
+    @Path("/funcion34")
+    @Consumes("multipart/form-data")
+    public Response funcion34(@MultipartForm FileUploadForm form) throws IOException {
+        
+    	IAudataApi a = new ApiImpl();
+    	byte[] retorno = a.aacPdf(form.getData(), form.getPaginaInicio(), form.getPaginaFin(), form.getStopList());
+        return Response.status(200)
+                .entity(retorno).build();
+
+    }
+    
+    
   //chino
     @POST
-    @Path("/funcion001")
+    @Path("/funcion22")
     @Consumes("multipart/form-data")
-    public Response funcion001(@MultipartForm DTOapi form) throws IOException {
+    public Response funcion22(@MultipartForm DTOapi form) throws IOException {
 
     	IAudataApi a = new ApiImpl();
     	byte[] retorno = a.mp3Pdf(form.getData(), form.getPaginaInicio(), form.getPaginaFin());
@@ -133,9 +151,9 @@ public class apiTest {
     }
     
     @POST
-    @Path("/funcion002")
+    @Path("/funcion23")
     @Consumes("multipart/form-data")
-    public Response funcion002(@MultipartForm DTOapi form) throws IOException {
+    public Response funcion23(@MultipartForm DTOapi form) throws IOException {
 
     	IAudataApi a = new ApiImpl();
     	byte[] retorno = a.mp3PdfBoomark(form.getData(), form.getBookmark());
@@ -145,9 +163,9 @@ public class apiTest {
     }
     
     @POST
-    @Path("/funcion04")
+    @Path("/funcion24")
     @Consumes("multipart/form-data")
-    public Response funcion04(@MultipartForm DTOapi form) throws IOException {
+    public Response funcion24(@MultipartForm DTOapi form) throws IOException {
 
     	IAudataApi a = new ApiImpl();
     	byte[] retorno = a.mp3Pdf(form.getData(), form.getPaginaInicio(), form.getPaginaFin(),form.getStopList());
@@ -157,9 +175,9 @@ public class apiTest {
     }
     
     @POST
-    @Path("/funcion05")
+    @Path("/funcion25")
     @Consumes("multipart/form-data")
-    public Response funcion05(@MultipartForm DTOapi form) throws IOException {
+    public Response funcion25(@MultipartForm DTOapi form) throws IOException {
 
     	IAudataApi a = new ApiImpl();
     	byte[] retorno = a.mp3Pdf(form.getData(), form.getStopList());
@@ -169,9 +187,9 @@ public class apiTest {
     }
     
     @POST
-    @Path("/funcion003")
+    @Path("/funcion26")
     @Consumes("multipart/form-data")
-    public Response funcion003(@MultipartForm DTOapi form) throws IOException {
+    public Response funcion26(@MultipartForm DTOapi form) throws IOException {
 
     	IAudataApi a = new ApiImpl();
     	byte[] retorno = a.aacPdf(form.getData(), form.getPaginaInicio(), form.getPaginaFin(), form.getPalabraInicio(), form.getPalabraFin());
@@ -183,9 +201,9 @@ public class apiTest {
     //jeanpol
     
     @POST
-    @Path("/funcion004")
+    @Path("/funcion27")
     @Consumes("multipart/form-data")
-    public Response funcion004(@MultipartForm DTOapi form) throws IOException {
+    public Response funcion27(@MultipartForm DTOapi form) throws IOException {
 
     	IAudataApi a = new ApiImpl();
     	byte[] retorno = a.aacPdf(form.getData(), form.getPaginaInicio());
@@ -195,9 +213,9 @@ public class apiTest {
     }
     
     @POST
-    @Path("/funcion008")
+    @Path("/funcion28")
     @Consumes("multipart/form-data")
-    public Response funcion008(@MultipartForm DTOapi form) throws IOException {
+    public Response funcion28(@MultipartForm DTOapi form) throws IOException {
 
     	IAudataApi a = new ApiImpl();
     	byte[] retorno = a.aacPdf(form.getData(), form.getStopList());
@@ -208,9 +226,9 @@ public class apiTest {
     
     
     @POST
-    @Path("/funcion007")
+    @Path("/funcion29")
     @Consumes("multipart/form-data")
-    public Response funcion007(@MultipartForm DTOapi form) throws IOException {
+    public Response funcion29(@MultipartForm DTOapi form) throws IOException {
 
     	IAudataApi a = new ApiImpl();
     	byte[] retorno = a.aacPdf(form.getData(), form.getPaginaInicio(), form.getPaginaFin(), form.getPalabraInicio(), form.getPalabraFin(), form.getStopList());
@@ -220,9 +238,9 @@ public class apiTest {
     }
     
     @POST
-    @Path("/funcion005")
+    @Path("/funcion30")
     @Consumes("multipart/form-data")
-    public Response funcion005(@MultipartForm DTOapi form) throws IOException {
+    public Response funcion30(@MultipartForm DTOapi form) throws IOException {
 
     	IAudataApi a = new ApiImpl();
     	byte[] retorno = a.aacPdf(form.getData(), form.getPaginaInicio(), form.getPaginaFin());
@@ -232,9 +250,9 @@ public class apiTest {
     }
     
     @POST
-    @Path("/funcion006")
+    @Path("/funcion31")
     @Consumes("multipart/form-data")
-    public Response funcion006(@MultipartForm DTOapi form) throws IOException {
+    public Response funcion31(@MultipartForm DTOapi form) throws IOException {
 
     	IAudataApi a = new ApiImpl();
     	byte[] retorno = a.aacPdfBoomark(form.getData(), form.getBookmark());

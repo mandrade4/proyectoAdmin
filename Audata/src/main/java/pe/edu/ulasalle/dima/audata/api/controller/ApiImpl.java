@@ -67,7 +67,6 @@ public class ApiImpl implements IAudataApi {
 
 		IReaderPdf obj = new ReaderPdfImpl();
 		String pdf = obj.readPDF(fstream, pagIni, pagFin, strIni, strFin);
-//		System.out.println(pdf);
 		return mp3(pdf);
 		
 	}
@@ -77,8 +76,14 @@ public class ApiImpl implements IAudataApi {
 
 		IReaderPdf obj = new ReaderPdfImpl();
 		String pdf = obj.readPDF(fstream);
-//		System.out.println(pdf);
 		return mp3(pdf);
+	}
+	
+	public byte[] aacPdf ( byte[] fstream, String pagIni, String pagFin, String[] stopList ) throws IOException {
+
+		IReaderPdf obj = new ReaderPdfImpl();
+		String pdf = obj.readPDF(fstream, pagIni, pagFin, stopList);				
+		return aac(pdf);
 	}
 	
 	//chino
@@ -149,8 +154,13 @@ public class ApiImpl implements IAudataApi {
 	public byte[] aacPdf(byte[] fstream, String pagIni, String pagFin, String strIni, String strFin, String[] stopList) throws IOException {
 		IReaderPdf obj = new ReaderPdfImpl();
 		String pdf = obj.readPDF(fstream, pagIni, pagFin, strIni, strFin, stopList);
+		if (pdf == "error intervalos de pagina no valido") {
+			String b = "Holasalskdalksdasda";
+			return b.getBytes();
+		}else {
+			return aac(pdf);
+		}
 		
-		return aac(pdf);
 	}
 
 	@Override
