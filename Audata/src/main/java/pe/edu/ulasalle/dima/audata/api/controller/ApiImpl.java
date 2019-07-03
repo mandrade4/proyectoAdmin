@@ -4,6 +4,8 @@ import pe.edu.ulasalle.dima.audata.tts.controller.*;
 import pe.edu.ulasalle.dima.audata.text_html.controller.*;
 import pe.edu.ulasalle.dima.audata.text_pdf.controller.*;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 import pe.edu.ulasalle.dima.audata.dto.DTOapi;
 
@@ -23,15 +25,6 @@ public class ApiImpl implements IAudataApi {
 		TtsSpanishDefault obj = new TtsSpanishDefault();
 		return obj.aac(text);
 		
-	}
-
-	@Override
-	public byte[] mp3HtmlSinTags(String text) throws IOException {
-		
-		IReaderHtml obj = new ReaderHtmlImpl();
-		String html = obj.leer(text);
-		return mp3(html);
-	
 	}
 
 	@Override
@@ -179,8 +172,115 @@ public class ApiImpl implements IAudataApi {
 		
 	}
 	
-	public String gaaa() {
-		return "gaaaaaaaa";
+	//edu
+	
+	@Override
+	public byte[] mp3HtmlSinTags(String text) throws IOException {
+		
+		IReaderHtml obj = new ReaderHtmlImpl();
+		String html = obj.leer(text);
+		return mp3(html);
+	
+	}
+		
+	@Override
+	public byte[] mp3HtmlTagContents(String text, String tag) throws IOException {
+		
+		IReaderHtml obj = new ReaderHtmlImpl();
+		String html = obj.leerTagContentsURL(text, tag);
+		return mp3(html);
 	}
 	
+	@Override
+	public byte[] mp3HtmlTagContents(String text, String tag, String[] stopTagList, String[] stopTagContentList) throws IOException {
+		
+		IReaderHtml obj = new ReaderHtmlImpl();
+		String html = obj.leerTagContentsURL(text, tag);
+		return mp3(html);
+	}
+
+	@Override
+	public byte[] mp3Html(String text, String divisor) throws IOException {
+		
+		IReaderHtml obj = new ReaderHtmlImpl();
+		if(divisor.equals("tag")) {
+			List<String> html1 = obj.DivisorHtmlPorTagURL(text);
+			String html = String.join(",", html1);
+			System.out.println(divisor);
+			System.out.println("divisor por tag");
+			return mp3(html);
+		}
+		else if (divisor.equals("frase")) {
+			List<String> html2 = obj.leerSinTagPorFraseTituloURL(text);
+			String html3 = String.join(",", html2);
+			System.out.println(divisor);
+			System.out.println("divisor por frase de titulo");
+			return mp3(html3);
+		}
+		else{
+			String a = "Ingrese un divisor valido (por tag o frase)";
+			System.out.println(a);
+			return a.getBytes();
+		}
+	}
+	
+	@Override	
+	public byte[] aacHtmlSinTags(String text) throws IOException{
+		
+		IReaderHtml obj = new ReaderHtmlImpl();
+		String html = obj.leer(text);
+		return aac(html);
+		
+	}
+	
+	@Override
+	public byte[] aacHtmlTagContents(String text, String tag) throws IOException{
+		
+		IReaderHtml obj = new ReaderHtmlImpl();
+		String html = obj.leerTagContentsURL(text, tag);
+		return aac(html);
+		
+	}
+
+	@Override
+	public byte[] aacHtmlTagContents(String text, String tag, String[] stopTagList, String[] stopTagContentList) throws IOException{
+		
+		IReaderHtml obj = new ReaderHtmlImpl();
+		String html = obj.leerTagContents(text, tag, stopTagList, stopTagContentList);
+		return aac(html);
+	}
+	
+	@Override
+	public byte[] aacPdf(byte[] fstream) throws IOException{
+		
+		IReaderPdf obj = new ReaderPdfImpl();
+		String pdf = obj.readPDF(fstream);
+		return aac(pdf);
+	}
+	
+	//rosa
+	
+	@Override
+	public byte[] aacPdfBookmark(byte[] fstream, String Bookmark, String[] StopList) throws IOException{
+		
+		IReaderPdf obj = new ReaderPdfImpl();
+		String pdf = obj.leerBookmark(fstream, Bookmark, StopList);
+		return aac(pdf);
+	}
+	
+	@Override
+	public byte[] mp3HtmlSinTagParametros(String htmlI, String a,String b) throws IOException{//cambiar
+		
+		IReaderHtml obj = new ReaderHtmlImpl();
+		String html = obj.leerSinTagParametrosURL(htmlI, a, b);
+		return aac(html);
+	}
+		
+	@Override
+	public byte[] aacHtmlSinTagParametros(String htmlI, String a,String b) throws IOException{//cambiar
+		
+		IReaderHtml obj = new ReaderHtmlImpl();
+		String html = obj.leerSinTagParametrosURL(htmlI, a, b);
+		return aac(html);
+	}
 }

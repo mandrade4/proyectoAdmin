@@ -71,10 +71,10 @@ public class text_htmlMain {
         
 		IReaderHtml obj = new ReaderHtmlImpl();
 		//String retorno1 = obj.procesarHTML(form.getData());
-        String[] html = obj.DivisorHtmlPorTag(form.getData());
+        List<String> retorno = obj.DivisorHtmlPorTagURL(form.getData());
         
         return Response.status(200)
-                .entity(html).build();
+                .entity(retorno).build();
 
     }
 	
@@ -90,7 +90,6 @@ public class text_htmlMain {
                 .entity(retorno).build();
 
     }
-	
 	
 	@POST
     @Path("/pruebahtml7")
@@ -111,7 +110,7 @@ public class text_htmlMain {
     public Response uploadedFileHtml7(@MultipartForm FileUploadFormHtml form) throws IOException {
         
 		IReaderHtml obj = new ReaderHtmlImpl();
-        String retorno = obj.stopTagList(form.getStopTagList(), form.getData());
+        String retorno = obj.leerTagContents(form.getData(),form.getTag(),form.getStopTagList(),form.getStopTagContentList());
         
         return Response.status(200)
                 .entity(retorno).build();

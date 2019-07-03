@@ -15,6 +15,16 @@ public class DTOapi {
     private String[] stopList;
     private String sL;
     
+    //edu
+    private String title;
+    private String dataHtml;
+	private String tag;
+    private String divisor;
+    private String[] stopTagList;
+    private String[] stopTagContentList;
+    private String stL;
+    private String stcL;
+    
     public DTOapi() {
     }
     
@@ -94,5 +104,70 @@ public class DTOapi {
     public void setPalabraFin(String palabraFin) {
         this.palabraFin = palabraFin;
     }
+
+    //HTML
+    
+    public String getTag() {
+		return tag;
+	}
+    
+    @FormParam("tag")
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
+    
+	public String getDivisor() {
+		return divisor;
+	}
+	
+    @FormParam("divisor")
+	public void setDivisor(String divisor) {
+		this.divisor = divisor;
+	}
+    
+    public String getDataHtml() {
+		return dataHtml;
+	}
+
+    @FormParam("uploadedFile2")
+    @PartType("application/octet-stream")
+	public void setDataHtml(String dataHtml) {
+		this.dataHtml = dataHtml;
+	}
+
+	public String[] getStopTagList() {
+		return stopTagList;
+	}
+
+	public String[] getStopTagContentList() {
+		return stopTagContentList;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+	
+	@FormParam("title")
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getStL() {
+		return stL;
+	}
+
+    @FormParam("stL")
+	public void setStL(String stL) {
+		this.stopTagList = stL.split("::");
+	}
+
+	public String getStcL() {
+		return stcL;
+	}
+	
+    @FormParam("stcL")
+	public void setStcL(String stcL) {
+    	stopTagContentList = stcL.split("::");  	
+	}
 
 }

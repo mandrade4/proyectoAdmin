@@ -9,8 +9,6 @@ public interface IAudataApi {
 	
 	public byte[] aac(String text);
 	
-	public byte[] mp3HtmlSinTags(String text) throws IOException;
-	
 	public byte[] mp3Pdf( byte[] fstream, String pagina) throws IOException;
 	
 	//25-06
@@ -47,4 +45,30 @@ public interface IAudataApi {
 	
 	public byte[] aacPdfBoomark( byte[] fstream, String bookmark)throws IOException;
 		
+	//edu
+		
+	public byte[] mp3HtmlSinTags(String text) throws IOException;
+	
+	public byte[] mp3HtmlTagContents(String text, String tag) throws IOException;
+	
+	public byte[] mp3HtmlTagContents(String text, String tag, String[] stopTagList, String[] stopTagContentList) throws IOException;
+	
+	public byte[] mp3Html(String text, String divisor) throws IOException;
+
+	public byte[] aacHtmlSinTags(String text) throws IOException;
+	
+	public byte[] aacHtmlTagContents(String text, String tag) throws IOException;
+	
+	public byte[] aacHtmlTagContents(String text, String tag, String[] stopTagList, String[] stopTagContentList) throws IOException;
+	
+	public byte[] aacPdf(byte[] fstream) throws IOException;
+
+	//rosa
+
+	public byte[] aacPdfBookmark(byte[] fstream, String Bookmark, String[] StopList) throws IOException;
+
+	public byte[] aacHtmlSinTagParametros(String htmlI, String a, String b) throws IOException;
+	
+	public byte[] mp3HtmlSinTagParametros(String htmlI, String a, String b) throws IOException;
+
 }
