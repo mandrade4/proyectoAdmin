@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -24,13 +25,23 @@ public class TtsEnglishDefaultEngine extends TtsGenericoEngine implements ITts {
 		
 	}
 	
-	public byte[] mp3(String text){
+	public byte[] mp3(String text1){
 		
 		File file = new File("audio");
 		
 		if (!file.exists()) {
 			file.mkdir();
 		}
+		
+		String text =null;
+        if (text1 !=null) {
+            String valor = text1;
+            valor = valor.toLowerCase();
+            text = Normalizer.normalize(valor, Normalizer.Form.NFD);
+            //limpio = limpio.replaceAll("[^\\p{ASCII}(N\u0303)(n\u0303)(\u00A1)(\u00BF)(\u00B0)(U\u0308)(u\u0308)]", "");}
+            text = text.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+            text = Normalizer.normalize(text, Normalizer.Form.NFC);
+        }
 		
 		UUID uuid = UUID.randomUUID();
 		String uuidStringRandom = uuid.toString();

@@ -53,4 +53,6 @@ public interface IReaderPdfLibrary {
 	
 	public int getLevel(LinkedHashMap<PDOutlineItem, Integer> map, String bookmark);
 	
+	public String cleanText( String text );
+	
 }

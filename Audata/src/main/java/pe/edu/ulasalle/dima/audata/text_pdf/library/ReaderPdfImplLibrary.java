@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
@@ -239,6 +240,29 @@ public class ReaderPdfImplLibrary implements IReaderPdfLibrary {
 	public int getLevel(LinkedHashMap<PDOutlineItem, Integer> map, String bookmark) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	
+	@Override
+	public String cleanText(String cadena) {
+
+		String limpio =null;
+        if (cadena !=null) {
+            String valor = cadena;
+            valor = valor.toLowerCase();
+            limpio = Normalizer.normalize(valor, Normalizer.Form.NFD);
+            limpio = limpio.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+            limpio = Normalizer.normalize(limpio, Normalizer.Form.NFC);
+            limpio = limpio.replace("º", " ");
+            limpio = limpio.replace("°", " ");
+            limpio = limpio.replace("”", " ");
+            limpio = limpio.replace("“", " ");
+            limpio = limpio.replace("ø", " ");
+            limpio = limpio.replace("„", " ");
+            limpio = limpio.replace("‟", " ");
+        }
+        
+        return limpio;
+		
 	}
 
 

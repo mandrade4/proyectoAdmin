@@ -20,6 +20,8 @@ public interface IAudataApi {
 
 	public byte[] mp3Pdf ( byte[] fstream ) throws IOException;
 	
+	public byte[] aacPdf ( byte[] fstream, String pagIni, String pagFin, String[] stopList ) throws IOException;
+	
 	//Chino
 	
 	public byte[] mp3Pdf( byte[] fstream, String pagIni, String pagFin)throws IOException;
