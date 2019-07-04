@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -409,7 +410,7 @@ public class ReaderPdfImplEngine implements IReaderPdfEngine {
 			cadena = cadena.replace(" (" + stopList[i].toLowerCase()+ ") "," ");
 			cadena = cadena.replace(" (" + stopList[i].toLowerCase()+ "), "," ");
 			cadena = cadena.replace(" (" + stopList[i].toLowerCase()+ "). "," ");
-			cadena = cadena.replace(" ¿" + stopList[i].toLowerCase()+ "? "," ");
+			cadena = cadena.replace(" Â¿" + stopList[i].toLowerCase()+ "? "," ");
 			cadena = cadena.replace(" <" + stopList[i].toLowerCase()+ "> "," ");
 			cadena = cadena.replace("[" + stopList[i].toLowerCase()+ "]"," ");
 			cadena = cadena.replace("[" + stopList[i].toLowerCase()+ " ","[");
@@ -421,6 +422,8 @@ public class ReaderPdfImplEngine implements IReaderPdfEngine {
 	    }
 	    return cadena;
 	}
+
+
 
 	
 }

@@ -69,6 +69,7 @@ public class ApiImpl implements IAudataApi {
 
 		IReaderPdf obj = new ReaderPdfImpl();
 		String pdf = obj.readPDF(fstream);
+		System.out.println(pdf);
 		return mp3(pdf);
 	}
 	

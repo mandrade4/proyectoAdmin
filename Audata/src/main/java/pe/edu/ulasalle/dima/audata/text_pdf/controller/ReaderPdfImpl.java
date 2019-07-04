@@ -2,6 +2,7 @@ package pe.edu.ulasalle.dima.audata.text_pdf.controller;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.Normalizer;
 import java.util.ArrayList;
 
 import pe.edu.ulasalle.dima.audata.text_pdf.library.IReaderPdfLibrary;
@@ -13,8 +14,8 @@ public class ReaderPdfImpl implements IReaderPdf {
 	public String readPDF(byte[] fstream) throws IOException {
 		
 		IReaderPdfLibrary obj = new ReaderPdfImplLibrary();
-		
-		return obj.readPDF(fstream);
+		String cadena =  obj.cleanText(obj.readPDF(fstream));
+		return cadena;
 		
 	}
 
@@ -23,7 +24,7 @@ public class ReaderPdfImpl implements IReaderPdf {
 
 		IReaderPdfLibrary obj = new ReaderPdfImplLibrary();
 		
-		return obj.readPDF(fstream, pagIni, pagFin);
+		return obj.cleanText(obj.readPDF(fstream, pagIni, pagFin));
 		
 	}
 
@@ -33,7 +34,7 @@ public class ReaderPdfImpl implements IReaderPdf {
 
 		IReaderPdfLibrary obj = new ReaderPdfImplLibrary();
 		
-		return obj.readPDF(fstream, pagIni, pagFin, strIni, strFin);
+		return obj.cleanText(obj.readPDF(fstream, pagIni, pagFin, strIni, strFin));
 		
 	}
 
@@ -42,7 +43,7 @@ public class ReaderPdfImpl implements IReaderPdf {
 
 		IReaderPdfLibrary obj = new ReaderPdfImplLibrary();
 		
-		return obj.readPDF(fstream, pagIni, pagFin, listStop);
+		return obj.cleanText(obj.readPDF(fstream, pagIni, pagFin, listStop));
 		
 	}
 
@@ -52,7 +53,7 @@ public class ReaderPdfImpl implements IReaderPdf {
 
 		IReaderPdfLibrary obj = new ReaderPdfImplLibrary();
 		
-		return obj.readPDF(fstream, pagIni, pagFin, strIni, strFin, stopList);
+		return obj.cleanText(obj.readPDF(fstream, pagIni, pagFin, strIni, strFin, stopList));
 		
 	}
 
@@ -61,7 +62,7 @@ public class ReaderPdfImpl implements IReaderPdf {
 
 		IReaderPdfLibrary obj = new ReaderPdfImplLibrary();
 		
-		return obj.readPDF(fstream, stopList);
+		return obj.cleanText(obj.readPDF(fstream, stopList));
 		
 	}
 
@@ -123,7 +124,7 @@ public class ReaderPdfImpl implements IReaderPdf {
 
 		IReaderPdfLibrary obj = new ReaderPdfImplLibrary();
 		
-		return obj.readPDF(fstream, page);
+		return obj.cleanText(obj.readPDF(fstream, page));
 
 	}
 
