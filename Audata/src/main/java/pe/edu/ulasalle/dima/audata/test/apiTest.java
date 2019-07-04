@@ -277,7 +277,7 @@ public class apiTest {
     public Response funcionhtml3(@MultipartForm DTOapi form) throws IOException {
 
     	IAudataApi a = new ApiImpl();
-    	byte[] retorno = a.mp3HtmlTagContents(form.getDataHtml(), form.getTag(), form.getStopList(), form.getStopTagContentList());
+    	byte[] retorno = a.mp3HtmlTagContents(form.getDataHtml(), form.getTag(), form.getStopTagList(), form.getStopTagContentList());
     	System.out.println("Entro!");
         return Response.status(200)
                 .entity(retorno).build();
@@ -329,7 +329,7 @@ public class apiTest {
     public Response funcionhtml7(@MultipartForm DTOapi form) throws IOException {
 
     	IAudataApi a = new ApiImpl();
-    	byte[] retorno = a.aacHtmlTagContents(form.getDataHtml(), form.getTag(), form.getStopList(), form.getStopTagContentList());
+    	byte[] retorno = a.aacHtmlTagContents(form.getDataHtml(), form.getTag(), form.getStopTagList(), form.getStopTagContentList());
     	System.out.println("Entro!");
         return Response.status(200)
                 .entity(retorno).build();

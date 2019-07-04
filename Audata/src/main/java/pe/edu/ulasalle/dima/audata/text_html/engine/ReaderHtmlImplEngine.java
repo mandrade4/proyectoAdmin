@@ -469,7 +469,7 @@ public class ReaderHtmlImplEngine implements IReaderHtmlEngine {
 			detachedDivChildren.add(detachedChild);
 		}
 		List<String> tagList = new ArrayList<String>();
-		System.out.println(divChildren.size());
+		//System.out.println(divChildren.size());
 		int i=0;
 		for (Element elem : divChildren) {
 			System.out.println(elem.tagName());
@@ -490,9 +490,9 @@ public class ReaderHtmlImplEngine implements IReaderHtmlEngine {
 				}
 			}
 		}	
-		System.out.println(tagList);
+		//System.out.println(tagList);
 		String tag2 = String.join(",", tagList);
-		System.out.println("tag2"+tag2);
+		//System.out.println("tag2"+tag2);
 		String[] arr3 = new String[tagList.size()];
 		String[] arr2 = new String[tagList.size()]; 
 		for (int j =0; j < tagList.size(); j++) {
@@ -500,17 +500,17 @@ public class ReaderHtmlImplEngine implements IReaderHtmlEngine {
 			arr3[j] = leerTagContentsURL(htmlI,arr2[j]);
 		}
 
-		for (int a =0; a < tagList.size();a++) {
-			System.out.println("arr3"+arr3[a]);
-		}
+		//for (int a =0; a < tagList.size();a++) {
+		//	System.out.println("arr3"+arr3[a]);
+		//}
 
 		List<String> myStringList = new ArrayList<String>(arr3.length);
 		for (String s:arr3) {
-			myStringList.add( s );
+			myStringList.add(s);
 		}
 		//System.out.println("omg"+myStringList);
 		String tag3 = String.join(" ", myStringList);
-		return (eliminandoContentList(tag3,stopTagContentList));
+		return eliminandoContentList(tag3,stopTagContentList);
 	 }
 
 	 public List<String> DivisorHtmlPorTagURL(String htmlI) throws IOException {
@@ -552,9 +552,9 @@ public class ReaderHtmlImplEngine implements IReaderHtmlEngine {
     	//System.out.println(IJava2.leerTagsDeUnTag("http://sssyoutu.be/w2wzVg0owxU","body",stopTagContentList2));
     	//System.out.println("IMPORTANTE");
     	//System.out.println(IJava2.leerTagContentsURL2("http://www.mit.edu/", "body"));
-    	String stopTagList[] = {"p1"};
-    	String stopTagContentList3[] = {"Comprar"};
-    	System.out.println(IJava2.leerTagContents("http://sssyoutu.be/w2wzVg0owxU","body",stopTagList,stopTagContentList3));
+    	String stopTagList[] = {"h1"};
+    	String stopTagContentList3[] = {"Wikipedia","Jump"};
+    	System.out.println(IJava2.leerTagContents("https://en.wikipedia.org/wiki/Main_Page","body",stopTagList,stopTagContentList3));
     	//System.out.println(IJava2.DivisorHtmlPorTagURL("http://sssyoutu.be/w2wzVg0owxU"));
     	//System.out.println(IJava2.leerSinTagPorFraseTituloURL("https://es.wikipedia.org/wiki/Wikipedia:Portada"));
     }

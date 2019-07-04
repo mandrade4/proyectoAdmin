@@ -98,7 +98,7 @@ public class ReaderHtmlImplLibrary implements IReaderHtmlLibrary{
     {
     	ReaderHtmlImplEngine obj = new ReaderHtmlImplEngine();
 		String text = obj.leerTagContents(htmlI,tagI,stopTagListI,stopTagContentList);
-		if (text.isBlank()) {
+		if (!text.isBlank()) {
 			return text;
 		}else{
 			return "La etiqueta no contiene texto";
