@@ -185,7 +185,7 @@ public class ApiImpl implements IAudataApi {
 	public byte[] mp3HtmlTagContents(String text, String tag, String[] stopTagList, String[] stopTagContentList) throws IOException {
 		
 		IReaderHtml obj = new ReaderHtmlImpl();
-		String html = obj.leerTagContentsURL(text, tag);
+		String html = obj.leerTagContents(text, tag, stopTagList, stopTagContentList);
 		return mp3(html);
 	}
 
