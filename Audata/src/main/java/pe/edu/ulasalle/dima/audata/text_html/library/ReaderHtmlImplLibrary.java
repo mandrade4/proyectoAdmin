@@ -1,6 +1,7 @@
 package pe.edu.ulasalle.dima.audata.text_html.library;
 
 import java.io.IOException;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 /*
@@ -27,7 +28,7 @@ public class ReaderHtmlImplLibrary implements IReaderHtmlLibrary{
     //Constructor con el mismo nombre de la clase
     public ReaderHtmlImplLibrary(){}
 
-    //M�todos de la clase
+    //Métodos de la clase
     
     public String leerSinTags(String htmlI) throws IOException {
     	IReaderHtmlEngine obj = new ReaderHtmlImplEngine();
@@ -179,6 +180,28 @@ public class ReaderHtmlImplLibrary implements IReaderHtmlLibrary{
 		}else{
 			return list;
 		}
+	}
+	
+	public String cleanText(String cadena) {
+
+		String limpio =null;
+        if (cadena !=null) {
+            String valor = cadena;
+            valor = valor.toLowerCase();
+            limpio = Normalizer.normalize(valor, Normalizer.Form.NFD);
+            limpio = limpio.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+            limpio = Normalizer.normalize(limpio, Normalizer.Form.NFC);
+            limpio = limpio.replace("º", " ");
+            limpio = limpio.replace("°", " ");
+            limpio = limpio.replace("”", " ");
+            limpio = limpio.replace("“", " ");
+            limpio = limpio.replace("ø", " ");
+            limpio = limpio.replace("„", " ");
+            limpio = limpio.replace("‟", " ");
+        }
+        
+        return limpio;
+		
 	}
 }
 

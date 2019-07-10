@@ -32,4 +32,5 @@ public interface IReaderHtmlLibrary {
 
 	    public List<String> DivisorHtmlPorTagURL(String htmlI) throws IOException;
 
+	    public String cleanText( String text );
 }

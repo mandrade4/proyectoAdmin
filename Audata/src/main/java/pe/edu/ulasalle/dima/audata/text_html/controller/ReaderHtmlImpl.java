@@ -2,6 +2,8 @@ package pe.edu.ulasalle.dima.audata.text_html.controller;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import pe.edu.ulasalle.dima.audata.text_html.library.IReaderHtmlLibrary;
@@ -14,7 +16,7 @@ public class ReaderHtmlImpl implements IReaderHtml {
 		
 		IReaderHtmlLibrary obj = new ReaderHtmlImplLibrary();
 		
-		return obj.leerSinTags(html);
+		return obj.cleanText(obj.leerSinTags(html));
 	}
 	
 	@Override
@@ -22,7 +24,7 @@ public class ReaderHtmlImpl implements IReaderHtml {
 		
 		IReaderHtmlLibrary obj = new ReaderHtmlImplLibrary();
 		
-		return obj.leer(html);
+		return obj.cleanText(obj.leer(html));
 	}
 
 	@Override
@@ -46,7 +48,7 @@ public class ReaderHtmlImpl implements IReaderHtml {
 		
 		IReaderHtmlLibrary obj = new ReaderHtmlImplLibrary();
 		
-		return obj.leerTagContents(htmlI, tagI);
+		return obj.cleanText(obj.leerTagContents(htmlI, tagI));
 	}
 	
 	@Override
@@ -54,14 +56,14 @@ public class ReaderHtmlImpl implements IReaderHtml {
 		
 		IReaderHtmlLibrary obj = new ReaderHtmlImplLibrary();
 		
-		return obj.leerTagContentsURL(htmlI, tagI);
+		return obj.cleanText(obj.leerTagContentsURL(htmlI, tagI));
 	}
 
 	@Override
 	public String leerTagContents(String htmlI, String tagI, String[] stopTagListI, String[] stopTagContentList)
 			throws IOException {
 		IReaderHtmlLibrary obj = new ReaderHtmlImplLibrary();
-		return obj.leerTagContents(htmlI, tagI, stopTagListI, stopTagContentList);
+		return obj.cleanText(obj.leerTagContents(htmlI, tagI, stopTagListI, stopTagContentList));
 	}
 	
 	@Override
@@ -69,7 +71,14 @@ public class ReaderHtmlImpl implements IReaderHtml {
 
 		IReaderHtmlLibrary obj = new ReaderHtmlImplLibrary();
 		
-		return obj.DivisorHtmlPorTagURL(htmlI);
+		String listString = String.join(", ", obj.DivisorHtmlPorTagURL(htmlI));
+		
+		String listFinal = obj.cleanText(listString);
+		
+		List<String> myList = new ArrayList<String>(Arrays.asList(listFinal.split(",")));
+		
+		return  myList;
+		
 	}
 
 	@Override
@@ -77,7 +86,7 @@ public class ReaderHtmlImpl implements IReaderHtml {
 		
 		IReaderHtmlLibrary obj = new ReaderHtmlImplLibrary();
 		
-		return obj.leerSinTagParametros(html, a, b);
+		return obj.cleanText(obj.leerSinTagParametros(html, a, b));
 	}
 
 	@Override
@@ -85,8 +94,13 @@ public class ReaderHtmlImpl implements IReaderHtml {
 		
 		IReaderHtmlLibrary obj = new ReaderHtmlImplLibrary();
 		
-		return obj.leerSinTagPorFraseTitulo(html);
+		String listString = String.join(", ", obj.leerSinTagPorFraseTitulo(html));
 		
+		String listFinal = obj.cleanText(listString);
+		
+		List<String> myList = new ArrayList<String>(Arrays.asList(listFinal.split(",")));
+		
+		return  myList;
 	}
 	
 	@Override
@@ -94,7 +108,7 @@ public class ReaderHtmlImpl implements IReaderHtml {
 		
 		IReaderHtmlLibrary obj = new ReaderHtmlImplLibrary();
 		
-		return obj.leerSinTagURL(html1);
+		return obj.cleanText(obj.leerSinTagURL(html1));
 	}
 	
 	@Override
@@ -102,7 +116,7 @@ public class ReaderHtmlImpl implements IReaderHtml {
 		
 		IReaderHtmlLibrary obj = new ReaderHtmlImplLibrary();
 		
-		return obj.leerSinTagParametrosURL(html, a, b);
+		return obj.cleanText(obj.leerSinTagParametrosURL(html, a, b));
 	}
 	
 	@Override
@@ -110,7 +124,13 @@ public class ReaderHtmlImpl implements IReaderHtml {
 		
 		IReaderHtmlLibrary obj = new ReaderHtmlImplLibrary();
 		
-		return obj.leerSinTagPorFraseTituloURL(html);
+		String listString = String.join(", ", obj.leerSinTagPorFraseTituloURL(html));
+		
+		String listFinal = obj.cleanText(listString);
+		
+		List<String> myList = new ArrayList<String>(Arrays.asList(listFinal.split(",")));
+		
+		return  myList;
 	}
 	
 }
