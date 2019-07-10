@@ -16,6 +16,8 @@ import pe.edu.ulasalle.dima.audata.dto.DivisionItem;
 import pe.edu.ulasalle.dima.audata.tts.engine.TtsGenericoEngine;
 import pe.edu.ulasalle.dima.audata.tts.engine.ITts;
 
+import pe.edu.ulasalle.dima.audata.text_pdf.library.*;
+
 public class TtsSpanishDefaultEngine extends TtsGenericoEngine implements ITts {
 
 	public TtsSpanishDefaultEngine() {
@@ -27,10 +29,15 @@ public class TtsSpanishDefaultEngine extends TtsGenericoEngine implements ITts {
 	public byte[] mp3(String text){
 		
 		File file = new File("audio");
+		IReaderPdfLibrary x = new ReaderPdfImplLibrary();
 		
 		if (!file.exists()) {
 			file.mkdir();
 		}
+		/*
+		 * Anadida limpieza de texto
+		 */
+		text = x.cleanText(text);
 		
 		UUID uuid = UUID.randomUUID();
 		String uuidStringRandom = uuid.toString();

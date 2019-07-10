@@ -259,7 +259,10 @@ public class ReaderPdfImplLibrary implements IReaderPdfLibrary {
             limpio = limpio.replace("ø", " ");
             limpio = limpio.replace("„", " ");
             limpio = limpio.replace("‟", " ");
+            limpio = limpio.replace("'", " ");
         }
+        
+        limpio = limpio.replaceAll("[^\\x20-\\x7e]", "");
         
         return limpio;
 		

@@ -28,7 +28,7 @@ public class ReaderHtmlImplLibrary implements IReaderHtmlLibrary{
     //Constructor con el mismo nombre de la clase
     public ReaderHtmlImplLibrary(){}
 
-    //Métodos de la clase
+    //MÃ©todos de la clase
     
     public String leerSinTags(String htmlI) throws IOException {
     	IReaderHtmlEngine obj = new ReaderHtmlImplEngine();
@@ -198,8 +198,9 @@ public class ReaderHtmlImplLibrary implements IReaderHtmlLibrary{
             limpio = limpio.replace("ø", " ");
             limpio = limpio.replace("„", " ");
             limpio = limpio.replace("‟", " ");
+            limpio = limpio.replace("'", " ");
         }
-        
+        limpio = limpio.replaceAll("[^\\x20-\\x7e]", "");
         return limpio;
 		
 	}

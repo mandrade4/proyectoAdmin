@@ -228,8 +228,10 @@ public class ApiImpl implements IAudataApi {
 	@Override	
 	public byte[] aacHtmlSinTags(String text) throws IOException{
 		
+		
 		IReaderHtml obj = new ReaderHtmlImpl();
 		String html = obj.leer(text);
+//		System.out.println(html);
 		return aac(html);
 		
 	}
