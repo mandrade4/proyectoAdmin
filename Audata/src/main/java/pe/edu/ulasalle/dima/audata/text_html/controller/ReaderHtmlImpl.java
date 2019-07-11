@@ -23,10 +23,8 @@ public class ReaderHtmlImpl implements IReaderHtml {
 	public String leer(String html) throws IOException {
 		
 		IReaderHtmlLibrary obj = new ReaderHtmlImplLibrary();
-		String x = obj.cleanText(obj.leer(html));
-		System.out.println("TEXTOOOOOOOOOOOOOOOOOO");
-		System.out.println(x);
 		
+		String x = obj.cleanText(obj.leer(html));
 		return x;
 	}
 

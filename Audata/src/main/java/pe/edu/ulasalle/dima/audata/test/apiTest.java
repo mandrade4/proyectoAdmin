@@ -355,6 +355,19 @@ public class apiTest {
     }
     
     @POST
+    @Path("/funcionhtml8")
+    @Consumes("multipart/form-data")
+    public Response funcionhtml8(@MultipartForm DTOapi form) throws IOException {
+
+    	IAudataApi a = new ApiImpl();
+    	byte[] retorno = a.aacHtml(form.getDataHtml(), form.getDivisor());
+    	System.out.println("Entro!");
+        return Response.status(200)
+                .entity(retorno).build();
+
+    }
+    
+    @POST
     @Path("/funcionpdf002")
     @Consumes("multipart/form-data")
     public Response funcionpdf002(@MultipartForm DTOapi form) throws IOException {

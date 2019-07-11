@@ -225,6 +225,31 @@ public class ApiImpl implements IAudataApi {
 		}
 	}
 	
+	@Override
+	public byte[] aacHtml(String text, String divisor) throws IOException {
+		
+		IReaderHtml obj = new ReaderHtmlImpl();
+		if(divisor.equals("tag")) {
+			List<String> html1 = obj.DivisorHtmlPorTagURL(text);
+			String html = String.join(",", html1);
+			System.out.println(divisor);
+			System.out.println("divisor por tag");
+			return aac(html);
+		}
+		else if (divisor.equals("frase")) {
+			List<String> html2 = obj.leerSinTagPorFraseTituloURL(text);
+			String html3 = String.join(",", html2);
+			System.out.println(divisor);
+			System.out.println("divisor por frase de titulo");
+			return aac(html3);
+		}
+		else{
+			String a = "Ingrese un divisor valido (por tag o frase)";
+			System.out.println(a);
+			return a.getBytes();
+		}
+	}
+	
 	@Override	
 	public byte[] aacHtmlSinTags(String text) throws IOException{
 		

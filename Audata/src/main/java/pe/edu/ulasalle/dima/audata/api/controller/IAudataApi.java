@@ -61,6 +61,8 @@ public interface IAudataApi {
 	
 	public byte[] aacHtmlTagContents(String text, String tag, String[] stopTagList, String[] stopTagContentList) throws IOException;
 	
+	public byte[] aacHtml(String text, String divisor) throws IOException;
+	
 	public byte[] aacPdf(byte[] fstream) throws IOException;
 
 	//rosa
